@@ -67,18 +67,18 @@
     padding: $space-sm $space-md;
     font-family: $linkFont;
     text-decoration: none;
-		cursor: pointer;
-		&:active {
-			background-color: $udGrey;
-		}
-		&:hover,
-		&:focus {
-			text-decoration: underline;
-		}
+    cursor: pointer;
+    &:active {
+      background-color: $udGrey;
+    }
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
   }
 }
 
-@media screen and (max-width: $lg) {
+@media screen and (max-width: $xxxl) {
   .container {
     .desktopNav {
       display: none;
@@ -128,7 +128,8 @@
       align-items: center;
       background-color: $udDarkGrey;
       transition: $nav-transition;
-      a, p {
+      a,
+      p {
         font-family: $linkFont;
         color: $udOrange;
         text-decoration: none;
