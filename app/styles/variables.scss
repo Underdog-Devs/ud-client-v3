@@ -12,12 +12,12 @@ $statsPink: rgba(248, 156, 99, 0.4);
 $menteeBlue: rgba(45, 117, 220, 0.3);
 
 // fonts
-$udRoboto: 'Roboto Mono', monospace;
-$primaryHeaderFont: 'Raleway', sans-serif;
-$linkFont: 'Open Sans', sans-serif;
-$primaryTextFont: 'Source Sans Pro', sans-serif;
-$secondaryHeaderFont: 'Josefin Sans', sans-serif;
-$secondaryTextFont: 'Quicksand', sans-serif;
+$udRoboto: "Roboto Mono", monospace;
+$primaryHeaderFont: "Raleway", sans-serif;
+$linkFont: "Open Sans", sans-serif;
+$primaryTextFont: "Source Sans Pro", sans-serif;
+$secondaryHeaderFont: "Josefin Sans", sans-serif;
+$secondaryTextFont: "Quicksand", sans-serif;
 
 // header sizes (map to h1 h2 h3 h4 p subtitle)
 $f1: 4rem;
@@ -50,7 +50,7 @@ $md: 768px; //for tablets.
 $lg: 992px; //for laptops.
 $xl: 1200px;
 $xxl: 1400px; //for large devices.
-
+$xxxl: 4000px; //for 4k screens
 // Transitions
 
 $nav-transition: all 0.3s linear;
