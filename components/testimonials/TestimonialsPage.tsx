@@ -4,6 +4,8 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { Testimonial } from '../testimonial/Testimonial';
 
+export const dynamic = "force-dynamic";
+
 const TestimonialsPage = async () => {
 	const supabase = createServerComponentClient({ cookies })
 	const { data: testimonials } = await supabase.from('testimonials').select()
