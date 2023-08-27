@@ -3,9 +3,7 @@ import { BlogPosts } from "../../components/blog/BlogPosts";
 import type { Post } from "@/app/types/blog";
 
 async function fetchPosts(): Promise<Post[]> {
-  const response = await fetch(`/api/posts`, {
-    next: { revalidate: 3600 },
-  });
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts`);
   const data = await response.json();
   return data.items;
 }
