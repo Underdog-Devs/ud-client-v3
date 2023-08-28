@@ -17,7 +17,7 @@ async function fetchPosts(): Promise<Post[]> {
 
 export default async function PostsPage() {
   const items = await fetchPosts();
-  if (items) {
+  if (items.length) {
     return <BlogPosts initialPosts={items} />;
   }
   return <BlogPosts initialPosts={[]} />;
