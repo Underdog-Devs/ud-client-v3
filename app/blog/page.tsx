@@ -3,8 +3,7 @@ import { BlogPosts } from "../../components/blog/BlogPosts";
 import type { Post } from "@/app/types/blog";
 
 // when in development, force dynamic SSR
-export const dynamic =
-  process.env.NODE_ENV === "development" ? "force-dynamic" : "auto";
+export const dynamic = "force-dynamic";
 
 async function fetchPosts(): Promise<Post[]> {
   const response = await fetch(
