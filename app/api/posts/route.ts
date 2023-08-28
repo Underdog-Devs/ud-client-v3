@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-// good for testing, not for production
-export const dynamic = "force-dynamic";
+// when in development, force dynamic SSR
+export const dynamic =
+  process.env.NODE_ENV === "development" ? "force-dynamic" : "auto";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
