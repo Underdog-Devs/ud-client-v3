@@ -20,4 +20,5 @@ export default async function PostsPage() {
   if (items) {
     return <BlogPosts initialPosts={items} />;
   }
+  return <BlogPosts initialPosts={[]} />;
 }
