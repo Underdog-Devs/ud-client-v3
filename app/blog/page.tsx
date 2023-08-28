@@ -7,7 +7,10 @@ export const dynamic =
   process.env.NODE_ENV === "development" ? "force-dynamic" : "auto";
 
 async function fetchPosts(): Promise<Post[]> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts`,
+    { next: { revalidate: 3600 } }
+  );
   const data: { items: Post[] } = await response.json();
   return data?.items || [];
 }

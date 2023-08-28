@@ -57,7 +57,8 @@ const PostPage = () => {
   async function getPost() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts/${id}`
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts/${id}`,
+        { next: { revalidate: 3600 } }
       );
       const data: { post: Post } = await response.json();
 
