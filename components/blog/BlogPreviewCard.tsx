@@ -17,14 +17,18 @@ type Props = {
 };
 
 export function BlogPreviewCard(props: Props) {
-  const { id, title, first_paragraph, author, created_at, entry, image } = props.post;
+  const { id, title, first_paragraph, author, created_at, entry, image } =
+    props.post;
   const [name, setName] = useState("");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const supabase = createClientComponentClient();
   useEffect(() => {
     if (supabase) {
       getAuthor();
+      if (image) getImage(image);
     }
   }, [supabase]);
+
   async function getAuthor() {
     const { data, error } = await supabase
       .from("authors")
@@ -32,6 +36,23 @@ export function BlogPreviewCard(props: Props) {
       .eq("id", author)
       .single();
     setName(data?.name || "Underdog Admin");
+  }
+
+  async function getImage(path: string) {
+    try {
+      const { data, error } = await supabase.storage
+        .from("images")
+        .download(path);
+
+      if (error) {
+        throw error;
+      }
+
+      const url = URL.createObjectURL(data);
+      setImageUrl(url);
+    } catch (error) {
+      console.log("Problem fetching image in /blog/[title]");
+    }
   }
 
   function truncateString(postTitle: string) {
@@ -67,20 +88,24 @@ export function BlogPreviewCard(props: Props) {
   const year = dateObj.getUTCFullYear();
   const parsedDate = `${month}/${day}/${year}`;
   const postLink = title
-    ? `/blog/${title.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9\s-]/g, "")}/${id}`
+    ? `/blog/${title
+        .replace(/\s+/g, "-")
+        .replace(/[^a-zA-Z0-9\s-]/g, "")}/${id}`
     : "title";
   const authorLink = author?.replace(/\s/g, "-");
 
   return (
     <div className={styles.container}>
       <Link href={postLink}>
-        {image ? (
-          <img className={styles.img} src={image} alt="Featured" loading="lazy" />
-        ) : (
-          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Image src="/images/fallback.png" width="313" height="243" priority={true} alt={""} />
-          </div>
-        )}
+        <Image
+          width={600}
+          height={600}
+          className={styles.img}
+          src={imageUrl ?? "/images/fallback.png"}
+          alt={imageUrl ? "Post image" : "Post image not found"}
+          style={{ objectFit: "contain" }}
+          loading="lazy"
+        />
       </Link>
       <div className={styles.cardTextContainer}>
         <h4 className={styles.title}>
@@ -92,7 +117,11 @@ export function BlogPreviewCard(props: Props) {
         <div className={styles.info}>
           <span>
             By{" "}
-            <Link href={`/blog/author/${authorLink}`} passHref className={styles.author}>
+            <Link
+              href={`/blog/author/${authorLink}`}
+              passHref
+              className={styles.author}
+            >
               {name}
             </Link>
           </span>
