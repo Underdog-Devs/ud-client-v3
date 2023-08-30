@@ -22,6 +22,7 @@ export function createAnonymousClient(): SupabaseClient<
     return supabase;
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
+      console.log("Error creating Supabase client");
       console.error(error);
     }
     return null;
