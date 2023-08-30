@@ -3,7 +3,7 @@ import { BlogPosts } from "../../components/blog/BlogPosts";
 import type { Post } from "@/app/types/blog";
 
 // If this won't deploy on AWS, try to add the next line
-// export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
 async function fetchPosts(): Promise<Post[]> {
   // Revalidates after 15 minutes
