@@ -106,50 +106,55 @@ function Navigation({}: Props): ReactElement {
           </button>
         </div>
         <nav className={styles.mobileNavigation} ref={linksContainerRef}>
-          <a
-            onClick={() => setShowLinks(false)}
-            href="https://forms.gle/YdE9SBfJGXc3XW928"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Become a Mentee
-          </a>
-          <a
-            onClick={() => setShowLinks(false)}
-            href="https://forms.gle/qsusfwyTA8H2vj6z5"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Become a Mentor
-          </a>
-          <Link
-            href="/project-underdog"
-            onClick={() => setShowLinks(false)}
-            passHref
-          >
-            Project Underdog
-          </Link>
-          {/* commented out until we have testimonial data to display */}
-          {/* <Link
+          <div className={styles.mobileNavContainer}>
+            <a
+              onClick={() => setShowLinks(false)}
+              href="https://forms.gle/YdE9SBfJGXc3XW928"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Become a Mentee
+            </a>
+            <a
+              onClick={() => setShowLinks(false)}
+              href="https://forms.gle/qsusfwyTA8H2vj6z5"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Become a Mentor
+            </a>
+            <Link
+              href="/project-underdog"
+              onClick={() => setShowLinks(false)}
+              passHref
+            >
+              Project Underdog
+            </Link>
+            <Link href={"/blog"} passHref onClick={() => setShowLinks(false)}>
+              Blog
+            </Link>
+            {/* commented out until we have testimonial data to display */}
+            {/* <Link
 						href="/testimonials"
 						passHref
 					>
 						<p onClick={() => setShowLinks(false)}>Testimonials</p>
 					</Link> */}
-          <Link href="/donate" passHref onClick={() => setShowLinks(false)}>
-            Donate
-          </Link>
-          <Link href="/signup" passHref onClick={() => setShowLinks(false)}>
-            Contact Us
-          </Link>
-          <a
-            href="https://cottonbureau.com/people/underdog-devs"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {" "}
-            Merchandise
-          </a>
+            <Link href="/donate" passHref onClick={() => setShowLinks(false)}>
+              Donate
+            </Link>
+            <Link href="/signup" passHref onClick={() => setShowLinks(false)}>
+              Contact Us
+            </Link>
+            <a
+              href="https://cottonbureau.com/people/underdog-devs"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {" "}
+              Merchandise
+            </a>
+          </div>
         </nav>
       </div>
     </div>

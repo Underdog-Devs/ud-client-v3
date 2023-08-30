@@ -127,9 +127,7 @@
       z-index: 10;
       width: 100%;
       display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
+      justify-content: end;
       background-color: $udDarkGrey;
       transition: $nav-transition;
       a,
@@ -142,6 +140,13 @@
         &:focus {
           text-decoration: underline;
         }
+      }
+
+      .mobileNavContainer {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        margin-right: 2rem;
       }
     }
   }
