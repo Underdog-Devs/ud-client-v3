@@ -59,7 +59,7 @@ const PostPage = () => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts/${id}`,
-        { next: { revalidate: 3600 } }
+        { next: { revalidate: 900 } }
       );
       const data: { post: Post } = await response.json();
 
