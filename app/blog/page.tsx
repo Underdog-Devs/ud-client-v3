@@ -5,7 +5,7 @@ import type { Post } from "@/app/types/blog";
 export default async function PostsPage() {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts`,
-    { cache: "no-cache" }
+    { next: { revalidate: 900 } }
   );
 
   const data: { items: Post[] } = await response.json();

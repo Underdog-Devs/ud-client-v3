@@ -15,6 +15,8 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useParams } from "next/navigation";
 import { Post } from "@/app/types/blog";
 
+export const dynamic = "force-dynamic";
+
 const PostPage = () => {
   const params = useParams();
   const id = params.id as string;
@@ -58,8 +60,7 @@ const PostPage = () => {
   async function getPost() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts/${id}`,
-        { next: { revalidate: 900 } }
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts/${id}`
       );
       const data: { post: Post } = await response.json();
 
