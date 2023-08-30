@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createAnonymousClient } from "@/utils/supabaseHelpers";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const supabase = createRouteHandlerClient({ cookies });
+  const supabase = createAnonymousClient();
+
+  if (!supabase) {
+    return NextResponse.json({ items: [] });
+  }
+
   const from = Number(searchParams.get("page") || 0);
 
   // pull posts from supabase
@@ -19,6 +23,6 @@ export async function GET(request: Request) {
   }
 
   return NextResponse.json({
-    items: data,
+    items: data || [],
   });
 }

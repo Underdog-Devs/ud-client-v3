@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createAnonymousClient } from "@/utils/supabaseHelpers";
 
 // when in development, force dynamic SSR
 export const dynamic =
@@ -11,7 +10,12 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
-  const supabase = createRouteHandlerClient({ cookies });
+  // maybe use the createClent function from @supabase/supabase-js to avoid using cookies?
+  const supabase = createAnonymousClient();
+
+  if (!supabase) {
+    return NextResponse.json({ post: {} });
+  }
 
   // pull posts from supabase
   const { data, error } = await supabase
