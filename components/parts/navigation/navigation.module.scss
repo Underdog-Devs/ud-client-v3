@@ -36,7 +36,6 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    width: 60%;
   }
 
   .navigationLinks {
@@ -78,7 +77,12 @@
   }
 }
 
-@media screen and (max-width: $xxxl) {
+.verticalRule {
+  border-left: 1px solid $udOrange;
+  height: 1rem;
+}
+
+@media screen and (max-width: $lg) {
   .container {
     .desktopNav {
       display: none;
