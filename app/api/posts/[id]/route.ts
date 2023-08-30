@@ -1,16 +1,11 @@
 import { NextResponse } from "next/server";
 import { createAnonymousClient } from "@/utils/supabaseHelpers";
 
-// when in development, force dynamic SSR
-export const dynamic =
-  process.env.NODE_ENV === "development" ? "force-dynamic" : "auto";
-
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
-  // maybe use the createClent function from @supabase/supabase-js to avoid using cookies?
   const supabase = createAnonymousClient();
 
   if (!supabase) {
