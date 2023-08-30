@@ -5,6 +5,8 @@ import { cookies } from 'next/headers'
 import { Testimonial } from '../../testimonial';
 import Link from 'next/link';
 
+export const dynamic = "force-dynamic";
+
 const Testimonials = async () => {
 	const supabase = createServerComponentClient({ cookies })
 	const { data: testimonials } = await supabase.from('testimonials').select()
