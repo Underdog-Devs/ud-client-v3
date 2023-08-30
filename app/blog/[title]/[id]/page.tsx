@@ -16,7 +16,8 @@ import { useParams } from "next/navigation";
 import { Post } from "@/app/types/blog";
 
 const PostPage = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params.id as string;
   const supabase = createClientComponentClient();
   const [post, setPost] = useState<Post | null>(null);
   const [author, setAuthor] = useState("Loading...");
