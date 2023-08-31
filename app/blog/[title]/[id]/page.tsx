@@ -15,11 +15,27 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useParams } from "next/navigation";
 import { Post } from "@/app/types/blog";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts`);
 
-const PostPage = () => {
-  const params = useParams();
-  const id = params.id as string;
+  const data: { items: Post[] } = await response.json();
+
+  const items = data?.items || [];
+
+  return items.map((post) => ({
+    params: {
+      title: post.title.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9\s-]/g, ""),
+      id: post.id,
+    },
+  }));
+}
+
+export default function PostPage({
+  params,
+}: {
+  params: { title: string; id: string };
+}) {
+  const { id } = params;
   const supabase = createClientComponentClient();
   const [post, setPost] = useState<Post | null>(null);
   const [author, setAuthor] = useState("Loading...");
@@ -206,6 +222,4 @@ const PostPage = () => {
   } else {
     return <p>Error Loading page</p>;
   }
-};
-
-export default PostPage;
+}
