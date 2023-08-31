@@ -6,8 +6,6 @@ import type { Post } from "@/app/types/blog";
 import InfiniteScroll from "react-infinite-scroller";
 import styles from "./blogPosts.module.scss";
 
-export const dynamic = "force-dynamic";
-
 interface PostsProps {
   initialPosts: Post[];
 }
