@@ -1,9 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createAnonymousClient } from "@/utils/supabaseHelpers";
+import { NextResponse } from "next/server";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const supabase = createAnonymousClient();
+  const supabase = createRouteHandlerClient({ cookies });
 
   if (!supabase) {
     return NextResponse.json({ items: [] });
