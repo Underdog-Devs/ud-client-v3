@@ -12,15 +12,19 @@ import TextAlign from "@tiptap/extension-text-align";
 import { BsTwitter, BsFacebook } from "react-icons/bs";
 import styles from "./blog.module.scss";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useParams } from "next/navigation";
 import { Post } from "@/app/types/blog";
+import { Database } from "@/database.types";
+
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts`);
+  const supabase = createClientComponentClient<Database>();
+  const { data, error } = await supabase
+    .from("posts")
+    .select()
+    .order("created_at", { ascending: false });
 
-  const data: { items: Post[] } = await response.json();
-
-  const items = data?.items || [];
+  const items = data || [];
 
   return items.map((post) => ({
     params: {
@@ -35,8 +39,8 @@ export default function PostPage({
 }: {
   params: { title: string; id: string };
 }) {
-  const { id } = params;
-  const supabase = createClientComponentClient();
+  const id = params.id as string;
+  const supabase = createClientComponentClient<Database>();
   const [post, setPost] = useState<Post | null>(null);
   const [author, setAuthor] = useState("Loading...");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -76,7 +80,7 @@ export default function PostPage({
   async function getPost() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts/${id}`
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/post/${id}`
       );
       const data: { post: Post } = await response.json();
 
@@ -102,7 +106,7 @@ export default function PostPage({
         return;
       }
 
-      setAuthor(data.name);
+      setAuthor(data.name as string);
     }
   }
 

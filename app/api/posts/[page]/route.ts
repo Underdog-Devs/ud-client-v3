@@ -2,15 +2,18 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+export async function GET(
+  request: Request,
+  { params }: { params: { page: string } }
+) {
+  const { page } = params;
   const supabase = createRouteHandlerClient({ cookies });
 
   if (!supabase) {
     return NextResponse.json({ items: [] });
   }
 
-  const from = Number(searchParams.get("page") || 0);
+  const from = Number(page) || 0;
 
   // pull posts from supabase
   const { data, error } = await supabase
