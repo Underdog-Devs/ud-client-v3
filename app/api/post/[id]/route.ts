@@ -7,13 +7,6 @@ import { cookies } from "next/headers";
 import { Database } from "@/database.types";
 import { cache } from "react";
 
-// export const createServerClient = cache(() => {
-//   const cookieStore = cookies();
-//   return createRouteHandlerClient<Database>({
-//     cookies: () => cookieStore,
-//   });
-// });
-
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
