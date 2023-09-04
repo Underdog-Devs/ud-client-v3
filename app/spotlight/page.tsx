@@ -1,14 +1,6 @@
-import React from 'react';
-import type { NextPage } from 'next';
-import TestimonialsPage from '../../components/testimonials';
+import React from "react";
+import type { NextPage } from "next";
 
-const SpotlightPage: NextPage = () => (
-	<>
-		<div>
-            {/* <Spotlight /> */}
-            
-		</div>
-	</>
-);
+const SpotlightPage: NextPage = () => <div>{/* <Spotlight /> */}</div>;
 
 export default SpotlightPage;

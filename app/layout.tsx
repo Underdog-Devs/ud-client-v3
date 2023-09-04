@@ -1,5 +1,5 @@
-// styles
-import Layout from "../components/Layout";
+import Navigation from "@/components/parts/navigation";
+import Footer from "@/components/parts/footer";
 import "./styles/index.scss";
 
 export default function RootLayout({
@@ -10,7 +10,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout>{children}</Layout>
+        <Navigation />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

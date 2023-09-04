@@ -1,13 +1,6 @@
-import React from 'react';
-import type { NextPage } from 'next';
-import TestimonialsPage from '../../components/testimonials';
+import React from "react";
+import type { NextPage } from "next";
 
-const Testimonials: NextPage = () => (
-	<>
-		<div>
-            <TestimonialsPage />
-		</div>
-	</>
-);
+const Testimonials: NextPage = () => <div>Testimonials...</div>;
 
 export default Testimonials;
