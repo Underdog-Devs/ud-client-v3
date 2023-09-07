@@ -59,8 +59,9 @@ function Navigation({}: Props): ReactElement {
             <Link href="/project-underdog" passHref>
               Project Underdog
             </Link>
-            <div className={styles.verticalRule}></div>
-            <Link href="/blog">Blog</Link>
+            {/* Commented out until we have at least one blog post */}
+            {/* <div className={styles.verticalRule}></div>
+            <Link href="/blog">Blog</Link> */}
             {/* commented out until we have testimonial data to display */}
             {/* <Link href="/testimonials" passHref>
 							<p className={styles.getInvolvedButton}>Testimonials</p>
