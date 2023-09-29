@@ -8,9 +8,11 @@ import styles from "./blogPosts.module.scss";
 
 interface PostsProps {
   initialPosts: Post[];
+  authorPage?: boolean;
+  id?: string;
 }
 
-export const BlogPosts = ({ initialPosts }: PostsProps) => {
+export const BlogPosts = ({ initialPosts, authorPage, id }: PostsProps) => {
   const [screenWidth, setScreenWidth] = useState<number>(0);
   const fetching = React.useRef(false);
   const [pages, setPages] = React.useState(initialPosts);
@@ -36,16 +38,29 @@ export const BlogPosts = ({ initialPosts }: PostsProps) => {
   }, []);
 
   const loadMore = async () => {
+    let options;
+    if (authorPage) {
+      options = {
+        next: { revalidate: 900 },
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      };
+    }
     if (!fetching.current) {
       try {
         fetching.current = true;
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts?page=${
-            pageNumber ? pageNumber + 1 : 6
-          }`
+          `${process.env.NEXT_PUBLIC_HOSTNAME}/api/posts${
+            authorPage && "/author"
+          }?page=${pageNumber ? pageNumber + 1 : 6}`,
+          options
         );
         const data = await response.json();
-
         setPageNumber(pages.length + data.items.length);
         setPages((prev) => [...prev, ...data.items]);
         if (data.items.length === 0) {
