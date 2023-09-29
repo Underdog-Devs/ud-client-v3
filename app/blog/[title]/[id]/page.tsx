@@ -181,15 +181,16 @@ const PostPage = () => {
             </li>
           </ul>
         </header>
-        <Image
-          width={600}
-          height={600}
-          className={styles.img}
-          src={imageUrl ?? "/images/fallback.png"}
-          alt={imageUrl ? "Post image" : "Post image not found"}
-          style={{ objectFit: "contain" }}
-          loading="lazy"
-        />
+        <div className={styles.blogImageContainer}>
+          <Image
+            fill
+            className={styles.img}
+            src={imageUrl ?? "/images/fallback.png"}
+            alt={imageUrl ? "Post image" : "Post image not found"}
+            style={{ objectFit: "contain" }}
+            loading="lazy"
+          />
+        </div>
         <EditorContent className={styles.blogText} editor={editor} />
 
         <div className={styles.blogMain}>
