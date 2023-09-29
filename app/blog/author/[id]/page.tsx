@@ -5,6 +5,8 @@ import type { Post } from "@/app/types/blog";
 
 // TODO: Add back button to get back to all posts
 
+// TODO: Make auther slug dynamic
+
 async function fetchPosts(id: string): Promise<Post[]> {
   // Revalidates after 15 minutes
   const response = await fetch(
