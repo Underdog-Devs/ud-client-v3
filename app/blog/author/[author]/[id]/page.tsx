@@ -2,8 +2,6 @@ import { BlogPosts } from "@/components/blog/BlogPosts";
 import "@/app/blog/index.scss";
 import type { Post } from "@/app/types/blog";
 
-// TODO: Add back button to get back to all posts
-
 async function fetchPosts(id: string): Promise<Post[]> {
   // Revalidates after 15 minutes
   const response = await fetch(
