@@ -14,6 +14,7 @@ import styles from "./blog.module.scss";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useParams } from "next/navigation";
 import { Post } from "@/app/types/blog";
+import { formatTextForSlug } from "@/utils/slug";
 
 const PostPage = () => {
   const params = useParams();
@@ -81,7 +82,7 @@ const PostPage = () => {
         .single();
 
       if (error) {
-        setAuthor("Unknown");
+        setAuthor("Underdog Admin");
         return;
       }
 
@@ -110,9 +111,7 @@ const PostPage = () => {
     const { title, created_at } = post;
     const displayDate = created_at?.substring(0, 10);
 
-    const postLink = `/blog/${title
-      .replace(/\s+/g, "-")
-      .replace(/[^a-zA-Z0-9\s-]/g, "")}/${id}`;
+    const postLink = `/blog/${formatTextForSlug(title)}/${id}`;
 
     if (!editor) {
       return null;

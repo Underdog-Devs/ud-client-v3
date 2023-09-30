@@ -5,6 +5,7 @@ import { BlogPreviewCard } from "./BlogPreviewCard";
 import type { Post } from "@/app/types/blog";
 import InfiniteScroll from "react-infinite-scroller";
 import styles from "./blogPosts.module.scss";
+import Link from "next/link";
 
 interface PostsProps {
   initialPosts: Post[];
@@ -95,6 +96,19 @@ export const BlogPosts = ({ initialPosts, authorPage, id }: PostsProps) => {
       element="div"
       className={styles.items}
     >
+      {authorPage && (
+        <Link
+          passHref
+          style={{
+            alignSelf: "flex-start",
+            marginBottom: "1rem",
+            marginLeft: "1rem",
+          }}
+          href="/blog"
+        >
+          Back
+        </Link>
+      )}
       <Masonry
         breakpointCols={setGridColumns()}
         className="masonry-grid"

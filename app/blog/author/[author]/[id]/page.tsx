@@ -1,11 +1,6 @@
 import { BlogPosts } from "@/components/blog/BlogPosts";
-import "../../index.scss";
+import "@/app/blog/index.scss";
 import type { Post } from "@/app/types/blog";
-// If this won't deploy on AWS, try to add the next line
-
-// TODO: Add back button to get back to all posts
-
-// TODO: Make auther slug dynamic
 
 async function fetchPosts(id: string): Promise<Post[]> {
   // Revalidates after 15 minutes
