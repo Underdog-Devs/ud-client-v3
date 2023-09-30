@@ -2,12 +2,6 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-// TODO: Make into dynamic route segment
-
-// when in development, force dynamic SSR
-export const dynamic =
-  process.env.NODE_ENV === "development" ? "force-dynamic" : "auto";
-
 export async function POST(req: NextRequest) {
   const { id } = await req.json();
   const supabase = createRouteHandlerClient({ cookies });
