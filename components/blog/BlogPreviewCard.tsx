@@ -11,6 +11,7 @@ import styles from "./blogPreviewCard.module.scss";
 import type { Post } from "@/app/types/blog";
 import { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { formatTextForSlug } from "@/utils/slug";
 
 type Props = {
   post: Post;
@@ -87,12 +88,7 @@ export function BlogPreviewCard(props: Props) {
   const day = dateObj.getUTCDate();
   const year = dateObj.getUTCFullYear();
   const parsedDate = `${month}/${day}/${year}`;
-  const postLink = title
-    ? `/blog/${title
-        .replace(/\s+/g, "-")
-        .replace(/[^a-zA-Z0-9\s-]/g, "")}/${id}`
-    : "title";
-  const authorLink = author?.replace(/\s/g, "-");
+  const postLink = title ? `/blog/${formatTextForSlug(title)}/${id}` : "title";
 
   return (
     <div className={styles.container}>
@@ -118,7 +114,7 @@ export function BlogPreviewCard(props: Props) {
           <span>
             By{" "}
             <Link
-              href={`/blog/author/${authorLink}`}
+              href={`/blog/author/${formatTextForSlug(name)}/${author}`}
               passHref
               className={styles.author}
             >
