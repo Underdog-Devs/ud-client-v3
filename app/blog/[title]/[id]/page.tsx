@@ -23,9 +23,9 @@ const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [author, setAuthor] = useState("Loading...");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const twitterText = (postTitle: string, postId: string) => {
+  const twitterText = (postTitle: string, link: string) => {
     return `${postTitle} \n
-		http://www.underdogdevs.org/blog/${postId}
+		http://www.underdogdevs.org${link}
 		`;
   };
 
@@ -164,7 +164,7 @@ const PostPage = () => {
                 <a
                   href={`https://twitter.com/intent/tweet?text=${twitterText(
                     title,
-                    id
+                    postLink
                   )}`}
                 >
                   <BsTwitter style={{ color: "#1D9BF0", cursor: "pointer" }} />
@@ -173,7 +173,7 @@ const PostPage = () => {
             )}
             <li>
               <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=http://www.underdogdevs.org/blog/${id}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=http://www.underdogdevs.org${postLink}`}
               >
                 <BsFacebook style={{ color: "#1B74E4", cursor: "pointer" }} />
               </a>
@@ -202,8 +202,6 @@ const PostPage = () => {
         </div>
       </div>
     );
-  } else {
-    return <p>Error Loading page</p>;
   }
 };
 
