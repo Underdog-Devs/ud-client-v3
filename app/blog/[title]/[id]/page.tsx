@@ -162,6 +162,7 @@ const PostPage = () => {
             {title && (
               <li>
                 <a
+                  target="_blank"
                   href={`https://twitter.com/intent/tweet?text=${twitterText(
                     title,
                     postLink
@@ -173,6 +174,7 @@ const PostPage = () => {
             )}
             <li>
               <a
+                target="_blank"
                 href={`https://www.facebook.com/sharer/sharer.php?u=http://www.underdogdevs.org${postLink}`}
               >
                 <BsFacebook style={{ color: "#1B74E4", cursor: "pointer" }} />
