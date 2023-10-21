@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
     .from("posts")
     .select()
     .eq("author", id)
+    .eq("published", true)
     .order("created_at", { ascending: false })
     .range(from || 0, from || 0 + 6);
 

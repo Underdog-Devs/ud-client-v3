@@ -18,6 +18,7 @@ export async function GET(
     .from("posts")
     .select()
     .eq("id", id)
+    .eq("published", true)
     .single();
 
   if (error) {
