@@ -15,6 +15,7 @@ export async function GET(request: Request) {
   const { data, error } = await supabase
     .from("posts")
     .select()
+    .eq("published", true)
     .order("created_at", { ascending: false })
     .range(from, from + 6);
 
