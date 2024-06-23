@@ -4,10 +4,10 @@
 	display: flex;
 	flex-direction: column;
 	margin: $space-xl 0;
-	color: $textBlack;
+	color: $textColor;
 
 	.callToAction {
-		background-color: $lightenedBlue;
+		background-color: $involvedBlue;
 		padding: $space-md;
 		display: flex;
 		justify-content: space-around;
@@ -39,13 +39,9 @@
 				width: 50%;
 			}
 
-			h3 {
-				font-family: $primaryHeaderFont;
-			}
 			p {
 				font-size: $f4;
 				margin: $space-lg 0;
-				font-family: $primaryTextFont;
 			}
 		}
 
@@ -68,10 +64,6 @@
 		align-items: center;
 		justify-content: center;
 		padding: $space-xl $space-md;
-
-		h2 {
-			font-family: $secondaryHeaderFont;
-		}
 
 		.options {
 			display: flex;
@@ -101,13 +93,13 @@
 				padding: $space-lg;
 
 				@include for-phone-only {
-					border-bottom: 1px solid $subTextBlack;
+					border-bottom: 1px solid $textColor;
 					width: 70%;
 					height: auto;
 				}
 
 				@include for-tablet-up {
-					border-bottom: 1px solid $subTextBlack;
+					border-bottom: 1px solid $textColor;
 					width: 70%;
 					height: auto;
 				}
@@ -126,12 +118,10 @@
 				}
 
 				.donateText {
-					font-family: $primaryTextFont;
 					font-size: $f4;
 				}
 
 				.donateSubText {
-					font-family: $secondaryTextFont;
 					font-size: $f5;
 					line-height: 1.2;
 					b {

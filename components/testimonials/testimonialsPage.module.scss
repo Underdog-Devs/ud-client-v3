@@ -5,7 +5,7 @@
 	margin: 0 auto;
 	.title {
 		padding: $space_xl $space_xl $space-lg $space_xxl;
-		color: $textBlack;
+		color: $textColor;
 
 		@include for-phone-only {
 			padding: $space_lg 0;
@@ -23,7 +23,6 @@
 
 		h1 {
 			margin: 0;
-			font-family: $primaryHeaderFont;
 
 			@include for-phone-only {
 				font-size: $f2;
@@ -33,7 +32,6 @@
 		
 		p {
 			padding: $space_md 0 0 $space-xxs;
-			font-family: $secondaryTextFont;
 			font-size: $f4;
 
 			@include for-phone-only {

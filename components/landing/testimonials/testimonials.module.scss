@@ -2,9 +2,9 @@
 
 .title {
 	text-align: center;
-	font-family: $primaryHeaderFont;
+	font-family: $titleFont;
 	font-weight: bold;
-	color: $textBlack;
+	color: $textColor;
 	@include for-tablet-up {
 		margin-top: 50px;
 	}
@@ -41,5 +41,4 @@
 .more {
 	text-align: center;
 	color: $involvedBlue;
-	font-family: $linkFont;
 }

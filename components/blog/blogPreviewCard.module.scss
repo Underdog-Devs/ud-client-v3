@@ -46,21 +46,19 @@
     padding: $space-md;
 
     .title {
-      font-family: $primaryHeaderFont;
-      color: $textBlack;
+      color: $textColor;
       font-weight: bold;
       margin-bottom: $space-sm;
       cursor: pointer;
 
       a {
         text-decoration: none;
-        color: $textBlack;
+        color: $textColor;
       }
     }
 
     .textContent {
-      font-family: $primaryTextFont;
-      color: $subTextBlack;
+      color: $textColor;
       line-height: 1.5rem;
       overflow: hidden;
       cursor: pointer;
@@ -69,8 +67,7 @@
     .info {
       display: flex;
       justify-content: space-between;
-      font-family: $primaryTextFont;
-      color: $textBlack;
+      color: $textColor;
       margin: $space-md 0 0;
 
       .author {
@@ -79,7 +76,7 @@
       }
 
       .date {
-        color: $subTextBlack;
+        color: $textColor;
       }
     }
   }

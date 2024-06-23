@@ -1,7 +1,7 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	color: $textBlack;
+	color: $textColor;
 	background-color: $involvedBlue;
 	display: flex;
 	flex-direction: column;
@@ -23,20 +23,17 @@
 	h3 {
 		color: white;
 		font-weight: bold;
-		font-family: $primaryHeaderFont;
 		padding-bottom: $space-sm;
 	}
 
 	p {
 		color: white;
-		font-family: $primaryTextFont;
-    padding-bottom: $space-md;
+    	padding-bottom: $space-md;
 	}
 
 	a {
 		padding: $space-sm $space-xs;
-		color: $textBlack;
+		color: $textColor;
 		font-weight: bold;
-		font-family: $linkFont;
 	}
 }

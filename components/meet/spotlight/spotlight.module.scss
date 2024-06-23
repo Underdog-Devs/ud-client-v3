@@ -18,8 +18,7 @@
 		}
 
 		h4 {
-			font-family: $secondaryHeaderFont;
-			color: $textBlack;
+			color: $textColor;
 			padding: $space-md $space-md $space-xs;
 		}
 
@@ -27,8 +26,7 @@
 			align-self: center;
 			line-height: 1.2;
 			padding: 0 $space-xs;
-			font-family: $primaryTextFont;
-			color: $subTextBlack;
+			color: $textColor;
 		}
 	}
 }

@@ -27,7 +27,6 @@
     margin-bottom: $space-lg;
 
     h3 {
-      font-family: $secondaryHeaderFont;
       font-size: $f3;
       margin-bottom: $space-xs;
 
@@ -114,7 +113,6 @@
 
     p {
       line-height: 1.5rem;
-      font-family: $primaryTextFont;
 
       @include for-phone-only {
         display: inline-block;
@@ -144,27 +142,26 @@
     }
 
     .blogTitle {
-      font-family: $secondaryHeaderFont;
+      font-family: $titleFont;
       font-size: $f3;
       text-align: center;
       padding: $space-sm 0;
     }
 
     .blogSubTitle {
-      font-family: $secondaryHeaderFont;
+      font-family: $titleFont;
       font-size: $f4;
       padding: $space-sm 0;
     }
 
     p {
       line-height: 1.5rem;
-      font-family: $primaryTextFont;
     }
   }
 
   .blogInfo {
-    border-top: 1px solid $textBlack;
-    border-bottom: 1px solid $textBlack;
+    border-top: 1px solid $textColor;
+    border-bottom: 1px solid $textColor;
     margin-top: $space-md;
     padding: $space-sm 0 $space-sm $space-lg;
 

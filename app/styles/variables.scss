@@ -1,23 +1,13 @@
 // colors
 $udGrey: #d4d4d4;
-$udDarkGrey: #58555a;
-$udOrange: #f05138;
-$udSecondaryOrange: #f6931d;
+$udOrange: #f46231;
 $udBlack: #23211e;
 $involvedBlue: #1565d8;
-$lightenedBlue: rgba(45, 117, 220, 0.302);
-$textBlack: #183b56;
-$subTextBlack: #5a7184;
-$statsPink: rgba(248, 156, 99, 0.4);
-$menteeBlue: rgba(45, 117, 220, 0.3);
+$textColor: #100704;
 
 // fonts
-$udRoboto: "Roboto Mono", monospace;
-$primaryHeaderFont: "Raleway", sans-serif;
-$linkFont: "Open Sans", sans-serif;
-$primaryTextFont: "Source Sans Pro", sans-serif;
-$secondaryHeaderFont: "Josefin Sans", sans-serif;
-$secondaryTextFont: "Quicksand", sans-serif;
+$titleFont: -apple-system, Arial, BlinkMacSystemFont, sans-serif;
+$bodyFont: -apple-system, Arial, BlinkMacSystemFont, sans-serif;
 
 // header sizes (map to h1 h2 h3 h4 p subtitle)
 $f1: 4rem;
@@ -30,7 +20,6 @@ $subtitle: 0.9rem;
 $label: 0.8rem;
 
 // spacing
-
 $space-unit: 1em;
 
 $space-xxxs: calc(0.25 * $space-unit);
@@ -44,13 +33,12 @@ $space-xxl: calc(5.25 * $space-unit);
 $space-xxxl: calc(8.5 * $space-unit);
 
 // breakpoints
-
-$sm: 576px; //for portrait phones.
-$md: 768px; //for tablets.
-$lg: 992px; //for laptops.
+$sm: 576px; //for portrait phones
+$md: 768px; //for tablets
+$lg: 992px; //for laptops
 $xl: 1200px;
-$xxl: 1400px; //for large devices.
+$xxl: 1400px; //for large devices
 $xxxl: 4000px; //for 4k screens
-// Transitions
 
+// Transitions
 $nav-transition: all 0.3s linear;

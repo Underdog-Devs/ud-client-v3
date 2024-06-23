@@ -46,6 +46,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  font-family: $bodyFont;
 }
 ol, ul {
 	list-style: none;
@@ -63,18 +64,18 @@ table {
 	border-spacing: 0;
 }
 
+h1, h2, h3, h4, h5 {
+  font-family: $titleFont;
+}
 h1 {
   font-size: $f1;
 }
-
 h2 {
   font-size: $f2;
 }
-
 h3 {
   font-size: $f3;
 }
-
 h4 {
   font-size: $f4;
 }
@@ -186,8 +187,6 @@ pre {
 }
 
 .masonry-grid {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-left: -30px;
   width: 1200px;

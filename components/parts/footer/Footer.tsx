@@ -84,14 +84,14 @@ function Footer(): ReactElement {
 							target="_blank"
 							rel="noreferrer"
 						>
-							Become a Mentee
+							Become a mentee
 						</a>
 						<a
 							href="https://forms.gle/qsusfwyTA8H2vj6z5"
 							target="_blank"
 							rel="noreferrer"
 						>
-							Become a Mentor
+							Become a mentor
 						</a>
 					</div>
 					<div className={styles.navSect}>
@@ -103,7 +103,7 @@ function Footer(): ReactElement {
 							Donate
 						</Link>
 						<Link href="/signup" passHref>
-							Contact Us
+							Contact us
 						</Link>
 						<a href="https://cottonbureau.com/people/underdog-devs" target="_blank" rel="noreferrer"> Merchandise </a>
 					</div>

@@ -12,7 +12,7 @@
   }
 
   .return {
-    font-family: $primaryHeaderFont;
+    font-family: $titleFont;
     font-size: $f5;
     text-decoration: none;
     align-self: flex-start;
@@ -29,12 +29,10 @@
     }
 
     h3 {
-      font-family: $primaryHeaderFont;
       font-weight: bold;
       font-size: $f3;
       margin: $space-xs 0;
-      color: $textBlack;
-      font-family: $primaryHeaderFont;
+      color: $textColor;
 
       @include for-phone-only {
         font-size: $f5;
@@ -99,9 +97,8 @@
     p {
       font-size: 1.25rem;
       line-height: 1.6rem;
-      color: $subTextBlack;
+      color: $textColor;
       font-size: 1rem;
-      font-family: $primaryTextFont;
     }
 
     ul,
@@ -150,7 +147,6 @@
 
     p {
       line-height: 1.5rem;
-      font-family: $primaryTextFont;
 
       @include for-phone-only {
         display: inline-block;
@@ -180,27 +176,26 @@
     }
 
     .blogTitle {
-      font-family: $secondaryHeaderFont;
+      font-family: $titleFont;
       font-size: $f3;
       text-align: center;
       padding: $space-sm 0;
     }
 
     .blogSubTitle {
-      font-family: $secondaryHeaderFont;
+      font-family: $titleFont;
       font-size: $f4;
       padding: $space-sm 0;
     }
 
     p {
       line-height: 1.5rem;
-      font-family: $primaryTextFont;
     }
   }
 
   .blogInfo {
-    border-top: 1px solid $textBlack;
-    border-bottom: 1px solid $textBlack;
+    border-top: 1px solid $textColor;
+    border-bottom: 1px solid $textColor;
     margin-top: $space-md;
     padding: $space-sm 0 $space-sm $space-lg;
 
@@ -219,8 +214,7 @@
 
     p {
       font-size: $space-unit;
-      color: $textBlack;
-      font-family: $primaryTextFont;
+      color: $textColor;
       @include for-phone-only {
         font-size: $space-sm;
       }

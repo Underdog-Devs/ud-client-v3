@@ -1,7 +1,7 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	color: $textBlack;
+	color: $textColor;
 	display: flex;
 	justify-content: space-between;
 
@@ -63,7 +63,6 @@
 				width: 75px;
 			}
 			h3 {
-				font-family: $primaryHeaderFont;
 				font-weight: bold;
 				margin: $space-md 0px 0px $space-md;
 			}
@@ -72,7 +71,7 @@
 			padding: $space-lg;
 			display: flex;
 			flex-direction: column;
-			color: $subTextBlack;
+			color: $textColor;
 			span {
 				margin-bottom: $space-xs;
 				@include for-phone-only {
@@ -87,15 +86,13 @@
 			}
 
 			h2 {
-				color: $udSecondaryOrange;
-				font-family: $primaryHeaderFont;
+				color: $udOrange;
 				font-weight: bold;
 				text-transform: uppercase;
 			}
 
 			p {
 				font-size: $f5;
-				font-family: $primaryTextFont;
 				line-height: 1.5;
 				padding: $space-md 0;
 				strong {

@@ -17,15 +17,15 @@
 		width: 150px;
 		height: 40px;
 		background-color: transparent;
-		color: $udSecondaryOrange;
+		color: $udOrange;
 		font-weight: 600;
-		border: 2px solid $udSecondaryOrange;
+		border: 2px solid $udOrange;
 		border-radius: 5px;
 		margin: 50px 0;
 		cursor: pointer;
 		transition: all 0.3s;
 		&:hover {
-			background-color: $udSecondaryOrange;
+			background-color: $udOrange;
 			color: white;
 		}
 	}

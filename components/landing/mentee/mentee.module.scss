@@ -1,8 +1,8 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	background-color: $menteeBlue;
-	color: $textBlack;
+	background-color: rgba(45, 117, 220, 0.3);
+	color: $textColor;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -53,15 +53,13 @@
 
 		h3 {
 			text-align: justify;
-			font-family: $primaryHeaderFont;
 			font-weight: bold;
 			padding: 0 0 $space-md;
 		}
 
 		p {
 			text-align: justify;
-			font-family: $primaryTextFont;
-			color: $subTextBlack;
+			color: $textColor;
 			font-size: 1.2rem;
 			line-height: 1.2;
       text-align: center;

@@ -1,7 +1,7 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	color: $textBlack;
+	color: $textColor;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -111,7 +111,6 @@
 
 		h3 {
 			text-align: justify;
-			font-family: $primaryHeaderFont;
 			font-weight: bold;
 			padding: $space-md 0;
 			text-align: center;
@@ -119,8 +118,7 @@
 
 		p {
 			text-align: justify;
-			font-family: $primaryTextFont;
-			color: $subTextBlack;
+			color: $textColor;
 			font-size: 1.2rem;
 			line-height: 1.2;
 			margin: $space-xs 0;

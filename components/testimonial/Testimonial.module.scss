@@ -9,7 +9,7 @@
 	-webkit-box-shadow: inset 0px 11px 24px -12px rgba(255, 255, 255, 0.5);
 	-moz-box-shadow: inset 0px 11px 24px -12px rgba(255, 255, 255, 0.5);
 	box-shadow: inset 0px 11px 24px -12px rgba(255, 255, 255, 0.5);
-	color: $textBlack;
+	color: $textColor;
 	border: 1px solid $udGrey;
 
 	.quotation_mark {
@@ -19,11 +19,10 @@
 	}
 
 	p {
-		font-family: $primaryTextFont;
 		line-height: 1.25rem;
 	}
 	.authorInfo {
-		color: $subTextBlack;
+		color: $textColor;
 	}
 	.header {
 		display: flex;
@@ -33,7 +32,6 @@
 		padding-right: $space-sm;
 
 		h4 {
-			font-family: $primaryHeaderFont;
 			font-size: $f4;
 			color: white;
 			margin-bottom: $space-xs;

@@ -3,7 +3,7 @@
 .container {
 	display: flex;
 	flex-direction: row;
-	color: $textBlack;
+	color: $textColor;
 
 	@include for-phone-only {
 		flex-direction: column-reverse;
@@ -18,8 +18,8 @@
 	}
 
 	.signupContainer {
-    width: 50%;
-		color: $textBlack;
+    	width: 50%;
+		color: $textColor;
 		background-color: white;
 		display: flex;
 		flex-direction: column;
@@ -28,35 +28,33 @@
 		margin-bottom: $space-xl;
 
   
-	@include for-phone-only {
-		width: 100%;
-    padding: $space-xl 0;
-	}
+		@include for-phone-only {
+			width: 100%;
+			padding: $space-xl 0;
+		}
 
   
-	@include for-tablet-up {
-		width: 100%;
-    padding: $space-xl 0;
-	}
+		@include for-tablet-up {
+			width: 100%;
+			padding: $space-xl 0;
+		}
 
-	@include for-desktop-up {
-		width: 50%;
-	}
+		@include for-desktop-up {
+			width: 50%;
+		}
 
 
 		h3 {
-      align-self: center;
-			color: $textBlack;
+      		align-self: center;
+			color: $textColor;
 			font-weight: bold;
-			font-family: $primaryHeaderFont;
 			padding-bottom: $space-sm;
 			font-size: $f3;
-      text-align: center;
+      		text-align: center;
 		}
 		p {
-      text-align: center;
-			color: $subTextBlack;
-			font-family: $primaryTextFont;
+			text-align: center;
+			color: $textColor;
 			font-size: 22px;
 			padding-bottom: $space-sm;
 			line-height: 1.5;
@@ -83,33 +81,30 @@
 			}
 
 			.inputContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 80%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: 80%;
 
 				.input {
 					outline: none;
-					border: 1px solid $subTextBlack;
-					font-family: $primaryTextFont;
+					border: 1px solid $textColor;
 					font-size: 1rem;
-					color: $subTextBlack;
+					color: $textColor;
 					border-radius: 5px;
 					width: 100%;
 					padding: $space-sm $space-xs;
 				}
 
 				input::placeholder {
-					color: $subTextBlack;
-					font-family: $primaryTextFont;
+					color: $textColor;
 					font-size: $f5;
 				}
 				label {
 					align-self: flex-start;
 					font-size: $f4;
-					color: $subTextBlack;
+					color: $textColor;
 					padding: $space-xxs 0;
-					font-family: $primaryTextFont;
 				}
 			}
 			.submit {
@@ -118,7 +113,6 @@
 				background-color: $involvedBlue;
 				padding: $space-xxs;
 				color: white;
-				font-family: $linkFont;
 				border-radius: 5px;
 				width: 80%;
 				margin-top: $space-lg;
@@ -129,9 +123,8 @@
 
 		a {
 			padding: 0 $space-xs;
-			color: $textBlack;
+			color: $textColor;
 			font-weight: bold;
-			font-family: $linkFont;
 		}
 
 		.donate {

@@ -1,9 +1,8 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	background-color: $udDarkGrey;
+	background-color: $udBlack;
 	color: $udOrange;
-	font-family: $linkFont;
 	display: flex;
 	flex-direction: column;
 
@@ -115,8 +114,8 @@
 		}
 
 		.icon {
-			background-color: $udSecondaryOrange;
-			color: $textBlack;
+			background-color: $udOrange;
+			color: $textColor;
 			padding: $space-xs $space-sm $space-xxxs;
 			border-radius: 25px;
 		}
@@ -170,7 +169,7 @@
 
 		a {
 			margin: $space-xs 0;
-			color: $udSecondaryOrange;
+			color: $udOrange;
 			text-decoration: none;
 			&:hover {
 				text-decoration: underline;

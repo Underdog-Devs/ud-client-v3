@@ -1,8 +1,8 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	background-color: $statsPink;
-	color: $textBlack;
+	background-color: rgba(248, 156, 99, 0.4);
+	color: $textColor;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -20,18 +20,16 @@
 			justify-content: center;
 			align-items: center;
 			color: $involvedBlue;
-			background-color: $lightenedBlue;
+			background-color: $involvedBlue;
 			padding: $space-sm;
 			border-radius: 100%;
 		}
 
 		h4 {
 			padding: $space-xs 0;
-			font-family: $secondaryHeaderFont;
 		}
 
 		.subtitle {
-			font-family: $secondaryTextFont;
 			font-size: $subtitle;
 		}
 	}

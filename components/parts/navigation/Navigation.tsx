@@ -45,7 +45,7 @@ function Navigation({}: Props): ReactElement {
               target="_blank"
               rel="noreferrer"
             >
-              Become a Mentee
+              Become a mentee
             </a>
             <div className={styles.verticalRule}></div>
             <a
@@ -53,7 +53,7 @@ function Navigation({}: Props): ReactElement {
               target="_blank"
               rel="noreferrer"
             >
-              Become a Mentor
+              Become a mentor
             </a>
             <div className={styles.verticalRule}></div>
             <Link href="/project-underdog" passHref>
@@ -114,7 +114,7 @@ function Navigation({}: Props): ReactElement {
               target="_blank"
               rel="noreferrer"
             >
-              Become a Mentee
+              Become a mentee
             </a>
             <a
               onClick={() => setShowLinks(false)}
@@ -122,7 +122,7 @@ function Navigation({}: Props): ReactElement {
               target="_blank"
               rel="noreferrer"
             >
-              Become a Mentor
+              Become a mentor
             </a>
             <Link
               href="/project-underdog"

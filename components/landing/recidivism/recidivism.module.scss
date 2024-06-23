@@ -1,7 +1,7 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	color: $textBlack;
+	color: $textColor;
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
@@ -53,7 +53,6 @@
 
 	h2 {
 		align-self: center;
-		font-family: $primaryHeaderFont;
 	}
 
 	.about {
@@ -68,8 +67,7 @@
 	}
 
 	p {
-		font-family: $primaryTextFont;
-		color: $subTextBlack;
+		color: $textColor;
 		line-height: 1.5;
 		text-align: justify;
 		padding: $space-sm 0;
@@ -77,20 +75,18 @@
 
 	h3 {
 		align-self: flex-start;
-		font-family: $primaryHeaderFont;
 		font-weight: bold;
 		padding-top: $space-sm;
 	}
 
 	a {
 		color: $involvedBlue;
-		font-family: $linkFont;
 		align-self: flex-end;
 		margin-bottom: $space-xxs;
 	}
 
 	ul {
-		font-family: $secondaryHeaderFont;
+		font-family: $titleFont;
 		align-self: center;
 	}
 }

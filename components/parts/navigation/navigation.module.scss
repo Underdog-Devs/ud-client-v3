@@ -1,7 +1,7 @@
 @import "app/styles/globals.scss";
 
 .container {
-  background-color: $udDarkGrey;
+  background-color: $udBlack;
   display: flex;
   align-items: center;
   height: 60px;
@@ -46,7 +46,6 @@
     width: 100%;
 
     a {
-      font-family: $linkFont;
       font-size: min(max(14px, 1.5vw), 16px);
       color: $udOrange;
       text-decoration: none;
@@ -59,12 +58,11 @@
   }
 
   .getInvolvedButton {
-    background-color: $udDarkGrey;
+    background-color: $udBlack;
     color: $udOrange;
     border: none;
     border-radius: 5px;
     padding: $space-sm $space-md;
-    font-family: $linkFont;
     text-decoration: none;
     cursor: pointer;
     &:active {
@@ -116,7 +114,7 @@
       cursor: pointer;
       &:hover,
       &:focus {
-        color: $udSecondaryOrange;
+        color: $udOrange;
       }
     }
 
@@ -128,11 +126,10 @@
       width: 100%;
       display: flex;
       justify-content: end;
-      background-color: $udDarkGrey;
+      background-color: $udBlack;
       transition: $nav-transition;
       a,
       p {
-        font-family: $linkFont;
         color: $udOrange;
         text-decoration: none;
         margin: 0.35rem 0;

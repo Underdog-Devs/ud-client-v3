@@ -5,8 +5,8 @@
 	flex-direction: column;
 	width: 100%;
 	align-items: center;
-	font-family: $primaryTextFont;
-	color: $textBlack;
+	font-family: $bodyFont;
+	color: $textColor;
 	margin: 0 0 $space-lg;
 
 	@include for-tablet-up {
@@ -28,24 +28,22 @@
 		}
 
 		h3 {
-			font-family: $primaryHeaderFont;
 			font-weight: bold;
 			margin-bottom: $space-xxs;
 
 			a {
 				text-decoration: none;
-				color: $textBlack;
+				color: $textColor;
 			}
 		}
 		p {
-			font-family: $primaryTextFont;
-			color: $subTextBlack;
+			color: $textColor;
 			line-height: $space-lg;
 			margin: $space-md 0;
 		}
 
 		.read {
-			color: $textBlack;
+			color: $textColor;
 			font-weight: 600;
 			text-decoration: none;
 		}
@@ -57,18 +55,18 @@
 
 			.authorName {
 				font-weight: 600;
-				color: $textBlack;
+				color: $textColor;
 				cursor: pointer;
 			}
 
 			.published {
 				font-weight: 400;
-				color: $subTextBlack;
+				color: $textColor;
 			}
 		}
 		.readMoreLink {
 			font-weight: 600;
-			color: $textBlack;
+			color: $textColor;
 		}
 	}
 

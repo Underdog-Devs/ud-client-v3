@@ -1,26 +1,18 @@
 @import 'app/styles/globals.scss';
 
 .container {
-	color: $textBlack;
+	color: $textColor;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: $space-xxl 0 $space-lg;
 
 	h3 {
-		font-family: $primaryHeaderFont;
 		font-weight: bold;
 
-    @include for-phone-only {
-      text-align: center;
-    }
-    
-    @include for-tablet-up {
-    }
-    
-    @include for-desktop-up {
-    }
-
+		@include for-phone-only {
+		text-align: center;
+		}
 	}
 
 	.social {
@@ -32,7 +24,7 @@
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
-			color: $textBlack;
+			color: $textColor;
 			font-size: 1.5rem;
 
 			@include for-phone-only {
@@ -48,8 +40,8 @@
 			}
 
 			.icon {
-				background-color: $udSecondaryOrange;
-				color: $udDarkGrey;
+				background-color: $udOrange;
+				color: $udBlack;
 				padding: $space-xs $space-sm $space-xxxs;
 				border-radius: 25px;
 				margin: $space-lg $space-xs;
