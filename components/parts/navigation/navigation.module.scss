@@ -76,7 +76,7 @@
 }
 
 .verticalRule {
-  border-left: 1px solid $udOrange;
+  border-left: 1px solid $udWhite;
   height: 1rem;
 }
 
@@ -125,7 +125,7 @@
       z-index: 10;
       width: 100%;
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       background-color: $udBlack;
       transition: $nav-transition;
       a,
