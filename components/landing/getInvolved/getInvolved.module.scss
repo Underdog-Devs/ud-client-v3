@@ -1,39 +1,42 @@
-@import 'app/styles/globals.scss';
+@import "app/styles/globals.scss";
+
+.containerBackground {
+  background-color: $involvedBlue;
+}
 
 .container {
-	color: $textColor;
-	background-color: $involvedBlue;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: $space-xl;
+  color: $textColor;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-xl;
 
-	@include for-phone-only {
-		text-align: center;
-	}
+  @include for-phone-only {
+    text-align: center;
+  }
 
-	@include for-tablet-up {
-		text-align: center;
-	}
+  @include for-tablet-up {
+    text-align: center;
+  }
 
-	@include for-desktop-up {
-		text-align: justify;
-	}
+  @include for-desktop-up {
+    text-align: justify;
+  }
 
-	h3 {
-		color: white;
-		font-weight: bold;
-		padding-bottom: $space-sm;
-	}
+  h3 {
+    color: white;
+    font-weight: bold;
+    padding-bottom: $space-sm;
+  }
 
-	p {
-		color: white;
-    	padding-bottom: $space-md;
-	}
+  p {
+    color: white;
+    padding-bottom: $space-md;
+  }
 
-	a {
-		padding: $space-sm $space-xs;
-		color: $textColor;
-		font-weight: bold;
-	}
+  a {
+    padding: $space-sm $space-xs;
+    color: $textColor;
+    font-weight: bold;
+  }
 }

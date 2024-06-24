@@ -7,7 +7,11 @@ interface Props {}
 
 function GetInvolved({}: Props): ReactElement {
   return (
-    <Section className={styles.container} id="involved">
+    <Section
+      outerStyles={styles.containerBackground}
+      className={styles.container}
+      id="involved"
+    >
       <h3>Want to Get Involved?</h3>
       <p>
         Request more information

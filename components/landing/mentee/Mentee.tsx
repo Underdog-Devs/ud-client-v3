@@ -6,7 +6,11 @@ interface Props {}
 
 function Mentee({}: Props): ReactElement {
   return (
-    <Section className={styles.container} id="mentee">
+    <Section
+      outerStyles={styles.containerBackground}
+      className={styles.container}
+      id="mentee"
+    >
       <div className={styles.text}>
         <h3>What is a Mentee?</h3>
         <p>

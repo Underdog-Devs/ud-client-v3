@@ -4,12 +4,13 @@ import styles from "./Section.module.scss";
 
 type Props = {
   children: ReactNode;
+  outerStyles?: string;
   className?: string;
   id?: string;
 };
 
-const Section = ({ children, className, id }: Props) => (
-  <section id={id}>
+const Section = ({ outerStyles, children, className, id }: Props) => (
+  <section className={outerStyles} id={id}>
     <div className={cx(className, styles.contentContainer)}>{children}</div>
   </section>
 );
