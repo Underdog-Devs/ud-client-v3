@@ -15,6 +15,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useParams } from "next/navigation";
 import { Post } from "@/app/types/blog";
 import { formatTextForSlug } from "@/utils/slug";
+import Section from "@/components/section";
 
 const PostPage = () => {
   const params = useParams();
@@ -195,12 +196,12 @@ const PostPage = () => {
         <EditorContent className={styles.blogText} editor={editor} />
 
         <div className={styles.blogMain}>
-          <section className={styles.blogInfo}>
+          <Section className={styles.blogInfo}>
             <div className={styles.blogAuthor}>
               <p className={styles.blogAuthorName}>Written by {author}</p>
             </div>
             <p>PUBLISHED ON {displayDate}</p>
-          </section>
+          </Section>
         </div>
       </div>
     );
