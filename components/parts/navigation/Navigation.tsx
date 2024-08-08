@@ -67,10 +67,6 @@ function Navigation({}: Props): ReactElement {
 							<p className={styles.getInvolvedButton}>Testimonials</p>
 						</Link> */}
             <div className={styles.verticalRule}></div>
-            <Link href="/donate" passHref>
-              Donate
-            </Link>
-            <div className={styles.verticalRule}></div>
             <Link href="/signup" passHref>
               Contact Us
             </Link>
@@ -141,9 +137,6 @@ function Navigation({}: Props): ReactElement {
 					>
 						<p onClick={() => setShowLinks(false)}>Testimonials</p>
 					</Link> */}
-            <Link href="/donate" passHref onClick={() => setShowLinks(false)}>
-              Donate
-            </Link>
             <Link href="/signup" passHref onClick={() => setShowLinks(false)}>
               Contact Us
             </Link>
