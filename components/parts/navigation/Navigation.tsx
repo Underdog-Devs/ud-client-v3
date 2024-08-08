@@ -137,9 +137,6 @@ function Navigation({}: Props): ReactElement {
 					>
 						<p onClick={() => setShowLinks(false)}>Testimonials</p>
 					</Link> */}
-            <Link href="/donate" passHref onClick={() => setShowLinks(false)}>
-              Donate
-            </Link>
             <Link href="/signup" passHref onClick={() => setShowLinks(false)}>
               Contact Us
             </Link>
