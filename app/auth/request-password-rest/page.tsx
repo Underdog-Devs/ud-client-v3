@@ -1,8 +1,8 @@
 'use client'
-import Signup from '@/components/auth/signup'
+import { Login as LoginComponent } from '@/components/auth/Login'
 import Link from 'next/link'
 
-export default function Singup() {
+export default function Login() {
 
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
@@ -26,7 +26,7 @@ export default function Singup() {
         </svg>{' '}
         Back
       </Link>
-      <Signup />
+      <LoginComponent />
     </div>
   )
 }
