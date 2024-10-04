@@ -1,0 +1,45 @@
+@import 'app/styles/globals.scss';
+
+.questionContainer {
+  margin-bottom: $space-lg;
+
+  h3 {
+    font-family: $secondaryHeaderFont;
+    font-size: $f4;
+    color: $textBlack;
+    margin-bottom: $space-md;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+}
+
+.option {
+  background-color: white;
+  border: 1px solid $udGrey;
+  border-radius: 4px;
+  padding: $space-sm;
+  margin-bottom: $space-xs;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $udGrey;
+  }
+
+  &.selected {
+    background-color: $udGrey;
+  }
+
+  &.correct {
+    background-color: lighten(green, 60%);
+    border-color: green;
+  }
+
+  &.incorrect {
+    background-color: lighten(red, 40%);
+    border-color: red;
+  }
+}

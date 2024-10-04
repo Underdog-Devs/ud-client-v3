@@ -1,0 +1,70 @@
+@import 'app/styles/globals.scss';
+
+.markdownContainer {
+  font-family: $primaryTextFont;
+  color: $textBlack;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $space-md;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $primaryHeaderFont;
+    margin-top: $space-lg;
+    margin-bottom: $space-md;
+  }
+
+  h1 {
+    font-size: $f2;
+    color: $udSecondaryOrange;
+  }
+
+  h2 {
+    font-size: $f3;
+    color: $involvedBlue;
+  }
+
+  h3 {
+    font-size: $f4;
+  }
+
+  p {
+    margin-bottom: $space-md;
+  }
+
+  ul, ol {
+    margin-bottom: $space-md;
+    padding-left: $space-lg;
+  }
+
+  li {
+    margin-bottom: $space-xs;
+  }
+
+  blockquote {
+    border-left: 4px solid $udSecondaryOrange;
+    padding-left: $space-md;
+    margin-left: 0;
+    font-style: italic;
+    color: $subTextBlack;
+  }
+
+  code {
+    background-color: $udGrey;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  pre {
+    background-color: $udGrey;
+    padding: $space-md;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $udGrey;
+    margin: $space-lg 0;
+  }
+}

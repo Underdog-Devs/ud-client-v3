@@ -18,7 +18,7 @@ export function Login() {
             password,
         })
         console.log(res);
-        router.push('/')
+        router.push('/member-dashboard')
         router.refresh()
     }
 

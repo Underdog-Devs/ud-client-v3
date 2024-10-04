@@ -1,0 +1,41 @@
+@import 'app/styles/globals.scss';
+
+.quizContainer {
+  max-width: 800px;
+  margin: $space-xl auto;
+  padding: $space-md;
+  background-color: $lightenedBlue;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-family: $primaryHeaderFont;
+    font-size: $f3;
+    color: $involvedBlue;
+    margin-bottom: $space-lg;
+  }
+}
+
+.submitButton {
+  background-color: $udSecondaryOrange;
+  color: white;
+  border: none;
+  padding: $space-sm $space-md;
+  font-family: $linkFont;
+  font-size: $f5;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($udSecondaryOrange, 10%);
+  }
+}
+
+.results {
+  margin-top: $space-lg;
+  font-family: $primaryTextFont;
+  font-size: $f4;
+  color: $involvedBlue;
+  font-weight: bold;
+}
