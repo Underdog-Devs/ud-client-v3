@@ -14,8 +14,8 @@ interface QuizProps {
 export const Quiz: React.FC<QuizProps> = ({ questions }) => {
   const [userAnswers, setUserAnswers] = useState<number[]>(new Array(questions.length).fill(-1));
   const [showResults, setShowResults] = useState(false);
-  const [score, setScore] = useState(null);
-  const [passed, setPassed] = useState(null);
+  const [score, setScore] = useState(0);
+  const [passed, setPassed] = useState(false);
 
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
     const newAnswers = [...userAnswers];
@@ -29,12 +29,14 @@ export const Quiz: React.FC<QuizProps> = ({ questions }) => {
       if (userAnswers[index] === question.correctAnswer) {
         correctAnswers++;
       }
+    setScore(correctAnswers);
     });
 
     const percentage = (correctAnswers / questions.length) * 100;
-
-
-    setShowResults(true);
+    if (percentage >= 80) {
+      setPassed(true);
+    }
+    // setShowResults(true);
   };
 
 

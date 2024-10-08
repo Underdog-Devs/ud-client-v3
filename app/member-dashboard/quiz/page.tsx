@@ -8,7 +8,7 @@ import quizQuestions from '../test-content/what-is-ud-quiz';
 
 export default function WhatIsUDQuiz() {
   // Read the markdown file
-  const markdownPath = path.join(process.cwd(), 'app', 'member-dashboard', 'what-is-ud.md');
+  const markdownPath = path.join(process.cwd(), 'app', 'member-dashboard', 'test-content', 'what-is-ud.md');
   const markdownContent = fs.readFileSync(markdownPath, 'utf8');
 
   return (

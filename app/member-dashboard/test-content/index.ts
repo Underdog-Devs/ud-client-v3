@@ -1,4 +1,5 @@
-import * as testContentImports from '../test-content';
+// import * as testContentImports from '../test-content';
+import whatIsUd from "./what-is-ud-main";
 
 export interface TestContent {
   title: string;
@@ -10,4 +11,4 @@ export interface TestContent {
   quiz: string;
 }
 
-export const testContent: TestContent[] = Object.values(testContentImports).flat();
+// export const testContent: TestContent[] = Object.values(whatIsUd).flat();
