@@ -25,17 +25,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
         {options.map((option, index) => (
           <li
             key={index}
-            className={`${styles.option} ${
-              selectedAnswer === index ? styles.selected : ''
-            } ${
-              showResult
-                ? index === correctAnswer
-                  ? styles.correct
-                  : selectedAnswer === index
-                  ? styles.incorrect
-                  : ''
-                : ''
-            }`}
+            className={`${styles.option} ${selectedAnswer === index ? styles.selected : ''}`}
             onClick={() => !showResult && onSelectAnswer(index)}
           >
             {option}
