@@ -24,9 +24,9 @@ async function getQuizzes(): Promise<QuizMetadata[]> {
     .map(dirent => dirent.name);
 
   const quizzes = await Promise.all(folders.map(async (folder) => {
-    const mainPath = path.join(testContentPath, folder, 'main.ts');
-    const { default: quizData } = await import(`@/data/test-content/${folder}/main.ts`);
-    return quizData as QuizMetadata;
+    const mainPath = path.join(testContentPath, folder, 'main.json');
+    const main = fs.readFileSync(mainPath, 'utf8' );
+    return JSON.parse(main) as QuizMetadata;
   }));
 
   return quizzes;
