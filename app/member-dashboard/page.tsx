@@ -2,36 +2,58 @@ import React from 'react';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import styles from './dashboard.module.scss';
-import { testContent } from './test-content';
-// Dummy data for quizzes and progress
-const dummyQuizzes = [
-  { id: 1, title: 'JavaScript Basics', progress: 75 },
-  { id: 2, title: 'React Fundamentals', progress: 50 },
-  { id: 3, title: 'CSS Flexbox', progress: 90 },
-  { id: 4, title: 'Node.js Essentials', progress: 30 },
-  { id: 5, title: 'Git Version Control', progress: 60 },
-];
+import fs from 'fs';
+import path from 'path';
+
+interface QuizMetadata {
+  title: string;
+  description: string;
+  alt: string;
+  slug: string;
+  linkText: string;
+  content: string;
+  quiz: string;
+}
+
+async function getQuizzes(): Promise<QuizMetadata[]> {
+  const testContentPath = path.join(process.cwd(), 'data', 'test-content');
+  const folders = fs.readdirSync(testContentPath, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  const quizzes = await Promise.all(folders.map(async (folder) => {
+    const mainPath = path.join(testContentPath, folder, 'main.ts');
+    const { default: quizData } = await import(`@/data/test-content/${folder}/main.ts`);
+    return quizData as QuizMetadata;
+  }));
+
+  return quizzes;
+}
 
 export default async function Dashboard() {
   const supabase = createServerComponentClient({ cookies });
   const { data: { user } } = await supabase.auth.getUser();
-    console.log(testContent);
+  const quizzes = await getQuizzes();
+
   if (!user) {
     return redirect('/login');
   }
 
+  
+
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Welcome to your dashboard, {user.email}</h1>
+      <h1 className={styles.title}>Welcome to dashboard, {user.email}</h1>
       <div className={styles.quizContainer}>
-        {dummyQuizzes.map((quiz) => (
-          <div key={quiz.id} className={styles.quizItem}>
+        {quizzes.map((quiz, index) => (
+          <div key={index} className={styles.quizItem}>
             <h3>{quiz.title}</h3>
-            <div className={styles.progressBar}>
-              <div className={styles.progress} style={{ width: `${quiz.progress}%` }}></div>
-            </div>
-            <p>{quiz.progress}% Complete</p>
+            <p>{quiz.description}</p>
+            <Link href={`/member-dashboard/quiz/${quiz.slug}`} className={styles.quizLink}>
+              {quiz.linkText}
+            </Link>
           </div>
         ))}
       </div>
