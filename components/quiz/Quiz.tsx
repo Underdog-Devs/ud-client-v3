@@ -1,5 +1,6 @@
 "use client"
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import styles from './Quiz.module.scss';
 import { QuizQuestion } from './QuizQuestion';
 
@@ -12,10 +13,26 @@ interface QuizProps {
 }
 
 export const Quiz: React.FC<QuizProps> = ({ questions }) => {
-  const [userAnswers, setUserAnswers] = useState<number[]>(new Array(questions.length).fill(-1));
+  const [currentQuestions, setCurrentQuestions] = useState<QuizProps['questions']>([]);
+  const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [passed, setPassed] = useState(false);
+  const [questionSetIndex, setQuestionSetIndex] = useState(0);
+
+  useEffect(() => {
+    setNextQuestionSet();
+  }, [questionSetIndex]); // Добавляем зависимость
+
+  const setNextQuestionSet = () => {
+    const startIndex = questionSetIndex * 5;
+    const endIndex = startIndex + 5;
+    const newQuestions = questions.slice(startIndex, endIndex);
+    setCurrentQuestions(newQuestions);
+    setUserAnswers(new Array(newQuestions.length).fill(-1));
+    setShowResults(false);
+    setScore(0);
+  };
 
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
     const newAnswers = [...userAnswers];
@@ -25,25 +42,31 @@ export const Quiz: React.FC<QuizProps> = ({ questions }) => {
 
   const handleSubmit = () => {
     let correctAnswers = 0;
-    questions.forEach((question, index) => {
+    currentQuestions.forEach((question, index) => {
       if (userAnswers[index] === question.correctAnswer) {
         correctAnswers++;
       }
-    setScore(correctAnswers);
     });
+    setScore(correctAnswers);
 
-    const percentage = (correctAnswers / questions.length) * 100;
-    if (percentage >= 80) {
+    const percentage = (correctAnswers / currentQuestions.length) * 100;
+    if (percentage >= 70) {
       setPassed(true);
+      alert("Test passed");
+    } else {
+      const nextSetIndex = questionSetIndex + 1;
+      if (nextSetIndex * 5 < questions.length) {
+        setQuestionSetIndex(nextSetIndex);
+      } else {
+        alert("Test failed")
+      }
     }
-    // setShowResults(true);
   };
-
 
   return (
     <div className={styles.quizContainer}>
-      <h2>Quiz</h2>
-      {questions.map((q, index) => (
+      <h2>Test</h2>
+      {currentQuestions.map((q, index) => (
         <QuizQuestion
           key={index}
           question={q.question}
@@ -54,14 +77,20 @@ export const Quiz: React.FC<QuizProps> = ({ questions }) => {
           correctAnswer={q.correctAnswer}
         />
       ))}
-      {!showResults && (
+      {!showResults && !passed && (
         <button className={styles.submitButton} onClick={handleSubmit}>
-          Submit Quiz
+          Send answers
         </button>
       )}
-      {showResults && (
+      {(showResults || passed) && (
         <div className={styles.results}>
-          Your score: {score} out of {questions.length}
+          {passed ? (
+            <p>You passed the test</p>
+          ) : (
+            <>
+              <p>You have finished all questions. Try again.</p>
+            </>
+          )}
         </div>
       )}
     </div>
