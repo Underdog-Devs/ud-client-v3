@@ -1,0 +1,182 @@
+[
+    {
+        "question": "What is recommended to do when feeling burned out?",
+        "options": [
+            "Take a complete break from learning",
+            "Try learning about a different area of study",
+            "Continue working on the current task"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Which platform is currently considered the best tool for building your network?",
+        "options": [
+            "X (Twitter)",
+            "Mastodon",
+            "LinkedIn"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "What should you do if you can't make a scheduled mentorship session?",
+        "options": [
+            "Skip it without notification",
+            "Message your mentor in advance",
+            "Attend partially"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "What is one of the key habits for success mentioned in the article?",
+        "options": [
+            "Working alone",
+            "Making a schedule",
+            "Studying only when motivated"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "How should mentees approach feedback from mentors?",
+        "options": [
+            "Be defensive about criticism",
+            "Ignore feedback that seems difficult",
+            "Be open to constructive criticism and use it to improve"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "What is recommended for staying engaged in the program?",
+        "options": [
+            "Participate in Underdog Slack and group activities",
+            "Work independently without interaction",
+            "Only communicate with one mentor"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "What should mentees do regarding their goals?",
+        "options": [
+            "Keep goals private",
+            "Set only long-term goals",
+            "Define both short-term and long-term goals"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "What is advised when feeling blocked?",
+        "options": [
+            "Keep trying alone",
+            "Ask for help",
+            "Give up on the problem"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "How should mentees approach their practice schedule?",
+        "options": [
+            "Practice only when feeling motivated",
+            "Schedule regular time and follow it consistently",
+            "Practice randomly throughout the week"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "What is recommended for immersing yourself in the development world?",
+        "options": [
+            "Follow engineers on social media and subscribe to newsletters",
+            "Only read programming books",
+            "Avoid social media completely"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "What should beginners focus on regarding problem-solving?",
+        "options": [
+            "Solving complex problems immediately",
+            "Breaking down problems into small pieces",
+            "Avoiding difficult problems"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "What is a key aspect of maintaining communication with mentors?",
+        "options": [
+            "Only communicate when having problems",
+            "Respond promptly to feedback",
+            "Send daily status updates"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "How should mentees utilize the Mentee Drive?",
+        "options": [
+            "Check it once when starting",
+            "Regularly check for updates and resources",
+            "Wait for mentors to share specific documents"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "What is important for beginners regarding code understanding?",
+        "options": [
+            "Being able to trace code line by line",
+            "Writing code quickly",
+            "Memorizing all syntax"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "What mentality should mentees avoid?",
+        "options": [
+            "Growth mentality",
+            "Learning mentality",
+            "Victim mentality"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "What is a key characteristic of the Interview Ready level?",
+        "options": [
+            "Just starting to learn programming",
+            "Some experience with basic concepts",
+            "Advanced knowledge and preparing for job interviews"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "What should Intermediate level mentees focus on?",
+        "options": [
+            "Basic syntax learning",
+            "Improving problem-solving and applying theoretical knowledge",
+            "Completing job interviews"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "How should mentees approach the program structure?",
+        "options": [
+            "Create their own structure",
+            "Follow the program structure starting with the READ ME document",
+            "Skip the structure entirely"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "What is important when setting goals?",
+        "options": [
+            "Set only easy goals",
+            "Create goals without deadlines",
+            "Set specific dates for achieving goals"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "What should mentees do regarding their learning plan?",
+        "options": [
+            "Create a personalized plan and seek feedback",
+            "Follow a generic plan",
+            "Avoid planning altogether"
+        ],
+        "correctAnswer": 0
+    }
+]
