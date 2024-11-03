@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Quiz.module.scss';
 import { QuizQuestion } from './QuizQuestion';
+import { Alert, Link } from '@mui/material';
 
 interface QuizProps {
   questions: {
@@ -60,16 +61,23 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug }) => {
         },
         body: JSON.stringify({ slug }),
       });
-      alert("Test passed");
+      setPassed(true);
     } else {
       const nextSetIndex = questionSetIndex + 1;
       if (nextSetIndex * 5 < questions.length) {
         setQuestionSetIndex(nextSetIndex);
       } else {
-        alert("Test failed")
+        setShowResults(true);
       }
     }
   };
+
+  if (passed) {
+    return <Alert severity="success">Test passed. Go back to <Link href="/member-dashboard">dashboard</Link></Alert>;
+  }
+  else if (showResults) {
+    return <Alert severity="error">Test failed. Try again.</Alert>;
+  }
 
   return (
     <div className={styles.quizContainer}>
