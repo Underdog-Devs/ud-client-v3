@@ -7,6 +7,12 @@ import fs from 'fs';
 import path from 'path';
 import { QuizCardMetadata, QuizCardUserMetadata, QuizCard } from '@/components/quiz/QuizCard';
 
+async function fetchCompletedQuizzes(): Promise<string[]> {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/quiz/completed`);
+  const data = await response.json();
+  const quizzes = data.items.map((quiz: { quizzes: { slug: string; }[] }) => quiz.quizzes.slug);
+  return quizzes;
+}
 
 async function getQuizzes(role: string): Promise<QuizCardMetadata[]> {
   const testContentPath = path.join(process.cwd(), 'data', 'test-content');
@@ -25,27 +31,43 @@ async function getQuizzes(role: string): Promise<QuizCardMetadata[]> {
 
   quizzes.sort((a, b) => a.order - b.order);
 
-  const filteredQuizzes = quizzes.filter(quiz => quiz.for.includes(role));
-  return filteredQuizzes;
-}
+  const completedQuizzes = await fetchCompletedQuizzes();
 
-// TODO: Get user data from supabase for card availability and completion status
+  const isQuizAvailable = (quiz: QuizCardMetadata, completedQuizzes: string[]) => {
+    return (
+      quiz.order === 1 || 
+      completedQuizzes.includes(quiz.slug) || 
+      quiz.order === completedQuizzes.length + 1
+    );
+  };
+
+  const result = quizzes
+    .filter(quiz => quiz.for.includes(role))
+    .map(quiz => ({
+      ...quiz,
+      completed: completedQuizzes.includes(quiz.slug),
+      available: isQuizAvailable(quiz, completedQuizzes)
+    }));
+
+  return result;
+}
 
 export default async function Dashboard() {
   const supabase = createServerComponentClient({ cookies });
   const { data: { user } } = await supabase.auth.getUser();
-  const quizzes = await getQuizzes(user?.user_metadata?.role);
 
   if (!user) {
     return redirect('/login');
   }
 
+  const quizzes = await getQuizzes(user?.user_metadata?.role);
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Welcome to dashboard, {user.email}</h1>
       <div className={styles.quizContainer}>
-        {quizzes.map((quiz) => (
-          <QuizCard {...quiz} completed={false} available={true} />
+        {quizzes.map((quiz, index) => (
+          <QuizCard {...quiz} key={index}/>
         ))}
       </div>
     </div>

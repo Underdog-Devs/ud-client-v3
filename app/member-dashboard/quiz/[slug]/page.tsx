@@ -29,7 +29,7 @@ export default async function QuizBlock({ params }: { params: { slug: string } }
   return (
     <div className={styles.quizPageContainer}>
       <h1 className={styles.title}>{main.title}</h1>
-      <QuizPage markdownContent={article} quizQuestions={quiz} />
+      <QuizPage markdownContent={article} quizQuestions={quiz} slug={slug} />
     </div>
   );
 }

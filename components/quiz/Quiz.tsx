@@ -10,9 +10,10 @@ interface QuizProps {
     options: string[];
     correctAnswer: number;
   }[];
+  slug: string;
 }
 
-export const Quiz: React.FC<QuizProps> = ({ questions }) => {
+export const Quiz: React.FC<QuizProps> = ({ questions, slug }) => {
   const [currentQuestions, setCurrentQuestions] = useState<QuizProps['questions']>([]);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
@@ -52,6 +53,13 @@ export const Quiz: React.FC<QuizProps> = ({ questions }) => {
     const percentage = (correctAnswers / currentQuestions.length) * 100;
     if (percentage >= 70) {
       setPassed(true);
+      fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/quiz/completed`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ slug }),
+      });
       alert("Test passed");
     } else {
       const nextSetIndex = questionSetIndex + 1;
@@ -85,6 +93,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions }) => {
       {(showResults || passed) && (
         <div className={styles.results}>
           {passed ? (
+            
             <p>You passed the test</p>
           ) : (
             <>
