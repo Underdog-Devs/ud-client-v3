@@ -1,7 +1,9 @@
 {
+    "order": 3,
+    "for": ["mentee"],
     "title": "Mentee expectations",
     "description": "Mentee expectations Quiz",
     "alt": "Mentee expectations",
     "slug": "mentee-expectations",
-    "linkText": "Learn More"
+    "linkText": "Learn"
 }
