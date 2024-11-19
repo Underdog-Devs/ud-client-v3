@@ -9,7 +9,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 export default function Dashboard({ currentTab }: { currentTab: string }) {
   const router = useRouter();
   const [value, setValue] = useState(currentTab);
-  const [completedOnboarding, setCompletedOnboarding] = useState(false);
+  const [completedOnboarding, setCompletedOnboarding] = useState<boolean | null>(null);
   const supabase = createClientComponentClient();
 
   useEffect(() => {
@@ -70,8 +70,9 @@ export default function Dashboard({ currentTab }: { currentTab: string }) {
             style={{ marginTop: '1rem' }}
             variant="contained"
             color="primary"
+            sx={{textTransform: 'none'}}
           >
-              Change completedOnboarding flag
+              completedOnboarding: {completedOnboarding?.toString()}
             </Button>}
         </Tabs>
       </Box>
