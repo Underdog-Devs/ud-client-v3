@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import QuizDashboardClient from '@/components/quiz/QuizDashboardClient';
 import { getQuizzes } from '@/utils/quizUtils';
+import Dashboard from '@/components/member-dashboard/Dashboard';
+import { Box } from '@mui/material';
 
 export default async function Quiz() {
   const supabase = createServerComponentClient({ cookies });
@@ -14,5 +16,8 @@ export default async function Quiz() {
 
   const quizzes = await getQuizzes(user?.user_metadata?.role);
 
-  return <QuizDashboardClient quizzes={quizzes} userEmail={user.email} />;
+  return <Box sx={{margin: 2}}>
+    <Dashboard currentTab="quiz"/>
+    <QuizDashboardClient quizzes={quizzes} userEmail={user.email} />
+  </Box>;
 }
