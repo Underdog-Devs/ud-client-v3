@@ -11,13 +11,14 @@ interface QuizPageProps {
     correctAnswer: number;
   }[];
   slug: string;
+  is_final: boolean;
 }
 
-export const QuizPage: React.FC<QuizPageProps> = ({ markdownContent, quizQuestions, slug }) => {
+export const QuizPage: React.FC<QuizPageProps> = ({ markdownContent, quizQuestions, slug, is_final }) => {
   return (
     <div className={styles.quizPageContainer}>
       <MarkdownRenderer content={markdownContent} />
-      <Quiz questions={quizQuestions} slug={slug} />
+      <Quiz questions={quizQuestions} slug={slug} is_final={is_final}/>
     </div>
   );
 };

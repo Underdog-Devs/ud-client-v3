@@ -27,9 +27,9 @@ export default async function QuizBlock({ params }: { params: { slug: string } }
   const { article, quiz, main } = await importContent(slug);
 
   return (
-    <div className={styles.quizPageContainer}>
-      <h1 className={styles.title}>{main.title}</h1>
-      <QuizPage markdownContent={article} quizQuestions={quiz} slug={slug} />
+      <div className={styles.quizPageContainer}>
+        <h1 className={styles.title}>{main.title}</h1>
+      <QuizPage markdownContent={article} quizQuestions={quiz} slug={slug} is_final={main.is_final}/>
     </div>
   );
 }

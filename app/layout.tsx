@@ -1,4 +1,3 @@
-// styles
 import Layout from "../components/Layout";
 import "./styles/index.scss";
 import type { Metadata } from 'next'
