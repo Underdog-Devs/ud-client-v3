@@ -113,7 +113,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
       if (is_final) {
         const supabase = createClientComponentClient();
         supabase.auth.updateUser({
-          data: { completed_onboarding_quiz: true }
+          data: { completed_onboarding_quiz: false }
         });
       }
 
@@ -144,7 +144,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
   };
 
   if (passed) {
-    return <Alert severity="success">Test passed. Go back to <Link href="/member-dashboard">dashboard</Link></Alert>;
+    return <Alert severity="success">Test passed. Go back to <Link href="/member-dashboard/quiz">dashboard</Link></Alert>;
   }
   else if (showResults) {
     return <Alert severity="error">Test failed. Try again.</Alert>;
