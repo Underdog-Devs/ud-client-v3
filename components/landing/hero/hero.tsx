@@ -14,7 +14,7 @@ const Hero: React.FC<Props> = ({ }) => {
 						<img
 							className={styles.logo}
 							src="/images/icon-03.png"
-							alt="Your Name"
+							alt="Underdog Devs Logo"
 							height={75}
 							width={75}
 							loading="lazy"
@@ -38,7 +38,7 @@ const Hero: React.FC<Props> = ({ }) => {
 				<img
 					className={styles.imageLogo}
 					src="/images/underdogdevs-03.png"
-					alt="Your Name"
+					alt="Underdog Devs Logo"
 					height={300}
 					width={300}
 					loading="lazy"

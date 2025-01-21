@@ -14,11 +14,6 @@
   text-align: center;
 }
 
-.quizContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: $space-md;
-}
 
 .quizItem {
   background-color: $lightenedBlue;
@@ -51,4 +46,12 @@
   background-color: $udSecondaryOrange;
   height: 100%;
   transition: width 0.3s ease-in-out;
+}
+
+.quizCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: left;
+  gap: $space-md;
 }

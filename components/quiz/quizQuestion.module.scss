@@ -1,19 +1,18 @@
 @import 'app/styles/globals.scss';
 
 .questionContainer {
-  margin-bottom: $space-lg;
 
   h3 {
     font-family: $secondaryHeaderFont;
     font-size: $f4;
     color: $textBlack;
-    margin-bottom: $space-md;
   }
 
   ul {
     list-style-type: none;
     padding: 0;
   }
+
 }
 
 .option {
@@ -42,4 +41,12 @@
     background-color: lighten(red, 40%);
     border-color: red;
   }
+}
+
+.optionContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: $space-sm;
 }

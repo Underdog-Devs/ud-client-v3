@@ -10,7 +10,7 @@ interface Props {}
 function Navigation({}: Props): ReactElement {
   const [showLinks, setShowLinks] = useState(false);
   const linksContainerRef = useRef<HTMLElement | null>(null);
-
+  const isDevelopment = process.env.NEXT_PUBLIC_ENV === "development";
   const toggleLinks = () => {
     setShowLinks(!showLinks);
   };
@@ -40,8 +40,20 @@ function Navigation({}: Props): ReactElement {
         </Link>
         <nav className={styles.navigation}>
           <div className={styles.navigationLinks}>
-            <a
-              href="https://forms.gle/YdE9SBfJGXc3XW928"
+            {isDevelopment && (
+              <>
+                <Link
+                  href={"/member-dashboard"}
+                  onClick={() => setShowLinks(false)}
+                  passHref
+            >
+              Dashboard
+              </Link>
+              <div className={styles.verticalRule}></div>
+            </>
+          )}
+          <a
+            href="https://forms.gle/YdE9SBfJGXc3XW928"
               target="_blank"
               rel="noreferrer"
             >
@@ -72,7 +84,11 @@ function Navigation({}: Props): ReactElement {
             </Link>
             <div className={styles.verticalRule}></div>
             <Link href="/signup" passHref>
-              Contact Us
+              Sign Up
+            </Link>
+            <div className={styles.verticalRule}></div>
+            <Link href="/login" passHref>
+              Log In
             </Link>
             <div className={styles.verticalRule}></div>
             <a
@@ -145,7 +161,10 @@ function Navigation({}: Props): ReactElement {
               Donate
             </Link>
             <Link href="/signup" passHref onClick={() => setShowLinks(false)}>
-              Contact Us
+              Sign Up
+            </Link>
+            <Link href="/login" passHref onClick={() => setShowLinks(false)}>
+              Log In
             </Link>
             <a
               href="https://cottonbureau.com/people/underdog-devs"

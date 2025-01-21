@@ -103,7 +103,7 @@ function Footer(): ReactElement {
 							Donate
 						</Link>
 						<Link href="/signup" passHref>
-							Contact Us
+							Sign Up
 						</Link>
 						<a href="https://cottonbureau.com/people/underdog-devs" target="_blank" rel="noreferrer"> Merchandise </a>
 					</div>

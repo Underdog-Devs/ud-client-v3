@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './QuizQuestion.module.scss';
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 
 interface QuizQuestionProps {
   question: string;
@@ -19,19 +20,26 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
   correctAnswer,
 }) => {
   return (
-    <div className={styles.questionContainer}>
-      <h3>{question}</h3>
-      <ul>
-        {options.map((option, index) => (
-          <li
-            key={index}
-            className={`${styles.option} ${selectedAnswer === index ? styles.selected : ''}`}
-            onClick={() => !showResult && onSelectAnswer(index)}
-          >
-            {option}
-          </li>
-        ))}
-      </ul>
+    <div>
+      <h2 style={{ fontSize: "24px", color: "#000", marginBottom: "24px" }}>{question}</h2>
+      <FormControl>
+        <RadioGroup
+          aria-labelledby="quiz-question"
+          name="radio-buttons-group"
+          sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
+        >
+          {options.map((option, index) => (
+            <div key={index} className={styles.optionContainer}>
+              <Radio
+                checked={selectedAnswer === index}
+                onChange={() => !showResult && onSelectAnswer(index)}
+                value={option}
+              />
+              <p>{option}</p>
+            </div>
+          ))}
+        </RadioGroup>
+      </FormControl>
     </div>
   );
 };

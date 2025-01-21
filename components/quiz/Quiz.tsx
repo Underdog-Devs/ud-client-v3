@@ -1,15 +1,16 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import styles from './Quiz.module.scss';
+import styles from './quiz.module.scss';
 import { QuizQuestion } from './QuizQuestion';
 import { Alert, Link, Snackbar } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { duration, useTheme } from '@mui/material/styles';
+import Confetti from 'react-confetti-boom';
 
 interface QuizProps {
   questions: {
@@ -21,56 +22,8 @@ interface QuizProps {
   is_final: boolean;
 }
 
-export function ProgressMobileStepper() {
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  return (
-    <MobileStepper
-      variant="progress"
-      steps={6}
-      position="static"
-      activeStep={activeStep}
-      sx={{ maxWidth: 400, flexGrow: 1 }}
-      nextButton={
-        <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
-          Next
-          {theme.direction === 'rtl' ? (
-            <KeyboardArrowLeft />
-          ) : (
-            <KeyboardArrowRight />
-          )}
-        </Button>
-      }
-      backButton={
-        <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-          {theme.direction === 'rtl' ? (
-            <KeyboardArrowRight />
-          ) : (
-            <KeyboardArrowLeft />
-          )}
-          Back
-        </Button>
-      }
-    />
-  );
-}
-
-
 export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
-
-  console.debug(is_final);
-
   const theme = useTheme();
-
   const [activeStep, setActiveStep] = useState(0);
   const [currentQuestions, setCurrentQuestions] = useState(questions.slice(0, 5));
   const [userAnswers, setUserAnswers] = useState<number[]>(new Array(5).fill(-1));
@@ -78,11 +31,13 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
   const [score, setScore] = useState(0);
   const [passed, setPassed] = useState(false);
   const [attemptCount, setAttemptCount] = useState(0);
-  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handleNext = () => {
     if (activeStep < currentQuestions.length - 1) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      console.log("activeStep", activeStep);
     } else {
       handleSubmit();
     }
@@ -108,7 +63,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
     setScore(correctAnswers);
 
     const percentage = (correctAnswers / 5) * 100;
-    
+
     if (percentage >= 70) {
       if (is_final) {
         const supabase = createClientComponentClient();
@@ -118,6 +73,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
       }
 
       setPassed(true);
+
       fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/quiz/completed`, {
         method: 'POST',
         headers: {
@@ -125,55 +81,50 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
         },
         body: JSON.stringify({ slug }),
       });
-    } else {
-      // setAttemptCount(prev => prev + 1);
-      
-      
-      // Показать следующие 5 вопросов при неудаче
-      const nextStartIndex = ((attemptCount + 1) * 5) % questions.length;
-      const nextQuestions = questions.slice(nextStartIndex, nextStartIndex + 5);
-      setCurrentQuestions(nextQuestions);
-      setUserAnswers(new Array(5).fill(-1));
-      setActiveStep(0);
-      setShowResults(false);
-
-      setTimeout(() => {
-        setShowSnackbar(true);
-      }, 1000);
+    }
+    else {
+      // setAttemptCount(prev => prev + 1); 
+      setFinished(true);
+      // Show another 5 questions when failed
+      // const nextStartIndex = ((attemptCount + 1) * 5) % questions.length;
+      // const nextQuestions = questions.slice(nextStartIndex, nextStartIndex + 5);
+      // setCurrentQuestions(nextQuestions);
+      // setUserAnswers(new Array(5).fill(-1));
+      // setActiveStep(0);
+      // setShowResults(false);
     }
   };
 
+  useEffect(() => {
+    if (showResults) {
+      setFinished(true);
+    }
+  }, [showResults]);
+
   if (passed) {
-    return <Alert severity="success">Test passed. Go back to <Link href="/member-dashboard/quiz">dashboard</Link></Alert>;
+    return (
+      <>
+        <Alert severity="success">
+          Test passed. Go back to <Link href="/member-dashboard/onboarding">dashboard</Link>
+        </Alert>
+        <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+          <Confetti mode="boom" />
+        </div>
+      </>
+    );
   }
-  else if (showResults) {
+  else if (finished) {
     return <Alert severity="error">Test failed. Try again.</Alert>;
   }
 
   return (
     <div className={styles.quizContainer}>
-      <h2>Test</h2>
-      <Snackbar
-        open={showSnackbar}
-        autoHideDuration={3000}
-        onClose={() => {}}
-        message="Test failed. Trying again."
-        action={<></>}
-      />
-      <QuizQuestion
-        question={currentQuestions[activeStep].question}
-        options={currentQuestions[activeStep].options}
-        selectedAnswer={userAnswers[activeStep]}
-        onSelectAnswer={handleAnswerSelect}
-        showResult={showResults}
-        correctAnswer={currentQuestions[activeStep].correctAnswer}
-      />
       <MobileStepper
-        variant="progress"
+        variant="dots"
         steps={5}
         position="static"
         activeStep={activeStep}
-        sx={{ maxWidth: 400, flexGrow: 1, margin: '0 auto' }}
+        sx={{ flexGrow: 1, margin: "0 auto", marginBottom: "20px", backgroundColor: "transparent" }}
         nextButton={
           <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
             {activeStep === 4 ? 'Finish' : 'Next'}
@@ -185,8 +136,18 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
             <KeyboardArrowLeft />
             Back
           </Button>
+
         }
       />
+      <QuizQuestion
+        question={currentQuestions[activeStep].question}
+        options={currentQuestions[activeStep].options}
+        selectedAnswer={userAnswers[activeStep]}
+        onSelectAnswer={handleAnswerSelect}
+        showResult={showResults}
+        correctAnswer={currentQuestions[activeStep].correctAnswer}
+      />
+
     </div>
   );
 };

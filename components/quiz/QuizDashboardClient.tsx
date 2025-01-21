@@ -3,6 +3,7 @@
 import React from 'react';
 import styles from './dashboard.module.scss';
 import { QuizCard, QuizCardMetadata } from '@/components/quiz/QuizCard';
+import { Box, Typography } from '@mui/material';
 
 interface QuizDashboardClientProps {
   quizzes: QuizCardMetadata[];
@@ -11,13 +12,13 @@ interface QuizDashboardClientProps {
 
 export default function QuizDashboardClient({ quizzes, userEmail }: QuizDashboardClientProps) {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Welcome to dashboard, {userEmail}</h1>
-      <div className={styles.quizContainer}>
+    <Box className={styles.container}>
+      <Typography variant="h2" align="center">Onboarding</Typography>
+      <Box className={styles.quizCardsContainer}>
         {quizzes.map((quiz, index) => (
           <QuizCard {...quiz} key={index}/>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

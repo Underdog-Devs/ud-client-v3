@@ -1,18 +1,29 @@
 @import 'app/styles/globals.scss';
 
 .quizContainer {
+  align-self: left;
   max-width: 800px;
-  margin: $space-xl auto;
-  padding: $space-md;
-  background-color: $lightenedBlue;
+  margin: 0 auto;
+  padding: 20px;
+
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  border-color: #f6931d;
+  border-width: 2px;
+  border-style: solid;
+  width: 100%;
 
   h2 {
     font-family: $primaryHeaderFont;
     font-size: $f3;
     color: $involvedBlue;
-    margin-bottom: $space-lg;
+    text-align: center;
+  }
+
+  p {
+    // TODO: Add font family
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
   }
 }
 

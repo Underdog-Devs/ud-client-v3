@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Quiz } from './Quiz';
 import styles from './quizPage.module.scss';
 import { MarkdownRenderer } from '../member-dashboard/MarkdownRenderer';
@@ -18,7 +18,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({ markdownContent, quizQuestio
   return (
     <div className={styles.quizPageContainer}>
       <MarkdownRenderer content={markdownContent} />
-      <Quiz questions={quizQuestions} slug={slug} is_final={is_final}/>
+      <Quiz questions={quizQuestions} slug={slug} is_final={is_final} />
     </div>
   );
 };

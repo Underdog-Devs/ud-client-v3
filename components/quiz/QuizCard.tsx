@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, CardHeader, Avatar, IconButton, CardActionArea } from '@mui/material';
+import { Link, CardHeader, Avatar, IconButton, CardActionArea, Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -26,8 +26,8 @@ export interface QuizCardUserMetadata {
 
 export const QuizCard: React.FC<QuizCardMetadata & QuizCardUserMetadata> = ({ title, description, alt, slug, linkText, completed, available }) => {
   return (
-    <Card sx={{ display: 'flex', flexDirection: 'column' }} >
-        <CardActionArea href={!available ? '#' : `/member-dashboard/quiz/${slug}`} sx={{height: '100%'}}>
+    <Card sx={{ display: 'flex', flexDirection: 'column', width: '300px' }} >
+        <CardActionArea href={!available ? '#' : `/member-dashboard/onboarding/${slug}`} sx={{height: '100%'}}>
             <CardMedia
                 component="img"
                 alt={alt}
@@ -36,13 +36,13 @@ export const QuizCard: React.FC<QuizCardMetadata & QuizCardUserMetadata> = ({ ti
                 sx={{opacity: 0.7, filter: available ? 'none' : 'grayscale(100%)'}}
             />
             <CardContent>
-                <div style={{display: 'flex', alignItems: 'center'}}>
+                <Box style={{display: 'flex', alignItems: 'center'}}>
                     <CardHeader
                         title={title}
                     subheader={description}
                 />
                 {completed && <CheckIcon/>}
-                </div>
+                </Box>
             </CardContent>
         </CardActionArea>
     </Card>

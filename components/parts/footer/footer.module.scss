@@ -1,4 +1,4 @@
-@import 'app/styles/globals.scss';
+@import '@/app/styles/globals.scss';
 
 .container {
 	background-color: $udDarkGrey;
@@ -6,47 +6,34 @@
 	font-family: $linkFont;
 	display: flex;
 	flex-direction: column;
+	padding: 0;
 
 	@include for-phone-only {
 		height: 500px;
-		padding: 0 $space-xxxs;
-	}
-
-	@include for-tablet-up {
-		padding: 0 $space-xxs;
-	}
-
-	@include for-desktop-up {
-		padding: 0 $space-xl;
 	}
 }
 
 .content {
-	height: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	padding: $space-xxl $space-xl;
 
 	@include for-phone-only {
 		width: 100%;
 		flex-direction: column;
 		justify-content: space-around;
 		align-items: center;
-		padding: 0 0 $space-xl 0;
 	}
 
 	@include for-tablet-up {
 		width: 100%;
 		flex-direction: column-reverse;
 		align-items: center;
-		padding: $space-xxl 0;
 	}
 	@include for-desktop-up {
 		flex-direction: row;
 		align-items: flex-start;
-		padding: $space-xxl 0;
 	}
 }
 

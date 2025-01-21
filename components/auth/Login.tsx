@@ -1,97 +1,96 @@
 'use client'
 import React, { useState } from 'react';
-import styles from './login.module.scss';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Alert } from '@mui/material';
+import { TextField, Button, Alert, Box, Typography } from '@mui/material';
+import styles from './login.module.scss';
 
 export function Login() {
-    const [view, setView] = useState('sign-in')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
-    const router = useRouter()
-    const supabase = createClientComponentClient()
+    const [view, setView] = useState('sign-in');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const router = useRouter();
+    const supabase = createClientComponentClient();
+
     const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const res = await supabase.auth.signInWithPassword({
             email,
             password,
-        })
+        });
 
         if (res.error === null) {
-            router.push('/member-dashboard')
-            router.refresh()
-        }
-        else {
+            router.push('/member-dashboard');
+            router.refresh();
+        } else {
             setTimeout(() => {
-                setError(res.error.message)
+                setError(res.error.message);
             }, 1000);
         }
-    }
+    };
 
     const resetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const { data, error } = await supabase.auth
-            .resetPasswordForEmail(email, {
-                redirectTo: `${window.location.origin}/auth/reset`,
-            })
+        e.preventDefault();
+        const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: `${window.location.origin}/auth/reset`,
+        });
         if (!error) {
-            setView('check-email')
+            setView('check-email');
         }
-    }
+    };
 
     return (
-        <>
-            <div className={styles.container}>
-                {view === 'check-email' ? (
-                    <div className={styles.formContainer}>
-                    <h4 className={styles.title}>Check your email</h4>
-                    <div style={{maxWidth: 400, padding: '0 25px', textAlign: 'center', color: 'white'}}>
-                        <p className="text-center">
-                            We've sent a password reset link to the email address you provided, if it exists in our system.
-                        </p>
-                    </div>
-                    
-                </div>
+        <Box className={styles.container} sx={{ maxWidth: 400, margin: 'auto', padding: '1rem' }}>
+            {view === 'check-email' ? (
+                <Box className={styles.formContainer}>
+                    <Typography variant="h4" className={styles.title}>Check your email</Typography>
+                    <Typography variant="body1" sx={{ textAlign: 'center', color: 'white' }}>
+                        We've sent a password reset link to the email address you provided, if it exists in our system.
+                    </Typography>
+                </Box>
             ) : (
-                <div className={styles.formContainer}>
-                    <h4 className={styles.title}>{view!=='reset'?"Login":"Forgot Password?"}</h4>
-                    {error && <Alert severity="error" sx={{marginBottom: 2}}>{error}</Alert>}
-                    <form className={styles.form} onSubmit={view==='sign-in'?handleSignIn:resetPassword}>
-                        <div className={styles.formField}>
-                            <input
-                                className={styles.formInput}
-                                type="email"
-                                name="email"
-                                id="email"
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                                placeholder="you@example.com"
-                            />
-                            <label className={styles.formLabel} htmlFor="email">Email</label>
-                        </div>
-                        {view!=='reset'&&
-                        <div className={styles.formField}>
-                            <input
-                                className={styles.formInput}
+                <Box className={styles.formContainer}>
+                    <Typography variant="h4" className={styles.title}>
+                        {view !== 'reset' ? "Login" : "Forgot Password?"}
+                    </Typography>
+                    {error && <Alert severity="error" sx={{ marginBottom: 2 }}>{error}</Alert>}
+                    <form className={styles.form} onSubmit={view === 'sign-in' ? handleSignIn : resetPassword}>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            variant="outlined"
+                        />
+                        {view !== 'reset' && (
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="Password"
                                 type="password"
-                                name="password"
-                                id="password"
-                                onChange={(e) => setPassword(e.target.value)}
                                 value={password}
-                                placeholder="••••••••"
+                                onChange={(e) => setPassword(e.target.value)}
+                                variant="outlined"
                             />
-                            <label className={styles.formLabel} htmlFor="password">Password</label>
-                        </div>}
-                        <div className={styles.formActions}>
-                        {view!=='reset'?<span className={`${styles.passwordResetLink} ${styles.formButton}`} onClick={()=>setView('reset')}>Forgot Password?</span>:<span className={`${styles.passwordResetLink} ${styles.formButton}`} onClick={()=>setView('sign-in')}>Sign In</span>}
-                            <button type="submit" className={styles.formButton}>{view!=='reset'?"Submit":"Reset"}</button>
-                        </div>
+                        )}
+                        <Box className={styles.formActions} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Button
+                                onClick={() => setView(view !== 'reset' ? 'reset' : 'sign-in')}
+                                sx={{ textTransform: 'none' }}
+                            >
+                                {view !== 'reset' ? "Forgot Password?" : "Sign In"}
+                            </Button>
+                            <Button type="submit" variant="contained" color="primary">
+                                {view !== 'reset' ? "Submit" : "Reset"}
+                            </Button>
+                        </Box>
                     </form>
-                </div>)}
-        </div>
-        </>
+                </Box>
+            )}
+        </Box>
     );
 }
