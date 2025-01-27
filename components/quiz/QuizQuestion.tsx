@@ -29,13 +29,28 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
           sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
         >
           {options.map((option, index) => (
-            <div key={index} className={styles.optionContainer}>
+            <div 
+              key={index} 
+              className={styles.optionContainer}
+              onClick={() => !showResult && onSelectAnswer(index)}
+              style={{ 
+                cursor: !showResult ? 'pointer' : 'default',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%'
+              }}
+            >
               <Radio
                 checked={selectedAnswer === index}
                 onChange={() => !showResult && onSelectAnswer(index)}
                 value={option}
               />
-              <p>{option}</p>
+              <p style={{ 
+                userSelect: 'none',
+                flexGrow: 1,
+                margin: 0,
+                padding: '8px 0'
+              }}>{option}</p>
             </div>
           ))}
         </RadioGroup>

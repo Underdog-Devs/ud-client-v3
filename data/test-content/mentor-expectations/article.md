@@ -8,7 +8,9 @@ By categorizing our mentors into these specific roles, Underdog Devs ensures tha
 
 All mentors, regardless of their specific role, are expected to provide support and answer questions in the Underdog Devs Slack workspace. This creates a collaborative and supportive community where mentees can seek help beyond their scheduled sessions.
 
-Responsibilities:
+
+##### Responsibilities:
+
 
 * Regularly check and respond to questions in relevant Slack channels.
 * Provide clear, concise, and helpful answers to mentees' queries.
@@ -16,7 +18,9 @@ Responsibilities:
 * Share resources, articles, and tools that may benefit the community.
 * Maintain a positive and encouraging atmosphere in all Slack interactions.
 
-Guidelines for Slack Support:
+
+##### Guidelines for Slack Support:
+
 
 * Be responsive: Aim to answer questions within a reasonable timeframe.
 * Be inclusive: Ensure all mentees feel welcome to ask questions and participate in discussions.

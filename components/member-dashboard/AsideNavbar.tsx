@@ -3,9 +3,12 @@ import { Box } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './AsideNavbar.module.scss';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const AsideNavbar = ({ width }: { width: number }) => {
     const router = useRouter();
+    const supabase = createClientComponentClient();
+
     return (
         <aside className={styles.asideContainer} style={{ width: width }}>
             <Box className={styles.asideLogo}>
@@ -33,7 +36,9 @@ const AsideNavbar = ({ width }: { width: number }) => {
             </Box>
             <Box className={styles.asideLogOut}>
                 <Button fullWidth onClick={() => {
-                    router.push('/logout');
+                    supabase.auth.signOut();
+                    router.push('/');
+                    router.refresh();
                 }}>Log Out</Button>
             </Box>
         </aside>

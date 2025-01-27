@@ -11,6 +11,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { duration, useTheme } from '@mui/material/styles';
 import Confetti from 'react-confetti-boom';
+import { Typography } from '@mui/material';
 
 interface QuizProps {
   questions: {
@@ -114,17 +115,34 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
     );
   }
   else if (finished) {
-    return <Alert severity="error">Test failed. Try again.</Alert>;
+    return (
+      <Alert severity="error" action={
+        <Button color="inherit" size="small" onClick={() => {
+          setFinished(false);
+          setShowResults(false);
+          setActiveStep(0);
+          setUserAnswers(new Array(5).fill(-1));
+          const nextStartIndex = Math.floor(Math.random() * (questions.length - 4));
+          setCurrentQuestions(questions.slice(nextStartIndex, nextStartIndex + 5));
+        }}>
+          Try Again
+        </Button>
+      }>
+        Test failed
+      </Alert>
+    );
   }
 
   return (
-    <div className={styles.quizContainer}>
-      <MobileStepper
-        variant="dots"
-        steps={5}
-        position="static"
-        activeStep={activeStep}
-        sx={{ flexGrow: 1, margin: "0 auto", marginBottom: "20px", backgroundColor: "transparent" }}
+    <div>
+      <Typography variant="h4" sx={{ fontSize: "24px", color: "#000", marginY: "24px", textAlign: "center" }}>Now let's test your knowledge!</Typography>
+      <div className={styles.quizContainer}>
+        <MobileStepper
+          variant="dots"
+          steps={5}
+          position="static"
+          activeStep={activeStep}
+        sx={{ flexGrow: 1, width: "100%", margin: "0 auto", marginBottom: "20px", marginTop: "0px", backgroundColor: "transparent", padding: "0px" }}
         nextButton={
           <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
             {activeStep === 4 ? 'Finish' : 'Next'}
@@ -145,9 +163,9 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
         selectedAnswer={userAnswers[activeStep]}
         onSelectAnswer={handleAnswerSelect}
         showResult={showResults}
-        correctAnswer={currentQuestions[activeStep].correctAnswer}
-      />
-
+          correctAnswer={currentQuestions[activeStep].correctAnswer}
+        />
+      </div>
     </div>
   );
 };
