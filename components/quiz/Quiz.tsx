@@ -38,7 +38,6 @@ export const Quiz: React.FC<QuizProps> = ({ questions, slug, is_final }) => {
   const handleNext = () => {
     if (activeStep < currentQuestions.length - 1) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      console.log("activeStep", activeStep);
     } else {
       handleSubmit();
     }

@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { TextField, Button, Alert, Box, Typography } from '@mui/material';
+import { TextField, Button, Alert, Box, Typography, useTheme, CircularProgress } from '@mui/material';
 import styles from './login.module.scss';
 
 export function Login() {
+    const theme = useTheme();
     const [view, setView] = useState('sign-in');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,15 +46,15 @@ export function Login() {
         <Box className={styles.container} sx={{ maxWidth: 400, margin: 'auto', padding: '1rem' }}>
             {view === 'check-email' ? (
                 <Box className={styles.formContainer}>
-                    <Typography variant="h4" className={styles.title}>Check your email</Typography>
-                    <Typography variant="body1" sx={{ textAlign: 'center', color: 'white' }}>
+                    <Typography variant="h4" className={styles.title} color={theme.palette.primary.main} textAlign="center" fontWeight="bold">Check your email</Typography>
+                    <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
                         We've sent a password reset link to the email address you provided, if it exists in our system.
                     </Typography>
                 </Box>
             ) : (
                 <Box className={styles.formContainer}>
-                    <Typography variant="h4" className={styles.title}>
-                        {view !== 'reset' ? "Login" : "Forgot Password?"}
+                    <Typography variant="h4" className={styles.title} color={theme.palette.primary.main} textAlign="right">
+                        {view !== 'reset' ? "Log In" : "Forgot password?"}
                     </Typography>
                     {error && <Alert severity="error" sx={{ marginBottom: 2 }}>{error}</Alert>}
                     <form className={styles.form} onSubmit={view === 'sign-in' ? handleSignIn : resetPassword}>
@@ -80,9 +81,10 @@ export function Login() {
                         <Box className={styles.formActions} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Button
                                 onClick={() => setView(view !== 'reset' ? 'reset' : 'sign-in')}
-                                sx={{ textTransform: 'none' }}
+                                sx={{ textTransform: 'none', color: 'gray'}}
+                                disableRipple
                             >
-                                {view !== 'reset' ? "Forgot Password?" : "Sign In"}
+                                {view !== 'reset' ? "Forgot password?" : "Back"}
                             </Button>
                             <Button type="submit" variant="contained" color="primary">
                                 {view !== 'reset' ? "Submit" : "Reset"}

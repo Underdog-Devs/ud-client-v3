@@ -2,12 +2,16 @@ import { Button } from '@mui/material';
 import { Box } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import styles from './AsideNavbar.module.scss';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const AsideNavbar = ({ width }: { width: number }) => {
     const router = useRouter();
     const supabase = createClientComponentClient();
+    const pathname = usePathname();
+
+    const isActive = (path: string) => pathname?.includes(path);
 
     return (
         <aside className={styles.asideContainer} style={{ width: width }}>
@@ -24,15 +28,30 @@ const AsideNavbar = ({ width }: { width: number }) => {
                 </Link>
             </Box>
             <Box className={styles.asideNavbar}>
-                <Button className={styles.asideNavbarButton} onClick={() => {
-                    router.push('/member-dashboard/onboarding');
-                }}>Onboarding</Button>
-                <Button className={styles.asideNavbarButton} onClick={() => {
-                    router.push('/member-dashboard/profile');
-                }}>Profile</Button>
-                <Button className={styles.asideNavbarButton} onClick={() => {
-                    router.push('/member-dashboard/docs');
-                }}>Docs</Button>
+                <Button 
+                    className={`${styles.asideNavbarButton} ${isActive('onboarding') ? styles.active : ''}`}
+                    onClick={() => {
+                        router.push('/member-dashboard/onboarding');
+                    }}
+                >
+                    Onboarding
+                </Button>
+                <Button 
+                    className={`${styles.asideNavbarButton} ${isActive('profile') ? styles.active : ''}`}
+                    onClick={() => {
+                        router.push('/member-dashboard/profile');
+                    }}
+                >
+                    Profile
+                </Button>
+                <Button 
+                    className={`${styles.asideNavbarButton} ${isActive('docs') ? styles.active : ''}`}
+                    onClick={() => {
+                        router.push('/member-dashboard/docs');
+                    }}
+                >
+                    Docs
+                </Button>
             </Box>
             <Box className={styles.asideLogOut}>
                 <Button fullWidth onClick={() => {

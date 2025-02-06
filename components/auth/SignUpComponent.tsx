@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
-
+import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography, Box, useTheme } from '@mui/material';
 enum UserRole {
     mentee = 'mentee',
     mentor = 'mentor',
 }
 
 export function SignUpComponent() {
+    const theme = useTheme();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,18 +50,19 @@ export function SignUpComponent() {
                     role: role,
                 },
             },
+            
         });
 
         if (error) {
             setError(error.message);
         } else {
-            router.push('/login');
+            router.push('/signin');
         }
     };
 
     return (
-        <div style={{ maxWidth: 400, margin: '0 auto', padding: '1rem' }}>
-            <h4>Sign Up</h4>
+        <Box sx={{ maxWidth: 400, margin: '0 auto', padding: '1rem' }}>
+            <Typography variant="h4" color={theme.palette.primary.main} textAlign="right">Sign Up</Typography>
             <form onSubmit={handleSubmit}>
                 <TextField
                     fullWidth
@@ -90,12 +91,22 @@ export function SignUpComponent() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     variant="outlined"
                 />
-                <FormControl component="fieldset" margin="normal">
-                    <FormLabel component="legend">I am a...</FormLabel>
+                <FormControl component="fieldset" margin="normal" sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'row', 
+                    alignItems: 'center', 
+                    gap: 2,
+                    flexWrap: 'nowrap'
+                }}>
+                    <Typography variant="body1" sx={{ 
+                        whiteSpace: 'nowrap',
+                        marginBottom: 0
+                    }}>I am a</Typography>
                     <RadioGroup
                         row
                         value={role}
                         onChange={(e) => setRole(e.target.value as UserRole)}
+                        sx={{ margin: 0 }}
                     >
                         <FormControlLabel value={UserRole.mentee} control={<Radio />} label="Mentee" />
                         <FormControlLabel value={UserRole.mentor} control={<Radio />} label="Mentor" />
@@ -127,6 +138,6 @@ export function SignUpComponent() {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </Box>
     );
 }

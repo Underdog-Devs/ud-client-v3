@@ -1,10 +1,8 @@
 @import '@/app/styles/globals.scss';
 
 .container {
-  max-width: 1200px;
-  margin: $space-xl auto;
-  padding: 0 $space-md;
-  color: $textBlack;
+  margin: 0 $space-md;
+  padding: 0;
 }
 
 .title {

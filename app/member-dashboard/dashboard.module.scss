@@ -1,0 +1,104 @@
+@import '../styles/globals.scss';
+
+.dashboardContainer {
+  padding: 3rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.welcomeSection {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, $involvedBlue 0%, darken($involvedBlue, 15%) 100%);
+  border-radius: 12px;
+  color: white;
+
+  h1 {
+    font-family: $primaryHeaderFont;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h5 {
+    font-family: $primaryTextFont;
+    opacity: 0.9;
+  }
+}
+
+.mainGrid {
+  margin-bottom: 3rem;
+}
+
+.card {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+.cardIcon {
+  font-size: 3rem !important;
+  color: $udSecondaryOrange;
+  margin-bottom: 1rem;
+}
+
+.cardButton {
+  margin-top: auto !important;
+  margin-top: 1rem !important;
+  background-color: $udSecondaryOrange !important;
+  
+  &:hover {
+    background-color: darken($udSecondaryOrange, 10%) !important;
+  }
+}
+
+.progressSection {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.progressBar {
+  margin: 0.5rem 0;
+  height: 8px !important;
+  border-radius: 4px;
+
+  & > .MuiLinearProgress-bar {
+    background-color: $udSecondaryOrange;
+  }
+}
+
+.infoSection {
+  background-color: #f5f5f5;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+
+  h4 {
+    color: $involvedBlue;
+    font-family: $primaryHeaderFont;
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-family: $primaryTextFont;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    
+    &:before {
+      content: "•";
+      color: $udSecondaryOrange;
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+} 

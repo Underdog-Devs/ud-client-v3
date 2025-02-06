@@ -1,21 +1,37 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import QuizDashboardClient from '@/components/quiz/QuizDashboardClient';
-import { getQuizzes } from '@/utils/quizUtils';
-import { Box } from '@mui/material';
+import React from 'react';
+import { Container, Typography, Box } from '@mui/material';
+import { SchoolRounded as SchoolIcon } from '@mui/icons-material';
+import { ArticleList } from '@/components/dashboard/ArticleList';
 
-export default async function Quiz() {
-  const supabase = createServerComponentClient({ cookies });
-  const { data: { user } } = await supabase.auth.getUser();
+export default function OnboardingPage() {
+  return (
+    <Container maxWidth="lg">
+      <Box 
+        sx={{ 
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+          mb: 4,
+          mt: 4 
+        }}
+      >
+        <SchoolIcon 
+          sx={{ 
+            fontSize: 40,
+            color: 'primary.main'
+          }} 
+        />
+        <Box>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Welcome to Onboarding
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Start your journey by reading through these essential articles. Each article will help you understand our community better and get you ready to contribute.
+          </Typography>
+        </Box>
+      </Box>
 
-  if (!user) {
-    return redirect('/login');
-  }
-
-  const quizzes = await getQuizzes(user?.user_metadata?.role);
-
-  return <Box sx={{margin: 2}}>
-    <QuizDashboardClient quizzes={quizzes} userEmail={user.email} />
-  </Box>;
+      <ArticleList />
+    </Container>
+  );
 }

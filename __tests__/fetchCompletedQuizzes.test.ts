@@ -38,7 +38,6 @@ async function fetchCompletedQuizzes(): Promise<string[]> {
       const slugs = data.flatMap((item: { quizzes: { slug: string }[] | null }) => 
         Array.isArray(item.quizzes) ? item.quizzes.map(quiz => quiz.slug) : []
       );
-      console.log("Всё ок", slugs);
       return slugs;
     } catch (error) {
       console.error('Error fetching completed quizzes:', error);

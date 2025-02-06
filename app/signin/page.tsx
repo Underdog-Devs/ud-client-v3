@@ -1,5 +1,5 @@
 'use client'
-import { SignUpComponent } from '@/components/auth/SignUpComponent'
+import { Login as LoginComponent } from '@/components/auth/Login'
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/components/theme';
 import Box from '@mui/material/Box';
@@ -31,7 +31,7 @@ export default function Login() {
       }} />
       <ThemeProvider theme={theme}>
         <Box sx={{ position: 'relative', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <SignUpComponent />
+          <LoginComponent />
         </Box>
       </ThemeProvider>
     </Box>

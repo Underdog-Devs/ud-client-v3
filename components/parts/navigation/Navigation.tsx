@@ -87,7 +87,7 @@ function Navigation({}: Props): ReactElement {
               Sign Up
             </Link>
             <div className={styles.verticalRule}></div>
-            <Link href="/login" passHref>
+            <Link href="/signin" passHref>
               Log In
             </Link>
             <div className={styles.verticalRule}></div>
@@ -163,7 +163,7 @@ function Navigation({}: Props): ReactElement {
             <Link href="/signup" passHref onClick={() => setShowLinks(false)}>
               Sign Up
             </Link>
-            <Link href="/login" passHref onClick={() => setShowLinks(false)}>
+            <Link href="/signin" passHref onClick={() => setShowLinks(false)}>
               Log In
             </Link>
             <a

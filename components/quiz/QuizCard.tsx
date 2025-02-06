@@ -1,50 +1,74 @@
+'use client'
+
 import React from 'react';
-import { Link, CardHeader, Avatar, IconButton, CardActionArea, Box } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CheckIcon from '@mui/icons-material/Check';
+import { Card, CardContent, Typography, Box, Chip } from '@mui/material';
+import Link from 'next/link';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import LockIcon from '@mui/icons-material/Lock';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-export interface QuizCardMetadata {
-    order: number;
-    for: string[];
-    title: string;
-    description: string;
-    alt: string;
-    slug: string;
-    linkText: string;
-    content: string;
-    quiz: string;
-    image: string;
-    completed: boolean;
-    available: boolean;
+export interface DocCardMetadata {
+  slug: string;
+  title: string;
+  description: string;
+  available?: boolean;
+  completed?: boolean;
 }
 
-export interface QuizCardUserMetadata {
-    available: boolean;
-}
-
-export const QuizCard: React.FC<QuizCardMetadata & QuizCardUserMetadata> = ({ title, description, alt, slug, linkText, completed, available }) => {
+export function DocCard({ slug, title, description, available = true, completed = false }: DocCardMetadata) {
   return (
-    <Card sx={{ display: 'flex', flexDirection: 'column', width: '300px' }} >
-        <CardActionArea href={!available ? '#' : `/member-dashboard/onboarding/${slug}`} sx={{height: '100%'}}>
-            <CardMedia
-                component="img"
-                alt={alt}
-                height="140"
-                image={"/images/meeting.jpg"}
-                sx={{opacity: 0.7, filter: available ? 'none' : 'grayscale(100%)'}}
-            />
-            <CardContent>
-                <Box style={{display: 'flex', alignItems: 'center'}}>
-                    <CardHeader
-                        title={title}
-                    subheader={description}
+    <Link 
+      href={available ? `/member-dashboard/onboarding/${slug}` : '#'} 
+      style={{ textDecoration: 'none' }}
+    >
+      <Card 
+        sx={{ 
+          transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+          opacity: available ? 1 : 0.7,
+          '&:hover': available ? {
+            transform: 'translateY(-4px)',
+            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
+          } : {},
+          cursor: available ? 'pointer' : 'not-allowed',
+        }}
+      >
+        <CardContent>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+            <Typography variant="h6" component="div" color="text.primary">
+              {title}
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+              {completed ? (
+                <Chip 
+                  icon={<CheckCircleIcon />} 
+                  label="Completed" 
+                  color="success" 
+                  size="small"
                 />
-                {completed && <CheckIcon/>}
-                </Box>
-            </CardContent>
-        </CardActionArea>
-    </Card>
+              ) : !available ? (
+                <Chip 
+                  icon={<LockIcon />} 
+                  label="Locked" 
+                  color="default" 
+                  size="small"
+                />
+              ) : (
+                <Chip 
+                  icon={<ArrowForwardIcon />} 
+                  label="Start Reading" 
+                  color="primary" 
+                  size="small"
+                />
+              )}
+            </Box>
+          </Box>
+          {description && (
+            <Typography variant="body2" color="text.secondary">
+              {description}
+            </Typography>
+          )}
+        </CardContent>
+      </Card>
+    </Link>
   );
-};
+}

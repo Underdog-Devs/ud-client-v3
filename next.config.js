@@ -2,6 +2,9 @@
 const path = require('path');
 
 const nextConfig = {
+  compiler:{
+    removeConsole: false,
+  },
   images: {
     remotePatterns: [
       {
