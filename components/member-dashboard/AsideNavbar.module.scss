@@ -33,7 +33,7 @@
     width: 100%;
     margin-bottom: 1rem;
     text-align: left;
-    max-height: calc(100vh - 250px); // Account for logo and logout button
+    max-height: calc(100% - 250px); // Account for logo and logout button
     overflow-y: auto;
     scrollbar-width: thin;
     &::-webkit-scrollbar {
@@ -52,6 +52,7 @@
     margin-bottom: 1rem;
     text-align: left;
     width: 100%;
+    color: $udOrange;
     
     &.active {
         font-weight: bold;

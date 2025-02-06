@@ -1,5 +1,9 @@
 @import '../styles/globals.scss';
 
+body {
+	background-color: $udGrey;
+}
+
 .testimonialsBanner {
 	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),url('/images/testimonial-background.jpg');
 	background-attachment: fixed;

@@ -20,9 +20,9 @@ export async function POST() {
 
     // Generate invite link
     const result = await slackClient.admin.users.invite({
-      email: user.email,
-      channel_ids: [process.env.SLACK_CHANNEL_ID],
-      team_id: process.env.SLACK_TEAM_ID,
+      email: user.email || '',
+      channel_ids: [process.env.SLACK_CHANNEL_ID || ''],
+      team_id: process.env.SLACK_TEAM_ID || '',
     });
 
     if (result.ok) {

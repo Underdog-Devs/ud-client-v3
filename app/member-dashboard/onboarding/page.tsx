@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Typography, Box } from '@mui/material';
 import { SchoolRounded as SchoolIcon } from '@mui/icons-material';
 import { ArticleList } from '@/components/dashboard/ArticleList';
+import theme from '@/components/theme';
 
 export default function OnboardingPage() {
   return (
@@ -18,7 +19,7 @@ export default function OnboardingPage() {
         <SchoolIcon 
           sx={{ 
             fontSize: 40,
-            color: 'primary.main'
+            color: theme.palette.primary.main
           }} 
         />
         <Box>

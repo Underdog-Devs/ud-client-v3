@@ -1,9 +1,0 @@
-{
-    "order": 3,
-    "for": ["mentee"],
-    "title": "Mentee levels",
-    "description": "Mentee levels Quiz",
-    "alt": "Mentee levels",
-    "slug": "mentee-levels",
-    "linkText": "Learn"
-}

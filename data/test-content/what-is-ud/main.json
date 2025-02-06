@@ -1,9 +1,0 @@
-{
-    "order": 1,
-    "for": ["mentee", "mentor"],
-    "title": "UD Mission Doc",
-    "description": "Learn about Underdog Devs and how you can get involved.",
-    "alt": "What is UD",
-    "slug": "what-is-ud",
-    "linkText": "Learn"
-}

@@ -15,6 +15,7 @@ interface ArticleWithProgress extends Article {
 }
 
 export function ArticleList() {
+  const isDevelopment = process.env.NODE_ENV === 'development';
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState<ArticleWithProgress[]>([]);
   const [showDebug, setShowDebug] = useState(false);
@@ -265,7 +266,7 @@ export function ArticleList() {
       )}
 
       {/* Debug Section */}
-      <Box sx={{ mt: 4 }}>
+      {isDevelopment && <Box sx={{ mt: 4 }}>
         <Button
           startIcon={<BugReportIcon />}
           onClick={() => setShowDebug(!showDebug)}
@@ -304,8 +305,8 @@ export function ArticleList() {
               This will reset all your reading progress. Use with caution!
             </Typography>
           </Paper>
-        </Collapse>
-      </Box>
+          </Collapse>
+        </Box>}
 
       <Snackbar 
         open={notification.open} 

@@ -38,7 +38,7 @@ export interface StrapiResponse<T> {
 }
 
 export interface DocCard {
-  id: number;
+  id: string;
   slug: string;
   title: string;
   description: string;
@@ -56,18 +56,12 @@ export interface Article {
 class StrapiService {
   async getArticle(slug: string): Promise<Article> {
     try {
-      const response = await strapiAPI.get<Article>(
+      const response = await strapiAPI.get<{ data: Article[] }>(
         `/api/articles?filters[slug][$eq]=${slug}&populate=*`
       );
 
       const articleData: Article = response.data.data[0];
-      return {
-        title: articleData.title,
-        description: articleData.description,
-        text: articleData.text,
-        slug: articleData.slug,
-        id: articleData.id,
-      };
+      return articleData;
     } catch (error) {
       console.error("Error fetching quiz content:", error);
       throw error;
@@ -80,7 +74,8 @@ class StrapiService {
         "/api/article-list?populate[articles][fields]=title,description,slug,roles"
       );
 
-      let data = response.data.data.articles.map((article) => ({
+      const data = response.data.data.articles.map((article) => ({
+        id: article.id.toString(),
         slug: article.slug.toString(),
         title: article.title.toString(),
         description: article.description.toString(),
