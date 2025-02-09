@@ -64,16 +64,13 @@ class ProgressService {
 
     const progressMap = new Map(progress?.map(p => [p.article_id, p]));
 
-    return filteredArticles.map((article, index) => {
-      const articleProgress = progressMap.get(article.id);
-      console.log('articleProgress', articleProgress);
-      return {
-        ...article,
-        is_completed: articleProgress?.completed,
-        is_available: index === 0 || 
-          progressMap.get(filteredArticles[index - 1]?.id)?.completed || false
-      };
-    });
+    return filteredArticles.map((article, index) => ({
+      ...article,
+      roles: Array.isArray(article.roles) ? article.roles : [article.roles],
+      is_completed: !!progressMap.get(article.id)?.completed,
+      is_available: index === 0 || 
+        !!progressMap.get(filteredArticles[index - 1]?.id)?.completed
+    }));
   }
 
   async markArticleAsCompleted(articleSlug: string, userId: string): Promise<void> {
