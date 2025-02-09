@@ -14,8 +14,7 @@ export default function OnboardingPage() {
           gap: 2,
           mb: 4,
           mt: 4 
-        }}
-      >
+        }}>
         <SchoolIcon 
           sx={{ 
             fontSize: 40,

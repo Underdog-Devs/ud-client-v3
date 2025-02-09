@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "./navigation.module.scss";
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Button, ButtonGroup } from "@mui/material";
+import theme from '@/components/theme';
 
 const supabase = createClientComponentClient();
 
@@ -67,9 +68,9 @@ function Navigation({}: Props): ReactElement {
         </a>
         <nav className={styles.navigation}>
           <div className={styles.navigationLinks}>
-            <ButtonGroup size="small" aria-label="navigation links" color="primary.main" sx={{ gap: 1}}>
+            <ButtonGroup size="small" aria-label="navigation links" sx={{ gap: 1 }}>
               <Link href="/project-underdog" passHref>
-                <Button variant="text">
+                <Button variant="text" style={{ color: theme.palette.primary.main }}>
                   Project Underdog
               </Button>
             </Link>
@@ -82,7 +83,7 @@ function Navigation({}: Props): ReactElement {
 							<p className={styles.getInvolvedButton}>Testimonials</p>
 						</Link> */}
             <Link href="/donate" passHref>
-              <Button variant="text">
+              <Button variant="text" style={{ color: theme.palette.primary.main }}>
                 Donate
               </Button>
             </Link>
@@ -92,26 +93,34 @@ function Navigation({}: Props): ReactElement {
               rel="noreferrer"
             >
               {" "}
-              <Button variant="text">
+              <Button variant="text" style={{ color: theme.palette.primary.main }}>
                 Merchandise
               </Button>
             </a>
             {loggedIn ? ( 
               inDashboard ? (
                 <Link href="/" passHref>
-                  <Button variant="text" onClick={() => signOut()}>
+                  <Button variant="text" onClick={() => signOut()}
+                    sx={{
+                      color: theme.palette.primary.main,
+                    }}
+                  >
                     Log Out
                   </Button>
                 </Link>
               ) : (
                 <>
                 <Link href="/member-dashboard" passHref>
-                  <Button variant="outlined">
+                  <Button variant="outlined" style={{ color: theme.palette.primary.main }}>
                     Dashboard
                   </Button>
                 </Link>
                 <Link href="/" passHref>
-                <Button variant="text" onClick={() => signOut()}>
+                <Button variant="text" onClick={() => signOut()}
+                  sx={{
+                    color: theme.palette.primary.main,
+                  }}
+                >
                   Log Out
                   </Button>
                 </Link>
@@ -120,12 +129,12 @@ function Navigation({}: Props): ReactElement {
             ) : (
               <>
                 <Link href="/signup" passHref>
-                  <Button variant="outlined">
+                  <Button variant="outlined" style={{ color: theme.palette.primary.main, borderColor: theme.palette.primary.main }}>
                     Become a Member
                   </Button>
                 </Link>
                 <Link href="/signin" passHref>
-                  <Button variant="text">
+                  <Button variant="text" style={{ color: theme.palette.primary.main }}>
                     Log In
                   </Button>
                 </Link>

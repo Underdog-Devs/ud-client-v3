@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Box, Paper, Typography, Breadcrumbs, Link as MuiLink, Snackbar, Alert, Button } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
 import { Home as HomeIcon, ChevronRight as ChevronRightIcon, CheckCircle as CheckCircleIcon } from '@mui/icons-material';
 import styles from './styles.module.scss';
@@ -139,6 +139,7 @@ export function ArticleContent({ title, content, slug }: ArticleContentProps) {
   };
 
   return (
+    <ThemeProvider theme={theme}>
     <div className={styles.container}>
       <Breadcrumbs 
         separator={<ChevronRightIcon fontSize="small" />}
@@ -152,8 +153,7 @@ export function ArticleContent({ title, content, slug }: ArticleContentProps) {
             display: 'flex',
             alignItems: 'center',
           }
-        }}
-      >
+        }}>
         <Link href="/member-dashboard" passHref legacyBehavior>
           <MuiLink
             sx={{
@@ -236,10 +236,6 @@ export function ArticleContent({ title, content, slug }: ArticleContentProps) {
             disabled={isCompleted || loading || !articleId}
             onClick={markAsCompleted}
             startIcon={isCompleted ? <CheckCircleIcon /> : null}
-            sx={{
-              minWidth: 200,
-              py: 1.5
-            }}
           >
             {isCompleted ? 'Completed' : 'Mark as Completed'}
           </Button>
@@ -262,5 +258,6 @@ export function ArticleContent({ title, content, slug }: ArticleContentProps) {
         </Alert>
       </Snackbar>
     </div>
+    </ThemeProvider>
   );
 } 

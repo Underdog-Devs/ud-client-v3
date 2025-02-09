@@ -18,34 +18,16 @@ export function ArticleCard({ slug, title, description, available, completed }: 
   const getStatusChip = () => {
     if (completed) {
       return (
-        <Chip
-          icon={<CheckCircleIcon />}
-          label="Completed"
-          color="success"
-          variant="filled"
-          size="small"
-        />
+        <CheckCircleIcon />
       );
     }
     if (!available) {
       return (
-        <Chip
-          icon={<LockIcon />}
-          label="Locked"
-          color="default"
-          variant="outlined"
-          size="small"
-        />
+        <LockIcon />
       );
     }
     return (
-      <Chip
-        icon={<ArrowForwardIcon />}
-        label="Start Reading"
-        color="primary"
-        variant="outlined"
-        size="small"
-      />
+      <ArrowForwardIcon />
     );
   };
 

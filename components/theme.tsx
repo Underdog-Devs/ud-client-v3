@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 // Определяем основные цвета
 const colors = {
-  involvedBlue: '#1976d2', // Замените на ваш реальный цвет
+  udOrange: '#f05138',
   udSecondaryOrange: '#f6931d',
   white: '#ffffff',
   black: '#000000',
@@ -81,11 +81,12 @@ const theme = createTheme({
       light: `${colors.udSecondaryOrange}dd`,
       dark: `${colors.udSecondaryOrange}bb`,
       contrastText: colors.white,
+      
     },
     secondary: {
-      main: colors.involvedBlue,
-      light: `${colors.involvedBlue}dd`,
-      dark: `${colors.involvedBlue}bb`,
+      main: colors.udOrange,
+      light: `${colors.udOrange}dd`,
+      dark: `${colors.udOrange}bb`,
       contrastText: colors.white,
     },
     text: {

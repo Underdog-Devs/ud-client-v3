@@ -55,18 +55,6 @@ const AsideNavbar = ({ width }: { width: number }) => {
                 </Button>
                 </ButtonGroup>
             </Box>
-            <Box className={styles.asideLogOut}>
-                <Button 
-                    fullWidth 
-                    onClick={() => {
-                        supabase.auth.signOut();
-                        window.location.href = '/';
-                    }}
-                    variant="text"
-                >
-                    Log Out
-                </Button>
-            </Box>
         </aside>
     );
 };
