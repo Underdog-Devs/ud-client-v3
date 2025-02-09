@@ -4,15 +4,26 @@ import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import styles from "./navigation.module.scss";
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Button, ButtonGroup } from "@mui/material";
+
+const supabase = createClientComponentClient();
 
 interface Props {}
 
 function Navigation({}: Props): ReactElement {
+  const [inDashboard, setInDashboard] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const linksContainerRef = useRef<HTMLElement | null>(null);
-  const isDevelopment = process.env.NEXT_PUBLIC_ENV === "development";
+
   const toggleLinks = () => {
     setShowLinks(!showLinks);
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/';
   };
 
   useEffect(() => {
@@ -25,10 +36,26 @@ function Navigation({}: Props): ReactElement {
     }
   }, [showLinks]);
 
+  useEffect(() => {
+    const checkInDashboard = () => {
+      setInDashboard(window.location.pathname.startsWith('/member-dashboard'));
+    };
+    checkInDashboard();
+  }, []);
+
+  useEffect(() => {
+    const checkUserLoggedIn = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setLoggedIn(!!session);
+    };
+
+    checkUserLoggedIn();
+  }, []);
+
   return (
     <div className={styles.container}>
-      <div className={styles.desktopNav}>
-        <Link href="/" passHref>
+      <div className={styles.desktopNav} style={{ maxWidth: !inDashboard ? '67vw' : '96vw' }}>
+        <a href="/">
           <Image
             onClick={() => setShowLinks(false)}
             className={styles.image}
@@ -37,40 +64,16 @@ function Navigation({}: Props): ReactElement {
             width={165}
             alt="Underdog devs"
           />
-        </Link>
+        </a>
         <nav className={styles.navigation}>
           <div className={styles.navigationLinks}>
-            {isDevelopment && (
-              <>
-                <Link
-                  href={"/member-dashboard"}
-                  onClick={() => setShowLinks(false)}
-                  passHref
-            >
-              Dashboard
-              </Link>
-              <div className={styles.verticalRule}></div>
-            </>
-          )}
-          <a
-            href="https://forms.gle/YdE9SBfJGXc3XW928"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Become a Mentee
-            </a>
-            <div className={styles.verticalRule}></div>
-            <a
-              href="https://forms.gle/qsusfwyTA8H2vj6z5"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Become a Mentor
-            </a>
-            <div className={styles.verticalRule}></div>
-            <Link href="/project-underdog" passHref>
-              Project Underdog
+            <ButtonGroup size="small" aria-label="navigation links" color="primary.main" sx={{ gap: 1}}>
+              <Link href="/project-underdog" passHref>
+                <Button variant="text">
+                  Project Underdog
+              </Button>
             </Link>
+            
             {/* Commented out until we have at least one blog post */}
             {/* <div className={styles.verticalRule}></div>
             <Link href="/blog">Blog</Link> */}
@@ -78,27 +81,57 @@ function Navigation({}: Props): ReactElement {
             {/* <Link href="/testimonials" passHref>
 							<p className={styles.getInvolvedButton}>Testimonials</p>
 						</Link> */}
-            <div className={styles.verticalRule}></div>
             <Link href="/donate" passHref>
-              Donate
+              <Button variant="text">
+                Donate
+              </Button>
             </Link>
-            <div className={styles.verticalRule}></div>
-            <Link href="/signup" passHref>
-              Sign Up
-            </Link>
-            <div className={styles.verticalRule}></div>
-            <Link href="/signin" passHref>
-              Log In
-            </Link>
-            <div className={styles.verticalRule}></div>
             <a
               href="https://cottonbureau.com/people/underdog-devs"
               target="_blank"
               rel="noreferrer"
             >
               {" "}
-              Merchandise{" "}
+              <Button variant="text">
+                Merchandise
+              </Button>
             </a>
+            {loggedIn ? ( 
+              inDashboard ? (
+                <Link href="/" passHref>
+                  <Button variant="text" onClick={() => signOut()}>
+                    Log Out
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                <Link href="/member-dashboard" passHref>
+                  <Button variant="outlined">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Link href="/" passHref>
+                <Button variant="text" onClick={() => signOut()}>
+                  Log Out
+                  </Button>
+                </Link>
+                </>
+              )
+            ) : (
+              <>
+                <Link href="/signup" passHref>
+                  <Button variant="outlined">
+                    Become a Member
+                  </Button>
+                </Link>
+                <Link href="/signin" passHref>
+                  <Button variant="text">
+                    Log In
+                  </Button>
+                </Link>
+              </>
+            )}
+            </ButtonGroup>
           </div>
         </nav>
       </div>
@@ -124,22 +157,6 @@ function Navigation({}: Props): ReactElement {
         </div>
         <nav className={styles.mobileNavigation} ref={linksContainerRef}>
           <div className={styles.mobileNavContainer}>
-            <a
-              onClick={() => setShowLinks(false)}
-              href="https://forms.gle/YdE9SBfJGXc3XW928"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Become a Mentee
-            </a>
-            <a
-              onClick={() => setShowLinks(false)}
-              href="https://forms.gle/qsusfwyTA8H2vj6z5"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Become a Mentor
-            </a>
             <Link
               href="/project-underdog"
               onClick={() => setShowLinks(false)}
@@ -147,33 +164,72 @@ function Navigation({}: Props): ReactElement {
             >
               Project Underdog
             </Link>
-            <Link href={"/blog"} passHref onClick={() => setShowLinks(false)}>
-              Blog
-            </Link>
-            {/* commented out until we have testimonial data to display */}
-            {/* <Link
-						href="/testimonials"
-						passHref
-					>
-						<p onClick={() => setShowLinks(false)}>Testimonials</p>
-					</Link> */}
-            <Link href="/donate" passHref onClick={() => setShowLinks(false)}>
+            <Link 
+              href="/donate" 
+              onClick={() => setShowLinks(false)}
+              passHref
+            >
               Donate
-            </Link>
-            <Link href="/signup" passHref onClick={() => setShowLinks(false)}>
-              Sign Up
-            </Link>
-            <Link href="/signin" passHref onClick={() => setShowLinks(false)}>
-              Log In
             </Link>
             <a
               href="https://cottonbureau.com/people/underdog-devs"
               target="_blank"
               rel="noreferrer"
+              onClick={() => setShowLinks(false)}
             >
-              {" "}
               Merchandise
             </a>
+            {loggedIn ? (
+              inDashboard ? (
+                <Link 
+                  href="/" 
+                  passHref 
+                  onClick={() => {
+                    setShowLinks(false);
+                    signOut();
+                  }}
+                >
+                  Log Out
+                </Link>
+              ) : (
+                <>
+                  <Link 
+                    href="/member-dashboard" 
+                    passHref 
+                    onClick={() => setShowLinks(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link 
+                    href="/" 
+                    passHref 
+                    onClick={() => {
+                      setShowLinks(false);
+                      signOut();
+                    }}
+                  >
+                    Log Out
+                  </Link>
+                </>
+              )
+            ) : (
+              <>
+                <Link 
+                  href="/signup" 
+                  passHref 
+                  onClick={() => setShowLinks(false)}
+                >
+                  Become a Member
+                </Link>
+                <Link 
+                  href="/signin" 
+                  passHref 
+                  onClick={() => setShowLinks(false)}
+                >
+                  Log In
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </div>

@@ -23,8 +23,7 @@ export function Login() {
         });
 
         if (res.error === null) {
-            router.push('/member-dashboard');
-            router.refresh();
+            window.location.href = '/';
         } else {
             setTimeout(() => {
                 setError(res.error.message);
@@ -56,7 +55,6 @@ export function Login() {
                     <Typography variant="h4" className={styles.title} color={theme.palette.primary.main} textAlign="right">
                         {view !== 'reset' ? "Log In" : "Forgot password?"}
                     </Typography>
-                    {error && <Alert severity="error" sx={{ marginBottom: 2 }}>{error}</Alert>}
                     <form className={styles.form} onSubmit={view === 'sign-in' ? handleSignIn : resetPassword}>
                         <TextField
                             fullWidth
@@ -78,7 +76,7 @@ export function Login() {
                                 variant="outlined"
                             />
                         )}
-                        <Box className={styles.formActions} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box className={styles.formActions} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 1 }}>
                             <Button
                                 onClick={() => setView(view !== 'reset' ? 'reset' : 'sign-in')}
                                 sx={{ textTransform: 'none', color: 'gray'}}
@@ -91,6 +89,7 @@ export function Login() {
                             </Button>
                         </Box>
                     </form>
+                    {error && <Alert severity="error" sx={{ marginTop: 2 }}>{error}</Alert>}
                 </Box>
             )}
         </Box>

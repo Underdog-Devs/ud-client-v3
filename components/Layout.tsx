@@ -15,9 +15,12 @@ const Layout = ({ children }: Props) => {
 
 	if (isDashboard) {
 		return (
-			<DashboardLayout>
-				{children}
-			</DashboardLayout>
+			<>
+				<Navigation />
+				<DashboardLayout>
+					{children}
+				</DashboardLayout>
+			</>
 		);
 	}
 

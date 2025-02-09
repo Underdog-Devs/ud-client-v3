@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography, Box, useTheme } from '@mui/material';
+import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography, Box, useTheme, Alert } from '@mui/material';
 enum UserRole {
     mentee = 'mentee',
     mentor = 'mentor',
@@ -62,7 +62,7 @@ export function SignUpComponent() {
 
     return (
         <Box sx={{ maxWidth: 400, margin: '0 auto', padding: '1rem' }}>
-            <Typography variant="h4" color={theme.palette.primary.main} textAlign="right">Sign Up</Typography>
+            <Typography variant="h4" color={theme.palette.primary.main} textAlign="right">Create Account</Typography>
             <form onSubmit={handleSubmit}>
                 <TextField
                     fullWidth
@@ -96,7 +96,8 @@ export function SignUpComponent() {
                     flexDirection: 'row', 
                     alignItems: 'center', 
                     gap: 2,
-                    flexWrap: 'nowrap'
+                    flexWrap: 'nowrap',
+                    marginTop: 1,
                 }}>
                     <Typography variant="body1" sx={{ 
                         whiteSpace: 'nowrap',
@@ -113,9 +114,13 @@ export function SignUpComponent() {
                     </RadioGroup>
                 </FormControl>
                 <Button type="submit" variant="contained" color="primary" fullWidth>
-                    Sign Up
+                    Create Account
                 </Button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && (
+                    <Alert severity="error" sx={{ mt: 2 }}>
+                        {error}
+                    </Alert>
+                )}
             </form>
             <Dialog
                 open={showConfirmation}
@@ -128,7 +133,7 @@ export function SignUpComponent() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to sign up as a {role}?
+                        Are you sure you want to create an account as a <u>{role}</u>?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

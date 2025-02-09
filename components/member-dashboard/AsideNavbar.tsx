@@ -1,6 +1,5 @@
-import { Button } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 import { Box } from '@mui/material';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import styles from './AsideNavbar.module.scss';
@@ -15,24 +14,24 @@ const AsideNavbar = ({ width }: { width: number }) => {
 
     return (
         <aside className={styles.asideContainer} style={{ width: width }}>
-            <Box className={styles.asideLogo}>
-                <Link href="/member-dashboard">
-                    <img
-                        src="/images/icon-02.png"
-                        alt="Underdog Devs Logo"
-                        style={{
-                            width: '100px',
-                            height: 'auto'
-                        }}
-                    />
-                </Link>
-            </Box>
             <Box className={styles.asideNavbar}>
+                <ButtonGroup orientation="vertical" aria-label="navigation links" sx={{ gap: 1}}>
+                <Button 
+                    className={`${styles.asideNavbarButton} ${isActive('main') ? styles.active : ''}`}
+                    onClick={() => {
+                        router.push('/member-dashboard');
+                    }}
+                    variant="text"
+                >
+                    Dashboard
+                </Button>
+                
                 <Button 
                     className={`${styles.asideNavbarButton} ${isActive('onboarding') ? styles.active : ''}`}
                     onClick={() => {
                         router.push('/member-dashboard/onboarding');
                     }}
+                    variant="text"
                 >
                     Onboarding
                 </Button>
@@ -41,6 +40,7 @@ const AsideNavbar = ({ width }: { width: number }) => {
                     onClick={() => {
                         router.push('/member-dashboard/profile');
                     }}
+                    variant="text"
                 >
                     Profile
                 </Button>
@@ -49,16 +49,23 @@ const AsideNavbar = ({ width }: { width: number }) => {
                     onClick={() => {
                         router.push('/member-dashboard/docs');
                     }}
-                >
+                    variant="text"
+                    >
                     Docs
                 </Button>
+                </ButtonGroup>
             </Box>
             <Box className={styles.asideLogOut}>
-                <Button fullWidth onClick={() => {
-                    supabase.auth.signOut();
-                    router.push('/');
-                    router.refresh();
-                }}>Log Out</Button>
+                <Button 
+                    fullWidth 
+                    onClick={() => {
+                        supabase.auth.signOut();
+                        window.location.href = '/';
+                    }}
+                    variant="text"
+                >
+                    Log Out
+                </Button>
             </Box>
         </aside>
     );

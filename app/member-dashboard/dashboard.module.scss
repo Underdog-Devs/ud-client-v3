@@ -10,9 +10,8 @@
   text-align: center;
   margin-bottom: 3rem;
   padding: 2rem;
-  background: linear-gradient(135deg, $involvedBlue 0%, darken($involvedBlue, 15%) 100%);
   border-radius: 12px;
-  color: white;
+  color: $udBlack;
 
   h1 {
     font-family: $primaryHeaderFont;
@@ -31,14 +30,15 @@
 }
 
 .card {
-  padding: 2rem;
+  padding: 1rem 2rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
+  border: 1px solid $udOrange;
+  border-radius: 12px;
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
@@ -75,30 +75,3 @@
     background-color: $udSecondaryOrange;
   }
 }
-
-.infoSection {
-  background-color: #f5f5f5;
-  padding: 2rem;
-  border-radius: 12px;
-  margin-top: 2rem;
-
-  h4 {
-    color: $involvedBlue;
-    font-family: $primaryHeaderFont;
-    margin-bottom: 1.5rem;
-  }
-
-  p {
-    font-family: $primaryTextFont;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    
-    &:before {
-      content: "•";
-      color: $udSecondaryOrange;
-      font-size: 1.5rem;
-      margin-right: 0.5rem;
-    }
-  }
-} 
