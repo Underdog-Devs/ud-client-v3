@@ -1,10 +1,12 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { getAllArticles, ArticleWithRoles } from './articles';
 
 export interface Article {
   id: string;
   slug: string;
   title: string;
-  order_index: number;
+  roles: string[];
+  description?: string;
 }
 
 export interface ArticleProgress {
@@ -40,15 +42,16 @@ class ProgressService {
   }
 
   async getAllArticlesWithProgress(): Promise<ArticleWithProgress[]> {
-    const { data: articles, error: articlesError } = await this.supabase
-      .from('articles')
-      .select('*')
-      .order('order_index');
-
-    if (articlesError) {
-      console.error('Error fetching articles:', articlesError);
-      throw articlesError;
+    const { data: { user }, error: userError } = await this.supabase.auth.getUser();
+    if (userError || !user) {
+      throw userError || new Error('User not found');
     }
+
+    const userRole = user.user_metadata.role;
+    const strapiArticles = await getAllArticles();
+    const filteredArticles = strapiArticles.filter(item => 
+      item.roles.includes("all") || item.roles.includes(userRole)
+    );
 
     const { data: progress, error: progressError } = await this.supabase
       .from('user_article_progress')
@@ -61,13 +64,14 @@ class ProgressService {
 
     const progressMap = new Map(progress?.map(p => [p.article_id, p]));
 
-    return articles.map(article => {
+    return filteredArticles.map((article, index) => {
       const articleProgress = progressMap.get(article.id);
+      console.log('articleProgress', articleProgress);
       return {
         ...article,
-        is_completed: articleProgress?.completed || false,
-        is_available: article.order_index === 1 || 
-          progressMap.get(articles.find(a => a.order_index === article.order_index - 1)?.id)?.completed || false
+        is_completed: articleProgress?.completed,
+        is_available: index === 0 || 
+          progressMap.get(filteredArticles[index - 1]?.id)?.completed || false
       };
     });
   }

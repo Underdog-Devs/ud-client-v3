@@ -111,7 +111,7 @@ function Navigation({}: Props): ReactElement {
               ) : (
                 <>
                 <Link href="/member-dashboard" passHref>
-                  <Button variant="outlined" style={{ color: theme.palette.primary.main }}>
+                  <Button variant="outlined" style={{ color: theme.palette.primary.main, borderColor: "#f29f00" }}>
                     Dashboard
                   </Button>
                 </Link>
@@ -129,7 +129,7 @@ function Navigation({}: Props): ReactElement {
             ) : (
               <>
                 <Link href="/signup" passHref>
-                  <Button variant="outlined" style={{ color: theme.palette.primary.main, borderColor: theme.palette.primary.main }}>
+                  <Button variant="outlined" style={{ color: theme.palette.primary.main, borderColor: "#f29f00" }}>
                     Become a Member
                   </Button>
                 </Link>

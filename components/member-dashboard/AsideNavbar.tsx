@@ -1,21 +1,37 @@
-import { Button, ButtonGroup } from '@mui/material';
+import { Button, ButtonGroup, Typography } from '@mui/material';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import styles from './AsideNavbar.module.scss';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useEffect, useState } from 'react';
+
+async function getUserEmail() {
+    const supabase = createClientComponentClient();
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    return user?.email;
+}
 
 const AsideNavbar = ({ width }: { width: number }) => {
     const router = useRouter();
-    const supabase = createClientComponentClient();
     const pathname = usePathname();
+
+    const [userEmail, setUserEmail] = useState('');
+
+    useEffect(() => {
+        getUserEmail().then((email) => {
+            setUserEmail(email || '');
+        });
+    }, []);
 
     const isActive = (path: string) => pathname?.includes(path);
 
     return (
         <aside className={styles.asideContainer} style={{ width: width }}>
             <Box className={styles.asideNavbar}>
-                <ButtonGroup orientation="vertical" aria-label="navigation links" sx={{ gap: 1}}>
+                <ButtonGroup orientation="vertical" aria-label="navigation links" sx={{ gap: 1, height: '100%'}}>
                 <Button 
                     className={`${styles.asideNavbarButton} ${isActive('main') ? styles.active : ''}`}
                     onClick={() => {
@@ -55,6 +71,13 @@ const AsideNavbar = ({ width }: { width: number }) => {
                 </Button>
                 </ButtonGroup>
             </Box>
+            <Typography 
+                variant="body2" 
+                color="text.secondary"
+                className={styles.userEmail}
+            >
+                {userEmail}
+            </Typography>
         </aside>
     );
 };

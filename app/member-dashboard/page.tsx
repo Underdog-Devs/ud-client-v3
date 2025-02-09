@@ -11,7 +11,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useRouter } from 'next/navigation';
 import { progressService, ArticleWithProgress } from '@/lib/api/progress';
 
-
 export default function MemberDashboard() {
   const router = useRouter();
   const [articles, setArticles] = useState<ArticleWithProgress[]>([]);
