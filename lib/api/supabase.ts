@@ -16,7 +16,6 @@ export interface User {
 export const getUserRole = async (): Promise<string> => {
   const { data: { user } } = await supabase.auth.getUser();
 
-  console.log('USER', user);
   return user?.user_metadata.role;
 };
 
