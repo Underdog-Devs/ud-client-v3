@@ -23,8 +23,7 @@ export function Login() {
         });
 
         if (res.error === null) {
-            router.push('/member-dashboard');
-            router.refresh();
+            window.location.href = '/member-dashboard';
         } else {
             setTimeout(() => {
                 setError(res.error.message);
