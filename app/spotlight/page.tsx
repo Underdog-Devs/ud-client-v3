@@ -6,7 +6,6 @@ const SpotlightPage: NextPage = () => (
 	<>
 		<div>
             {/* <Spotlight /> */}
-            
 		</div>
 	</>
 );

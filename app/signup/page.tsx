@@ -1,25 +1,39 @@
-import React from 'react';
-import BackButton from '../../components/landing/BackButton/BackButton';
-import Quote from '@/components/quote';
-import styles from './signup.module.scss';
+'use client'
+import { SignUpComponent } from '@/components/auth/SignUpComponent'
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '@/components/theme';
+import Box from '@mui/material/Box';
 
-export default function Signup() {
-	return (
-		<div className={styles.container}>
-			<Quote />
-			<div className={styles.signupContainer}>
-				<BackButton />
-				<div className={styles.information}>
-					<h3>Send us an email to receive more information</h3>
-					<p>Someone from the intake team will reach out.</p>
-
-					<p>
-						You can reach the team directly at <br />
-						<a href="mailto:underdogdevsteam@gmail.com" target="_blank" rel="noreferrer">underdogdevsteam@gmail.com</a>
-					</p>
-
-				</div>
-			</div>
-		</div>
-	);
+export default function Login() {
+  return (
+    <Box sx={{ position: 'relative', width: '100%', height: '80vh' }}>
+      <Box sx={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundImage: 'url(/images/mentor1.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        opacity: 0.3,
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+        }
+      }} />
+      <ThemeProvider theme={theme}>
+        <Box sx={{ position: 'relative', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <SignUpComponent />
+        </Box>
+      </ThemeProvider>
+    </Box>
+  )
 }

@@ -1,0 +1,55 @@
+@import '@/app/styles/globals.scss';
+
+.container {
+  margin: 0 $space-md;
+  padding: 0;
+}
+
+.title {
+  font-family: $primaryHeaderFont;
+  font-size: $f3;
+  margin-bottom: $space-lg;
+  text-align: center;
+}
+
+
+.quizItem {
+  background-color: $lightenedBlue;
+  border-radius: 5px;
+  padding: $space-md;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-family: $secondaryHeaderFont;
+    font-size: $f5;
+    margin-bottom: $space-sm;
+  }
+
+  p {
+    font-family: $primaryTextFont;
+    font-size: $subtitle;
+    color: $subTextBlack;
+    margin-top: $space-xs;
+  }
+}
+
+.progressBar {
+  background-color: $udGrey;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  background-color: $udSecondaryOrange;
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.quizCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: left;
+  gap: $space-md;
+}

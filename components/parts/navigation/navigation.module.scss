@@ -1,85 +1,81 @@
 @import "app/styles/globals.scss";
 
 .container {
-  background-color: $udDarkGrey;
-  display: flex;
-  align-items: center;
-  height: 60px;
-  padding-right: $space-md;
+  width: 100%;
+  background-color: $udGrey;
   position: fixed;
   top: 0;
-  width: 100%;
-  padding: 15px 0;
+  left: 0;
   z-index: 1000;
+}
 
-  .desktopNav {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
+.desktopNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
-  .navToggle {
-    display: none;
-  }
+.navigation {
+  display: flex;
+  align-items: center;
+}
 
-  .mobileNav {
-    display: none;
-  }
+.navigationLinks {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 
-  .image {
-    cursor: pointer;
-    margin-left: $space-xl;
-  }
-
-  .navigation {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-
-  .navigationLinks {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-
-    a {
-      font-family: $linkFont;
-      font-size: min(max(14px, 1.5vw), 16px);
-      color: $udOrange;
-      text-decoration: none;
-      padding: 0 $space-xs;
-      &:hover,
-      &:focus {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .getInvolvedButton {
-    background-color: $udDarkGrey;
+  a {
     color: $udOrange;
-    border: none;
-    border-radius: 5px;
-    padding: $space-sm $space-md;
-    font-family: $linkFont;
     text-decoration: none;
-    cursor: pointer;
-    &:active {
-      background-color: $udGrey;
-    }
-    &:hover,
-    &:focus {
-      text-decoration: underline;
+    text-align: right;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: darken($udOrange, 10%);
     }
   }
 }
 
 .verticalRule {
-  border-left: 1px solid $udOrange;
-  height: 1rem;
+  height: 20px;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navToggle {
+  display: none;
+}
+
+.mobileNav {
+  display: none;
+}
+
+.image {
+  cursor: pointer;
+  // margin-left: $space-xl;
+}
+
+.getInvolvedButton {
+  background-color: $udDarkGrey;
+  color: $udOrange;
+  border: none;
+  border-radius: 5px;
+  padding: $space-sm $space-md;
+  font-family: $linkFont;
+  text-decoration: none;
+  cursor: pointer;
+  &:active {
+    background-color: $udGrey;
+  }
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 }
 
 @media screen and (max-width: $lg) {
@@ -127,8 +123,8 @@
       z-index: 10;
       width: 100%;
       display: flex;
-      justify-content: end;
-      background-color: $udDarkGrey;
+      justify-content: flex-end;
+      background-color: $udGrey;
       transition: $nav-transition;
       a,
       p {

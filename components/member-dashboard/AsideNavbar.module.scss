@@ -1,0 +1,73 @@
+@import 'app/styles/globals.scss';
+
+.asideContainer {
+    height: 100%;
+    width: 200px;
+    background-color: $udGrey;
+    position: fixed;
+    z-index: 1000;
+    top: var(--navbar_height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+}
+
+.asideNavbar {
+    width: 100%;
+    margin-top: 2rem;
+    text-align: center;
+    max-height: calc(100% - 100px); // Account for logout button
+    overflow-y: auto;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+    }
+}
+
+.asideLogOut {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    button {
+        color: $udOrange !important;
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+.asideNavbarButton {
+    width: 100%;
+    color: $udOrange !important;
+    
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    &.active {
+        font-weight: bold !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+}
+
+.userEmail {
+    padding-bottom: 5rem;
+    text-align: center;
+}

@@ -67,7 +67,7 @@
         @include for-phone-only {
           position: absolute;
           margin-bottom: $space-xl;
-          color: $involvedBlue;
+          color: $udOrange;
         }
       }
 
@@ -77,7 +77,7 @@
 
         @include for-phone-only {
           margin: $space-md $space-sm;
-          color: $involvedBlue;
+          color: $udOrange;
         }
       }
     }

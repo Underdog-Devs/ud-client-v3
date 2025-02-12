@@ -9,19 +9,19 @@ const Hero: React.FC<Props> = ({ }) => {
 	return (
 		<section className={styles.container}>
 			<div className={styles.aboutText}>
-				<div className={styles.heading}>
+				{/* <div className={styles.heading}>
 					<div className={styles.logoContainer}>
 						<img
 							className={styles.logo}
 							src="/images/icon-03.png"
-							alt="Your Name"
+							alt="Underdog Devs Logo"
 							height={75}
 							width={75}
 							loading="lazy"
 						/>
 					</div>
 					<h3>About</h3>
-				</div>
+				</div> */}
 				<div className={styles.about}>
 					<h2>Underdog <br />Devs</h2>
 					<p className={styles.about}>
@@ -38,7 +38,7 @@ const Hero: React.FC<Props> = ({ }) => {
 				<img
 					className={styles.imageLogo}
 					src="/images/underdogdevs-03.png"
-					alt="Your Name"
+					alt="Underdog Devs Logo"
 					height={300}
 					width={300}
 					loading="lazy"

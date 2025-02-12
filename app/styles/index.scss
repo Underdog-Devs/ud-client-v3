@@ -31,7 +31,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 main {  
-  margin-top: 80px;
+  margin-top: $navbar_height + 20px;
   flex: 1 0 auto;
 }
 

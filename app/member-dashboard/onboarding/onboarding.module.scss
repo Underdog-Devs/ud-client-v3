@@ -1,0 +1,76 @@
+@import '../../styles/globals.scss';
+
+.container {
+  padding: 2rem 0;
+}
+
+.headerSection {
+  padding: 3rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, $udOrange 0%, darken($udOrange, 15%) 100%);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  .headerIcon {
+    font-size: 4rem !important;
+    color: $udSecondaryOrange;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .headerText {
+    h1 {
+      color: white;
+      font-family: $primaryHeaderFont;
+      font-weight: 600;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.9);
+      font-family: $primaryTextFont;
+      font-size: 1.1rem;
+      max-width: 800px;
+    }
+  }
+}
+
+.articlesSection {
+  margin: 2rem 0;
+  min-height: 400px;
+}
+
+.helpSection {
+  padding: 2rem;
+  margin-top: 3rem;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+
+  h6 {
+    color: $udOrange;
+    font-family: $primaryHeaderFont;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-family: $primaryTextFont;
+    line-height: 1.6;
+  }
+}
+
+.link {
+  color: $udSecondaryOrange;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: darken($udSecondaryOrange, 10%);
+    text-decoration: underline;
+  }
+} 

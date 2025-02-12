@@ -79,20 +79,12 @@ function Footer(): ReactElement {
 				<div className={styles.navigation}>
 					<div className={styles.navSect}>
 						<h4>Community</h4>
-						<a
-							href="https://forms.gle/YdE9SBfJGXc3XW928"
-							target="_blank"
-							rel="noreferrer"
-						>
-							Become a Mentee
-						</a>
-						<a
-							href="https://forms.gle/qsusfwyTA8H2vj6z5"
-							target="_blank"
-							rel="noreferrer"
-						>
-							Become a Mentor
-						</a>
+						<Link href="/signup" passHref>
+							Become a Member
+						</Link>
+						<Link href="/login" passHref>
+							Log In
+						</Link>
 					</div>
 					<div className={styles.navSect}>
 						<h4>Organization</h4>
@@ -102,9 +94,7 @@ function Footer(): ReactElement {
 						<Link href="/donate" passHref>
 							Donate
 						</Link>
-						<Link href="/signup" passHref>
-							Contact Us
-						</Link>
+						
 						<a href="https://cottonbureau.com/people/underdog-devs" target="_blank" rel="noreferrer"> Merchandise </a>
 					</div>
 				</div>

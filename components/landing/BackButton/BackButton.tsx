@@ -7,7 +7,7 @@ export default function BackButton() {
 	const Back = () => (
 		<>
 			<Link href="/" passHref>
-				<button className={styles.backButton}><FaChevronLeft /> Back </button>
+				<button className={styles.backButton}><FaChevronLeft />Back</button>
 			</Link>
 		</>
 	);

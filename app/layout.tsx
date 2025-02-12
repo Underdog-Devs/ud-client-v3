@@ -1,4 +1,3 @@
-// styles
 import Layout from "../components/Layout";
 import "./styles/index.scss";
 import type { Metadata } from 'next'
@@ -16,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout>{children}</Layout>
+        <Layout>
+            {children}
+          </Layout>
       </body>
     </html>
   );
