@@ -23,7 +23,7 @@ export function Login() {
         });
 
         if (res.error === null) {
-            window.location.href = '/';
+            window.location.href = '/member-dashboard';
         } else {
             setTimeout(() => {
                 setError(res.error.message);
