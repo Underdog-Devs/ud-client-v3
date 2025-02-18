@@ -101,7 +101,7 @@ export function ArticleList() {
 
       setNotification({
         open: true,
-        message: 'Slack invitation sent successfully! Check your email.',
+        message: 'Success! Wait for invitation in your email',
         severity: 'success'
       });
     } catch (error) {
@@ -191,7 +191,7 @@ export function ArticleList() {
               }
             }}
           >
-            {inviting ? 'Sending Invitation...' : 'Join Slack Community'}
+            {inviting ? 'Sending application...' : 'Apply to Slack Community'}
           </Button>
         </Box>
       )}

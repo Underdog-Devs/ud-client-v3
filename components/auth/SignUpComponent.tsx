@@ -56,7 +56,7 @@ export function SignUpComponent() {
         if (error) {
             setError(error.message);
         } else {
-            router.push('/signin');
+            router.push('/member-dashboard');
         }
     };
 
