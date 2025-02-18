@@ -14,8 +14,7 @@ export default function OnboardingPage() {
           gap: 2,
           mb: 4,
           mt: 4 
-        }}
-      >
+        }}>
         <SchoolIcon 
           sx={{ 
             fontSize: 40,
@@ -24,7 +23,7 @@ export default function OnboardingPage() {
         />
         <Box>
           <Typography variant="h4" component="h1" gutterBottom>
-            Welcome to Onboarding
+            Onboarding
           </Typography>
           <Typography variant="body1" color="text.secondary">
             Start your journey by reading through these essential articles. Each article will help you understand our community better and get you ready to contribute.

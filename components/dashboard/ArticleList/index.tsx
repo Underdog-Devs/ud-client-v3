@@ -3,16 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Grid, Typography, LinearProgress, Alert, Snackbar, Button, Collapse, Paper } from '@mui/material';
 import { ArticleCard } from '../ArticleCard';
-import { getAllArticles, Article } from '@/lib/api/articles';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { BugReport as BugReportIcon } from '@mui/icons-material';
 import styles from './styles.module.scss';
-import { getUserRole } from '@/lib/api/supabase';
-
-interface ArticleWithProgress extends Article {
-  is_completed: boolean;
-  available: boolean;
-}
+import { progressService, ArticleWithProgress } from '@/lib/api/progress';
 
 export function ArticleList() {
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -35,68 +29,7 @@ export function ArticleList() {
 
   const fetchArticles = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setArticles([]);
-        return;
-      }
-
-      // Получаем все статьи из Strapi
-      const strapiArticles = await getAllArticles();
-
-      const userMetadata = await supabase.auth.getUser();
-
-      const userRole = userMetadata.data.user?.user_metadata.role;
-
-      const filteredArticles = strapiArticles.filter(item => item.roles.includes("all") || item.roles.includes(userRole));
-
-      // Получаем id статей из Supabase
-      const { data: supabaseArticles, error: articlesError } = await supabase
-        .from('articles')
-        .select('id, slug');
-
-      if (articlesError) throw articlesError;
-
-      // Создаем мапу для связи slug с id из Supabase
-      const slugToIdMap = new Map(
-        supabaseArticles?.map(article => [article.slug, article.id]) || []
-      );
-
-      // Получаем прогресс пользователя
-      const { data: progressData, error: progressError } = await supabase
-        .from('user_article_progress')
-        .select('article_id, completed')
-        .eq('user_id', user.id);
-
-      if (progressError) throw progressError;
-
-      // Создаем мапу прогресса
-      const progressMap = new Map(
-        progressData?.map(progress => [progress.article_id, progress.completed]) || []
-      );
-
-      // Объединяем данные и определяем доступность статей
-      let lastCompletedFound = false;
-      const articlesWithProgress = filteredArticles.map((article, index) => {
-        const supabaseId = slugToIdMap.get(article.slug);
-        const isCompleted = supabaseId ? progressMap.get(supabaseId) || false : false;
-        
-        // Первая статья всегда доступна
-        let isAvailable = index === 0;
-        
-        // Если предыдущая статья завершена, делаем текущую доступной
-        if (index > 0) {
-          const prevArticleId = slugToIdMap.get(filteredArticles[index - 1].slug);
-          isAvailable = prevArticleId ? progressMap.get(prevArticleId) || false : false;
-        }
-
-        return {
-          ...article,
-          is_completed: isCompleted,
-          available: isAvailable
-        };
-      });
-
+      const articlesWithProgress = await progressService.getAllArticlesWithProgress();
       setArticles(articlesWithProgress);
     } catch (error) {
       console.error('Error fetching articles:', error);
@@ -137,7 +70,6 @@ export function ArticleList() {
         severity: 'success'
       });
 
-      // Перезагружаем список статей
       await fetchArticles();
     } catch (error) {
       console.error('Error resetting progress:', error);
@@ -169,7 +101,7 @@ export function ArticleList() {
 
       setNotification({
         open: true,
-        message: 'Slack invitation sent successfully! Check your email.',
+        message: 'Success! Wait for invitation in your email',
         severity: 'success'
       });
     } catch (error) {
@@ -184,7 +116,6 @@ export function ArticleList() {
     }
   };
 
-  // Проверяем, все ли статьи прочитаны
   const allArticlesCompleted = articles.length > 0 && articles.every(article => article.is_completed);
 
   if (loading) {
@@ -204,7 +135,7 @@ export function ArticleList() {
               slug={article.slug}
               title={article.title}
               description={article.description || ''}
-              available={article.available}
+              available={article.is_available}
               completed={article.is_completed}
             />
           </Grid>
@@ -260,7 +191,7 @@ export function ArticleList() {
               }
             }}
           >
-            {inviting ? 'Sending Invitation...' : 'Join Slack Community'}
+            {inviting ? 'Sending application...' : 'Apply to Slack Community'}
           </Button>
         </Box>
       )}

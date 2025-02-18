@@ -7,7 +7,7 @@
 .headerSection {
   padding: 3rem;
   margin-bottom: 2rem;
-  background: linear-gradient(135deg, $involvedBlue 0%, darken($involvedBlue, 15%) 100%);
+  background: linear-gradient(135deg, $udOrange 0%, darken($udOrange, 15%) 100%);
   color: white;
   border-radius: 12px;
   display: flex;
@@ -51,7 +51,7 @@
   border: 1px solid #e9ecef;
 
   h6 {
-    color: $involvedBlue;
+    color: $udOrange;
     font-family: $primaryHeaderFont;
     font-weight: 600;
     margin-bottom: 1rem;

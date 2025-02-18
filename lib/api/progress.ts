@@ -1,10 +1,12 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { getAllArticles, ArticleWithRoles } from './articles';
 
 export interface Article {
   id: string;
   slug: string;
   title: string;
-  order_index: number;
+  roles: string[];
+  description?: string;
 }
 
 export interface ArticleProgress {
@@ -40,40 +42,75 @@ class ProgressService {
   }
 
   async getAllArticlesWithProgress(): Promise<ArticleWithProgress[]> {
-    const { data: articles, error: articlesError } = await this.supabase
+    const { data: { user }, error: userError } = await this.supabase.auth.getUser();
+    if (userError || !user) {
+      throw userError || new Error('User not found');
+    }
+
+    // 1. Get articles from Strapi
+    const userRole = user.user_metadata.role;
+    const strapiArticles = await getAllArticles();
+    const filteredArticles = strapiArticles.filter(item => 
+      item.roles.includes("all") || item.roles.includes(userRole)
+    );
+
+    // 2. Get Supabase article IDs
+    const { data: supabaseArticles, error: articlesError } = await this.supabase
       .from('articles')
-      .select('*')
-      .order('order_index');
+      .select('id, slug');
 
     if (articlesError) {
-      console.error('Error fetching articles:', articlesError);
+      console.error('Error fetching Supabase articles:', articlesError);
       throw articlesError;
     }
 
+    // Create map of slug to Supabase ID
+    const slugToIdMap = new Map(
+      supabaseArticles?.map(article => [article.slug, article.id]) || []
+    );
+
+    // 3. Get progress for all articles
     const { data: progress, error: progressError } = await this.supabase
       .from('user_article_progress')
-      .select('*');
+      .select('*')
+      .eq('user_id', user.id);
 
     if (progressError) {
       console.error('Error fetching progress:', progressError);
       throw progressError;
     }
 
-    const progressMap = new Map(progress?.map(p => [p.article_id, p]));
+    // Create map of article ID to progress
+    const progressMap = new Map(
+      progress?.map(p => [p.article_id, p.completed]) || []
+    );
 
-    return articles.map(article => {
-      const articleProgress = progressMap.get(article.id);
+    // 4. Map articles with progress
+    const result = filteredArticles.map((article, index) => {
+      const supabaseId = slugToIdMap.get(article.slug);
+      const isCompleted = supabaseId ? !!progressMap.get(supabaseId) : false;
+      
+      let isAvailable = index === 0;
+      if (index > 0) {
+        const prevArticle = filteredArticles[index - 1];
+        const prevArticleId = slugToIdMap.get(prevArticle.slug);
+        isAvailable = prevArticleId ? !!progressMap.get(prevArticleId) : false;
+      }
+
       return {
         ...article,
-        is_completed: articleProgress?.completed || false,
-        is_available: article.order_index === 1 || 
-          progressMap.get(articles.find(a => a.order_index === article.order_index - 1)?.id)?.completed || false
+        roles: Array.isArray(article.roles) ? article.roles : [article.roles],
+        is_completed: isCompleted,
+        is_available: isAvailable
       };
     });
+
+    return result;
   }
 
   async markArticleAsCompleted(articleSlug: string, userId: string): Promise<void> {
-    // First get article ID by slug
+
+    // Get article ID by slug
     const { data: article, error: articleError } = await this.supabase
       .from('articles')
       .select('id')
@@ -85,6 +122,7 @@ class ProgressService {
       throw articleError;
     }
 
+    // Update or insert progress
     const { error } = await this.supabase
       .from('user_article_progress')
       .upsert({
@@ -100,25 +138,20 @@ class ProgressService {
       console.error('Error marking article as completed:', error);
       throw error;
     }
+
   }
 
   async isArticleAvailable(articleSlug: string, userId: string): Promise<boolean> {
-    console.log('articleSlug', articleSlug);
-    console.log('userId', userId);
-
     const { data, error } = await this.supabase
       .rpc('is_article_available', {
         p_user_id: userId,
         p_article_slug: articleSlug
       });
 
-    console.log('data', data);
-
     if (error) {
       console.error('Error checking article availability:', error);
       return false;
     }
-
     return data || false;
   }
 }

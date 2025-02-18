@@ -45,7 +45,7 @@ export default function MemberDashboard() {
           <Typography variant="h1" gutterBottom>
             Welcome to Underdog Devs!
           </Typography>
-          <Typography variant="h5" color="textSecondary" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             We're excited to have you in our developer community
           </Typography>
         </Box>
@@ -129,22 +129,6 @@ export default function MemberDashboard() {
             </Paper>
           </Grid>
         </Grid>
-
-        {/* Additional information */}
-        <Box className={styles.infoSection}>
-          <Typography variant="h4" gutterBottom>
-            What's Next?
-          </Typography>
-          <Typography variant="body1" paragraph>
-            1. Complete the onboarding materials {completedArticles === totalArticles && '✓'}
-          </Typography>
-          <Typography variant="body1" paragraph>
-            2. Join our Slack community {allCompleted ? '✓' : '(locked)'}
-          </Typography>
-          <Typography variant="body1" paragraph>
-            3. Start connecting with fellow developers
-          </Typography>
-        </Box>
       </Box>
     </ThemeProvider>
   );

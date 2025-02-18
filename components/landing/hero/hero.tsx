@@ -9,7 +9,7 @@ const Hero: React.FC<Props> = ({ }) => {
 	return (
 		<section className={styles.container}>
 			<div className={styles.aboutText}>
-				<div className={styles.heading}>
+				{/* <div className={styles.heading}>
 					<div className={styles.logoContainer}>
 						<img
 							className={styles.logo}
@@ -21,7 +21,7 @@ const Hero: React.FC<Props> = ({ }) => {
 						/>
 					</div>
 					<h3>About</h3>
-				</div>
+				</div> */}
 				<div className={styles.about}>
 					<h2>Underdog <br />Devs</h2>
 					<p className={styles.about}>
