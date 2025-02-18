@@ -18,16 +18,12 @@ export async function POST() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    console.log(user);
-
     const text = `${user.user_metadata.role.charAt(0).toUpperCase() + user.user_metadata.role.slice(1)} ${user.email} wants to join the Slack workspace`;
 
     const result = await slackClient.chat.postMessage({
       channel: process.env.SLACK_CHANNEL_ID || "",
       text: text,
     });
-
-    console.log(result);
 
     if (result.ok) {
       return NextResponse.json({
