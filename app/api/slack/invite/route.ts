@@ -24,9 +24,7 @@ export async function POST() {
       channel: process.env.SLACK_CHANNEL_ID || "",
       text: text,
     });
-    console.log(process.env.SLACK_CHANNEL_ID);
-    console.log(process.env.SLACK_BOT_TOKEN);
-    console.log(result);
+  
     if (result.ok) {
       return NextResponse.json({
         success: true,
@@ -38,7 +36,7 @@ export async function POST() {
   } catch (error) {
     console.error("Slack invitation error:", error);
     return NextResponse.json(
-      { error: "Failed to send Slack invitation", details: error },
+      { error: "Failed to send Slack invitation...", details: error, channel: process.env.SLACK_CHANNEL_ID ?? "not set", bot: process.env.SLACK_BOT_TOKEN ?? "not set" },
       { status: 500 }
     );
   }
