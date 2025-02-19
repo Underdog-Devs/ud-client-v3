@@ -31,7 +31,7 @@ export async function POST() {
         message: "Invitation sent successfully",
       });
     } else {
-      throw new Error("Failed to send invitation");
+      throw new Error(`Failed to send invitation: ${result.error}`);
     }
   } catch (error) {
     console.error("Slack invitation error:", error);
