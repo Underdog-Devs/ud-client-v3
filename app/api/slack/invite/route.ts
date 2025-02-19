@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-const slackClient = new WebClient(process.env.SLACK_BOT_TOKEN);
+const slackClient = new WebClient(process.env.NEXT_PUBLIC_SLACK_BOT_TOKEN);
 
 export async function POST() {
   try {
@@ -21,7 +21,7 @@ export async function POST() {
     const text = `${user.user_metadata.role.charAt(0).toUpperCase() + user.user_metadata.role.slice(1)} ${user.email} wants to join the Slack workspace`;
 
     const result = await slackClient.chat.postMessage({
-      channel: process.env.SLACK_CHANNEL_ID || "",
+      channel: process.env.NEXT_PUBLIC_SLACK_CHANNEL_ID || "",
       text: text,
     });
   
@@ -36,7 +36,7 @@ export async function POST() {
   } catch (error) {
     console.error("Slack invitation error:", error);
     return NextResponse.json(
-      { error: "Failed to send Slack invitation...", details: error, channel: process.env.SLACK_CHANNEL_ID ?? "not set", bot: process.env.SLACK_BOT_TOKEN ?? "not set" },
+      { error: "Failed to send Slack invitation...", details: error, channel: process.env.NEXT_PUBLIC_SLACK_CHANNEL_ID ?? "not set", bot: process.env.NEXT_PUBLIC_SLACK_BOT_TOKEN ?? "not set" },
       { status: 500 }
     );
   }
