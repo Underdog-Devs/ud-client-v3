@@ -104,14 +104,15 @@ export function ArticleList() {
         message: 'Success! Wait for invitation in your email',
         severity: 'success'
       });
-    } catch (error) {
+      
+      setInviting(true);
+    } catch (error: any) {
       console.error('Error sending Slack invitation:', error);
       setNotification({
         open: true,
-        message: 'Failed to send Slack invitation. Please try again.',
+        message: error.message || 'Failed to send Slack invitation. Please try again.',
         severity: 'error'
       });
-    } finally {
       setInviting(false);
     }
   };
@@ -185,13 +186,13 @@ export function ArticleList() {
             sx={{
               py: 1.5,
               px: 4,
-              backgroundColor: '#4A154B', // Slack brand color
+              backgroundColor: '#4A154B',
               '&:hover': {
                 backgroundColor: '#3a1139'
               }
             }}
           >
-            {inviting ? 'Sending application...' : 'Apply to Slack Community'}
+            {inviting ? 'Request sent' : 'Apply to Slack Community'}
           </Button>
         </Box>
       )}
