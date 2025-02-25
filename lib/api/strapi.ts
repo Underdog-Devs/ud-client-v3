@@ -18,15 +18,7 @@ strapiAPI.interceptors.request.use((config) => {
 });
 
 export interface StrapiResponse<T> {
-  data: {
-    articles: {
-      id: number;
-      slug: string;
-      title: string;
-      description: string;
-      roles: string;
-    }[];
-  };
+  data: T[];
   meta: {
     pagination: {
       page: number;
@@ -42,7 +34,17 @@ export interface DocCard {
   slug: string;
   title: string;
   description: string;
-  roles: string;
+  visibility: 'public' | 'dashboard';
+}
+
+export interface Doc {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  slug: string;
+  visibility: 'public' | 'dashboard';
+  publishedAt: string;
 }
 
 export interface Article {
@@ -86,6 +88,51 @@ class StrapiService {
     } catch (error) {
       console.error("Error fetching all doc cards:", error);
       throw error;
+    }
+  }
+
+  async getAllDocs(): Promise<DocCard[]> {
+    try {
+      const response = await strapiAPI.get<StrapiResponse<DocCard>>(
+        "/api/docs?populate=*"
+      );
+
+      return response.data.data.map(doc => ({
+        id: doc.id.toString(),
+        slug: doc.slug,
+        title: doc.title,
+        description: doc.description,
+        visibility: doc.visibility
+      }));
+    } catch (error) {
+      console.error("Error fetching docs:", error);
+      throw error;
+    }
+  }
+
+  async getDocBySlug(slug: string): Promise<Doc | null> {
+    try {
+      const response = await strapiAPI.get<StrapiResponse<Doc>>(
+        `/api/docs?filters[slug][$eq]=${slug}&populate=*`
+      );
+
+      if (response.data.data.length === 0) {
+        return null;
+      }
+
+      const doc = response.data.data[0];
+      return {
+        id: doc.id.toString(),
+        title: doc.title,
+        description: doc.description,
+        content: doc.content,
+        slug: doc.slug,
+        visibility: doc.visibility,
+        publishedAt: doc.publishedAt
+      };
+    } catch (error) {
+      console.error("Error fetching doc:", error);
+      return null;
     }
   }
 }

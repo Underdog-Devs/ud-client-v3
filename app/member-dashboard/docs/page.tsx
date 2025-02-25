@@ -1,30 +1,39 @@
 'use client'
 
-import { Box, Typography, Button } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
+import React from 'react';
+import { Container, Typography, Box } from '@mui/material';
+import { MenuBook as MenuBookIcon } from '@mui/icons-material';
 import theme from '@/components/theme';
-import Link from 'next/link';
+import { DocsList } from '@/components/docs/DocsList';
 
-export default function Profile() {
+export default function DocsPage() {
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ 
-        display: 'flex',
-        minHeight: '60vh',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        gap: 2
-      }}>
-            <Typography variant="h1">
-                Coming Soon
-            </Typography>
-            <Button variant="contained" color="primary">
-          <Link href="/member-dashboard" style={{ textDecoration: 'none', color: 'white' }}>
-            Back to Dashboard
-          </Link>
-        </Button>
+    <Container maxWidth="lg">
+      <Box 
+        sx={{ 
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+          mb: 4,
+          mt: 4 
+        }}>
+        <MenuBookIcon 
+          sx={{ 
+            fontSize: 40,
+            color: theme.palette.primary.main
+          }} 
+        />
+        <Box>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Documentation
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Explore our collection of articles and guides about programming, learning resources, and best practices for becoming a developer.
+          </Typography>
+        </Box>
       </Box>
-    </ThemeProvider>
+
+      <DocsList />
+    </Container>
   );
 }
