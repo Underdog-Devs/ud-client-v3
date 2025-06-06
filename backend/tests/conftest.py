@@ -2,11 +2,13 @@
 Pytest configuration and fixtures for testing.
 """
 
-import pytest
 import os
+
+import pytest
 from fastapi.testclient import TestClient
-from app.main import app
+
 from app.core.config import settings
+from app.main import app
 
 # Set test environment variables
 os.environ["ENVIRONMENT"] = "testing"
@@ -31,13 +33,13 @@ def setup_test_environment():
     # Override settings for testing
     original_env = settings.ENVIRONMENT
     original_debug = settings.DEBUG
-    
+
     # Set test values
     settings.ENVIRONMENT = "testing"
     settings.DEBUG = True
-    
+
     yield
-    
+
     # Restore original values
     settings.ENVIRONMENT = original_env
     settings.DEBUG = original_debug
