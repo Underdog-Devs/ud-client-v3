@@ -1,10 +1,11 @@
 """
 Pytest configuration and fixtures for testing.
-Simplified version for initial project setup - will be enhanced when FastAPI dependencies are installed.
 """
 
 import pytest
 import os
+from fastapi.testclient import TestClient
+from app.main import app
 from app.core.config import settings
 
 # Set test environment variables
@@ -13,24 +14,15 @@ os.environ["DEBUG"] = "True"
 
 
 @pytest.fixture
-def app_config():
-    """Get app configuration for testing."""
-    from app.main import app
+def client():
+    """Create a test client for the FastAPI app."""
+    return TestClient(app)
+
+
+@pytest.fixture
+def app_instance():
+    """Get the FastAPI app instance for testing."""
     return app
-
-
-@pytest.fixture
-def health_check():
-    """Test health check function."""
-    from app.main import health_check
-    return health_check()
-
-
-@pytest.fixture
-def root_endpoint():
-    """Test root endpoint function."""
-    from app.main import root
-    return root()
 
 
 @pytest.fixture(autouse=True)

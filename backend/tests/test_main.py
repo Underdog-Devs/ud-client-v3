@@ -1,31 +1,60 @@
 """
-Test the main application structure and functions.
-Simplified tests for initial project setup - will be enhanced when FastAPI is added.
+Test the main FastAPI application endpoints.
 """
 
 import pytest
+from fastapi import status
 
 
-def test_app_config(app_config):
-    """Test the app configuration structure."""
-    assert app_config["title"] == "UnderdogDevs API"
-    assert app_config["description"] == "Backend API for UnderdogDevs learning platform"
-    assert app_config["version"] == "0.1.0"
-    assert "environment" in app_config
-    assert "debug" in app_config
-    assert "cors_origins" in app_config
+@pytest.mark.unit
+def test_root_endpoint(client):
+    """Test the root endpoint returns correct information."""
+    response = client.get("/")
+    assert response.status_code == status.HTTP_200_OK
+    
+    data = response.json()
+    assert data["message"] == "UnderdogDevs API"
+    assert data["version"] == "0.1.0"
+    assert data["environment"] == "testing"
+    assert data["status"] == "running"
 
 
-def test_health_check(health_check):
-    """Test the health check function."""
-    assert health_check["status"] == "healthy"
-    assert "environment" in health_check
+@pytest.mark.unit
+def test_health_check_endpoint(client):
+    """Test the health check endpoint."""
+    response = client.get("/health")
+    assert response.status_code == status.HTTP_200_OK
+    
+    data = response.json()
+    assert data["status"] == "healthy"
+    assert data["environment"] == "testing"
+    assert data["debug"] is True
 
 
-def test_root_endpoint(root_endpoint):
-    """Test the root endpoint function."""
-    assert root_endpoint["message"] == "UnderdogDevs API"
-    assert root_endpoint["version"] == "0.1.0"
+@pytest.mark.unit  
+def test_api_info_endpoint(client):
+    """Test the API info endpoint."""
+    response = client.get("/api/info")
+    assert response.status_code == status.HTTP_200_OK
+    
+    data = response.json()
+    assert data["title"] == "UnderdogDevs API"
+    assert data["description"] == "Backend API for UnderdogDevs learning platform"
+    assert data["version"] == "0.1.0"
+    assert data["environment"] == "testing"
+    assert data["debug_mode"] is True
+    assert data["docs_url"] == "/docs"
+    assert isinstance(data["cors_origins"], list)
+
+
+@pytest.mark.unit
+def test_fastapi_app_structure(app_instance):
+    """Test the FastAPI app structure and configuration."""
+    assert app_instance.title == "UnderdogDevs API"
+    assert app_instance.description == "Backend API for UnderdogDevs learning platform"
+    assert app_instance.version == "0.1.0"
+    assert app_instance.docs_url == "/docs"
+    assert app_instance.redoc_url == "/redoc"
 
 
 def test_config_loading():
