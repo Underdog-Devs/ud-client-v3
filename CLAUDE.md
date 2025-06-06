@@ -61,3 +61,44 @@ This is a Next.js 14 application for UnderdogDevs, an organization helping forme
 - Custom API rewrites to `NEXT_PUBLIC_HOSTNAME`
 - Images from S3 bucket allowed
 - Console removal disabled in production
+
+## External Services & Dependencies
+
+### Supabase (Primary Backend)
+- **Purpose**: Authentication, database, real-time features
+- **Files**: `lib/api/supabase.ts`, `middleware.ts`, various API routes
+- **Tables**: posts, quizzes, user_progress, articles, user_article_progress, slack_join_requests
+- **Required env vars**:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+### Strapi CMS
+- **Purpose**: Content management for articles/documentation
+- **Files**: `lib/api/strapi.ts`, `lib/api/articles.ts`
+- **Required env vars**:
+  - `NEXT_PUBLIC_STRAPI_API_URL` (defaults to http://localhost:1337)
+  - `NEXT_PUBLIC_STRAPI_API_TOKEN`
+
+### Slack Integration
+- **Purpose**: Workspace invitation requests and notifications
+- **Files**: `app/api/slack/invite/route.ts`
+- **Required env vars**:
+  - `NEXT_PUBLIC_SLACK_BOT_TOKEN`
+  - `NEXT_PUBLIC_SLACK_CHANNEL_ID`
+
+### AWS S3
+- **Purpose**: Media storage and image hosting
+- **Configuration**: `next.config.js` (ud-media.s3.us-east-2.amazonaws.com)
+- **No explicit credentials** (handled via environment/IAM)
+
+### Development Environment Setup
+Create `.env.local` with:
+```
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_STRAPI_API_URL=your_strapi_api_url
+NEXT_PUBLIC_STRAPI_API_TOKEN=your_strapi_api_token
+NEXT_PUBLIC_SLACK_BOT_TOKEN=your_slack_bot_token
+NEXT_PUBLIC_SLACK_CHANNEL_ID=your_slack_channel_id
+NEXT_PUBLIC_HOSTNAME=your_app_hostname
+```
