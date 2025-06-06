@@ -5,16 +5,16 @@ This will be replaced with FastAPI once dependencies are installed.
 """
 
 import json
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
 
-from app.main import health_check, root
 from app.core.config import settings
+from app.main import health_check, root
 
 
 class BackendHandler(BaseHTTPRequestHandler):
     """HTTP request handler for testing backend endpoints."""
-    
+
     def _send_json_response(self, data, status_code=200):
         """Send JSON response."""
         self.send_response(status_code)
@@ -24,11 +24,11 @@ class BackendHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
         self.wfile.write(json.dumps(data, indent=2).encode())
-    
+
     def do_GET(self):
         """Handle GET requests."""
         path = urlparse(self.path).path
-        
+
         if path == '/':
             self._send_json_response(root())
         elif path == '/health':
@@ -38,10 +38,10 @@ class BackendHandler(BaseHTTPRequestHandler):
             self._send_json_response(app)
         else:
             self._send_json_response(
-                {"error": "Not Found", "message": f"Path {path} not found"}, 
+                {"error": "Not Found", "message": f"Path {path} not found"},
                 404
             )
-    
+
     def do_OPTIONS(self):
         """Handle OPTIONS requests (CORS preflight)."""
         self.send_response(200)
@@ -49,7 +49,7 @@ class BackendHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
-    
+
     def log_message(self, format, *args):
         """Custom log format."""
         print(f"🌐 {self.address_string()} - {format % args}")
@@ -59,7 +59,7 @@ def run_server(host='localhost', port=8000):
     """Run the test server."""
     server_address = (host, port)
     httpd = HTTPServer(server_address, BackendHandler)
-    
+
     print("🚀 UnderdogDevs Backend Test Server")
     print("=" * 50)
     print(f"📍 Server running at: http://{host}:{port}")
@@ -73,7 +73,7 @@ def run_server(host='localhost', port=8000):
     print()
     print("Press Ctrl+C to stop the server")
     print("=" * 50)
-    
+
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

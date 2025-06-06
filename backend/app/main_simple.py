@@ -20,7 +20,7 @@ if __name__ == "__main__":
     print(f"✅ App: {app_info['message']}")
     print(f"✅ Version: {app_info['version']}")
     print(f"✅ Status: {app_info['status']}")
-    
+
     health = health_check()
     print(f"✅ Health: {health['status']}")
     print("\n🎉 Backend project structure initialized successfully!")

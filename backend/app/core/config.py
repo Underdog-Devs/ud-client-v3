@@ -2,7 +2,6 @@
 Application configuration using Pydantic Settings v2.
 """
 
-from typing import List
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -45,7 +44,7 @@ class Settings(BaseSettings):
     )
 
     # CORS
-    CORS_ORIGINS: List[str] = Field(
+    CORS_ORIGINS: list[str] = Field(
         default=["http://localhost:3001", "http://localhost:5173"],
         description="Allowed CORS origins",
     )

@@ -4,7 +4,7 @@ Structured logging configuration using structlog.
 
 import logging
 import sys
-from typing import Any, Dict
+from typing import Any
 
 import structlog
 from pythonjsonlogger import jsonlogger
@@ -47,9 +47,9 @@ class StructlogFormatter(jsonlogger.JsonFormatter):
 
     def add_fields(
         self,
-        log_record: Dict[str, Any],
+        log_record: dict[str, Any],
         record: logging.LogRecord,
-        message_dict: Dict[str, Any],
+        message_dict: dict[str, Any],
     ) -> None:
         super().add_fields(log_record, record, message_dict)
         log_record["level"] = record.levelname
