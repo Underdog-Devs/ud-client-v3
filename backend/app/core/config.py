@@ -22,11 +22,11 @@ class Settings(BaseSettings):
 
     # Database
     DATABASE_URL: str = Field(
-        default="mysql+mysqlconnector://user:password@localhost:3306/ud_dev",
+        default="sqlite:///./app.db",
         description="Database connection URL",
     )
     TEST_DATABASE_URL: str = Field(
-        default="mysql+mysqlconnector://user:password@localhost:3306/ud_test",
+        default="sqlite:///./test.db",
         description="Test database connection URL",
     )
 

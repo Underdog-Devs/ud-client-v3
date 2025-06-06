@@ -28,11 +28,12 @@ backend/
 - **Framework**: FastAPI 0.104+ with async/await support
 - **Python**: 3.13+ (compatible with 3.11+)
 - **Configuration**: Pydantic Settings v2 with environment variable support
-- **Database**: MySQL with SQLAlchemy 2.0+ ORM
-- **Authentication**: JWT with python-jose and passlib
+- **Database**: SQLAlchemy 2.0+ ORM (SQLite for dev/test, MySQL for production)
+- **Database Tools**: Alembic for migrations, sqlalchemy-utils for testing
+- **Authentication**: JWT with python-jose and passlib (planned)
 - **Testing**: pytest with factory-boy for test data generation
 - **Code Quality**: ruff for linting and formatting
-- **Monitoring**: Sentry for error tracking, structlog for structured logging
+- **Monitoring**: Sentry for error tracking, structlog for structured logging (planned)
 
 ## Development Setup
 
@@ -58,10 +59,15 @@ Create a `.env` file in the backend directory:
 ```env
 ENVIRONMENT=development
 DEBUG=True
-DATABASE_URL=mysql+mysqlconnector://user:password@localhost:3306/ud_dev
-TEST_DATABASE_URL=mysql+mysqlconnector://user:password@localhost:3306/ud_test
+DATABASE_URL=sqlite:///./app.db
+TEST_DATABASE_URL=sqlite:///./test.db
 SECRET_KEY=your-secret-key-here
 CORS_ORIGINS=http://localhost:3001,http://localhost:5173
+```
+
+**Note**: SQLite is used for development and testing. For production, switch to MySQL:
+```env
+DATABASE_URL=mysql+mysqlconnector://user:password@localhost:3306/ud_prod
 ```
 
 ### Running the Application
@@ -138,9 +144,17 @@ The backend uses a comprehensive testing approach:
 
 1. **Unit Tests**: Fast tests for individual functions and classes
 2. **Integration Tests**: Tests for API endpoints and database interactions
-3. **Factory-based Test Data**: Realistic test data using factory-boy and Faker
-4. **Coverage Tracking**: Comprehensive coverage reporting
-5. **Environment Isolation**: Separate test configuration and database
+3. **Database Testing**: Comprehensive fixtures for session management and cleanup
+4. **Factory-based Test Data**: Realistic test data using factory-boy and Faker
+5. **Coverage Tracking**: Comprehensive coverage reporting
+6. **Environment Isolation**: Separate test configuration and database
+
+### Database Test Fixtures
+- `test_db_engine`: Session-scoped database engine for test isolation
+- `db_session`: Function-scoped database session with automatic rollback
+- `db_session_commit`: Database session that commits changes for integration tests
+- `clean_db`: Fixture that completely cleans database state between tests
+- `client_with_db`: FastAPI TestClient with database dependency injection
 
 ## Migration Context
 

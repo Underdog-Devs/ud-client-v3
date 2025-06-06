@@ -10,6 +10,15 @@ from fastapi.testclient import TestClient
 from app.core.config import settings
 from app.main import app
 
+# Import database fixtures
+from tests.fixtures.database import (  # noqa: F401
+    clean_db,
+    db_session,
+    db_session_commit,
+    sample_data,
+    test_db_engine,
+)
+
 # Set test environment variables
 os.environ["ENVIRONMENT"] = "testing"
 os.environ["DEBUG"] = "True"
@@ -19,6 +28,22 @@ os.environ["DEBUG"] = "True"
 def client():
     """Create a test client for the FastAPI app."""
     return TestClient(app)
+
+
+@pytest.fixture
+def client_with_db(db_session):  # noqa: F811
+    """Create a test client with database session dependency override."""
+    from app.core.database import get_db
+
+    def get_test_db():
+        yield db_session
+
+    app.dependency_overrides[get_db] = get_test_db
+
+    yield TestClient(app)
+
+    # Clean up dependency override
+    app.dependency_overrides.clear()
 
 
 @pytest.fixture
