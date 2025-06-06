@@ -1,0 +1,90 @@
+[tool.poetry]
+name = "ud-backend"
+version = "0.1.0"
+description = "UnderdogDevs FastAPI Backend"
+authors = ["UnderdogDevs Team"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.0"
+uvicorn = "^0.24.0"
+sqlalchemy = "^2.0.0"
+mysql-connector-python = "^8.2.0"
+pydantic = "^2.5.0"
+python-multipart = "^0.0.6"
+python-jose = "^3.3.0"
+passlib = "^1.7.4"
+python-dotenv = "^1.0.0"
+alembic = "^1.13.0"
+structlog = "^23.1.0"
+sentry-sdk = "^1.32.0"
+python-json-logger = "^2.0.7"
+prometheus-client = "^0.17.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.0"
+pytest-cov = "^4.1.0"
+httpx = "^0.25.0"
+faker = "^19.0.0"
+factory-boy = "^3.3.0"
+pytest-factoryboy = "^2.5.1"
+sqlalchemy-utils = "^0.41.1"
+ruff = "^0.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/venv/*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]

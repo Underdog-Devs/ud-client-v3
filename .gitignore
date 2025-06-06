@@ -36,3 +36,8 @@ next-env.d.ts
 
 # claude directory for personal planning docs
 .claude/
+
+# backend python/poetry files
+backend/.env
+backend/poetry.lock
+backend/test.db
