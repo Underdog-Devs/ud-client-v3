@@ -1,57 +1,74 @@
 """
-Application configuration - simplified for initial testing.
-Will be upgraded to use Pydantic settings when dependencies are installed.
+Application configuration using Pydantic Settings v2.
 """
 
-import os
 from typing import List
 
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class Settings:
-    """Application settings."""
 
-    def __init__(self):
-        # Environment
-        self.ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
-        self.DEBUG: bool = os.getenv("DEBUG", "True").lower() == "true"
+class Settings(BaseSettings):
+    """Application settings with Pydantic v2 validation."""
 
-        # Database
-        self.DATABASE_URL: str = os.getenv(
-            "DATABASE_URL", 
-            "mysql+mysqlconnector://user:password@localhost:3306/ud_dev"
-        )
-        self.TEST_DATABASE_URL: str = os.getenv(
-            "TEST_DATABASE_URL",
-            "mysql+mysqlconnector://user:password@localhost:3306/ud_test"
-        )
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
+    )
 
-        # Auth
-        self.SECRET_KEY: str = os.getenv("SECRET_KEY", "dev-secret-key-change-in-production")
-        self.ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
-        self.ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
-        self.REFRESH_TOKEN_EXPIRE_DAYS: int = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
+    # Environment
+    ENVIRONMENT: str = Field(
+        default="development", description="Application environment"
+    )
+    DEBUG: bool = Field(default=True, description="Debug mode")
 
-        # CORS
-        cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3001,http://localhost:5173")
-        self.CORS_ORIGINS: List[str] = [origin.strip() for origin in cors_origins.split(",")]
+    # Database
+    DATABASE_URL: str = Field(
+        default="mysql+mysqlconnector://user:password@localhost:3306/ud_dev",
+        description="Database connection URL",
+    )
+    TEST_DATABASE_URL: str = Field(
+        default="mysql+mysqlconnector://user:password@localhost:3306/ud_test",
+        description="Test database connection URL",
+    )
 
-        # Logging
-        self.LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
+    # Auth
+    SECRET_KEY: str = Field(
+        default="dev-secret-key-change-in-production",
+        description="Secret key for JWT encoding",
+    )
+    ALGORITHM: str = Field(default="HS256", description="JWT algorithm")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(
+        default=30, description="Access token expiration"
+    )
+    REFRESH_TOKEN_EXPIRE_DAYS: int = Field(
+        default=7, description="Refresh token expiration"
+    )
 
-        # Sentry
-        self.SENTRY_DSN: str = os.getenv("SENTRY_DSN", "")
+    # CORS
+    CORS_ORIGINS: List[str] = Field(
+        default=["http://localhost:3001", "http://localhost:5173"],
+        description="Allowed CORS origins",
+    )
 
-        # External Services
-        self.SLACK_BOT_TOKEN: str = os.getenv("SLACK_BOT_TOKEN", "")
-        self.SLACK_CHANNEL_ID: str = os.getenv("SLACK_CHANNEL_ID", "")
-        self.AWS_ACCESS_KEY_ID: str = os.getenv("AWS_ACCESS_KEY_ID", "")
-        self.AWS_SECRET_ACCESS_KEY: str = os.getenv("AWS_SECRET_ACCESS_KEY", "")
-        self.AWS_S3_BUCKET: str = os.getenv("AWS_S3_BUCKET", "ud-media")
-        self.AWS_REGION: str = os.getenv("AWS_REGION", "us-east-2")
+    # Logging
+    LOG_LEVEL: str = Field(default="INFO", description="Log level")
 
-        # Strapi
-        self.STRAPI_API_URL: str = os.getenv("STRAPI_API_URL", "http://localhost:1337")
-        self.STRAPI_API_TOKEN: str = os.getenv("STRAPI_API_TOKEN", "")
+    # Sentry
+    SENTRY_DSN: str = Field(default="", description="Sentry DSN for error tracking")
+
+    # External Services
+    SLACK_BOT_TOKEN: str = Field(default="", description="Slack bot token")
+    SLACK_CHANNEL_ID: str = Field(default="", description="Slack channel ID")
+    AWS_ACCESS_KEY_ID: str = Field(default="", description="AWS access key")
+    AWS_SECRET_ACCESS_KEY: str = Field(default="", description="AWS secret key")
+    AWS_S3_BUCKET: str = Field(default="ud-media", description="S3 bucket name")
+    AWS_REGION: str = Field(default="us-east-2", description="AWS region")
+
+    # Strapi
+    STRAPI_API_URL: str = Field(
+        default="http://localhost:1337", description="Strapi API URL"
+    )
+    STRAPI_API_TOKEN: str = Field(default="", description="Strapi API token")
 
 
 settings = Settings()

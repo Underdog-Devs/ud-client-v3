@@ -2,35 +2,70 @@
 FastAPI application entry point for UnderdogDevs backend.
 """
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from app.core.config import settings
 
-# Simplified version for initial testing - will add FastAPI when dependencies are installed
-def create_app():
-    """Create and return basic app info for testing."""
+app = FastAPI(
+    title="UnderdogDevs API",
+    description="Backend API for UnderdogDevs learning platform",
+    version="0.1.0",
+    docs_url="/docs" if settings.DEBUG else None,
+    redoc_url="/redoc" if settings.DEBUG else None,
+)
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/")
+async def root():
+    """Root endpoint."""
     return {
-        "title": "UnderdogDevs API",
-        "description": "Backend API for UnderdogDevs learning platform",
+        "message": "UnderdogDevs API",
         "version": "0.1.0",
         "environment": settings.ENVIRONMENT,
-        "debug": settings.DEBUG,
-        "cors_origins": settings.CORS_ORIGINS
+        "status": "running",
     }
 
-# Placeholder app for testing
-app = create_app()
 
-def health_check():
+@app.get("/health")
+async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "environment": settings.ENVIRONMENT}
+    return {
+        "status": "healthy",
+        "environment": settings.ENVIRONMENT,
+        "debug": settings.DEBUG,
+    }
 
-def root():
-    """Root endpoint."""
-    return {"message": "UnderdogDevs API", "version": "0.1.0"}
+
+@app.get("/api/info")
+async def api_info():
+    """API information endpoint."""
+    return {
+        "title": app.title,
+        "description": app.description,
+        "version": app.version,
+        "environment": settings.ENVIRONMENT,
+        "debug_mode": settings.DEBUG,
+        "docs_url": app.docs_url,
+        "cors_origins": settings.CORS_ORIGINS,
+    }
+
 
 if __name__ == "__main__":
-    print("🚀 UnderdogDevs Backend")
-    print(f"📊 App Info: {app}")
-    print(f"💚 Health: {health_check()}")
-    print(f"🏠 Root: {root()}")
-    print("\n✅ Basic structure working!")
-    print("🔧 Next: Install FastAPI dependencies and create real server")
+    import uvicorn
+
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=settings.DEBUG,
+    )
