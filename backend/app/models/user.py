@@ -9,6 +9,7 @@ from sqlalchemy import Boolean, DateTime, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+from app.models.content import Article, Post, Quiz, QuizCompletion, UserProgress
 
 
 class UserRole(Base):
@@ -44,7 +45,10 @@ class User(Base):
         DateTime, default=lambda: datetime.now(UTC), nullable=False
     )
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=lambda: datetime.now(UTC), onupdate=lambda: datetime.now(UTC), nullable=False
+        DateTime,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
+        nullable=False,
     )
     last_login: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
@@ -54,9 +58,24 @@ class User(Base):
     )
 
     # Relationships
-    role: Mapped[Optional["UserRole"]] = relationship("UserRole", back_populates="users")
+    role: Mapped[Optional["UserRole"]] = relationship(
+        "UserRole", back_populates="users"
+    )
     profile: Mapped[Optional["UserProfile"]] = relationship(
         "UserProfile", back_populates="user", uselist=False
+    )
+
+    # Content relationships
+    posts: Mapped[list["Post"]] = relationship("Post", back_populates="author")
+    articles: Mapped[list["Article"]] = relationship("Article", back_populates="author")
+    created_quizzes: Mapped[list["Quiz"]] = relationship(
+        "Quiz", back_populates="created_by"
+    )
+    quiz_completions: Mapped[list["QuizCompletion"]] = relationship(
+        "QuizCompletion", back_populates="user"
+    )
+    progress: Mapped[Optional["UserProgress"]] = relationship(
+        "UserProgress", back_populates="user", uselist=False
     )
 
     def __repr__(self) -> str:
@@ -85,7 +104,10 @@ class UserProfile(Base):
         DateTime, default=lambda: datetime.now(UTC), nullable=False
     )
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=lambda: datetime.now(UTC), onupdate=lambda: datetime.now(UTC), nullable=False
+        DateTime,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
+        nullable=False,
     )
 
     # Relationships

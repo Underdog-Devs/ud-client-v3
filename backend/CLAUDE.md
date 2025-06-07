@@ -181,14 +181,90 @@ Role-based access control system:
 **Relationships:**
 - `users`: One-to-many with User
 
+### Content Models
+
+The application includes comprehensive content management models:
+
+#### Post Model (`app.models.content.Post`)
+Blog post content management:
+```python
+- id: Primary key
+- title: Post title (255 chars)
+- slug: URL-friendly slug (unique)
+- content: Full post content (Text)
+- excerpt: Brief description
+- image_url: Featured image URL
+- published: Publication status
+- featured: Featured post flag
+- view_count: Page view tracking
+- author_id: Foreign key to User
+- published_at: Publication timestamp
+- created_at, updated_at: Timestamp tracking
+```
+
+#### Quiz System Models (`app.models.content.Quiz`, `QuizQuestion`)
+Educational quiz functionality:
+```python
+Quiz:
+- id, title, slug: Basic identification
+- description: Quiz description
+- is_active: Active status
+- passing_score: Minimum score to pass (default 70)
+- time_limit_minutes: Optional time limit
+- max_attempts: Optional attempt limit
+- created_by_id: Foreign key to User (creator)
+
+QuizQuestion:
+- id, quiz_id: Question identification
+- question_text: The question content
+- question_type: Type (default "multiple_choice")
+- options: JSON string of answer options
+- correct_answer: The correct answer
+- explanation: Answer explanation
+- points: Question point value (default 1)
+- order_index: Question ordering
+```
+
+#### Article Model (`app.models.content.Article`)
+Documentation and learning resource management:
+```python
+- id, title, slug: Basic identification
+- content: Full article content
+- summary: Brief article summary
+- category: Article category
+- tags: Comma-separated tag list
+- published: Publication status
+- order_index: Ordering for sequences
+- author_id: Foreign key to User
+```
+
+#### Progress Tracking Models (`UserProgress`, `QuizCompletion`)
+User learning progress and achievement tracking:
+```python
+UserProgress (one per user):
+- total_quizzes_completed, total_quizzes_passed: Quiz statistics
+- total_articles_read: Reading progress
+- current_streak_days, longest_streak_days: Engagement tracking
+- total_points, level: Gamification elements
+- last_activity_date: Activity tracking
+
+QuizCompletion (per quiz attempt):
+- score, total_questions, correct_answers: Performance metrics
+- time_spent_minutes: Time tracking
+- passed: Pass/fail status
+- attempt_number: Attempt tracking
+- completed_at: Completion timestamp
+```
+
 ### Database Features
 
 - **Modern SQLAlchemy 2.0**: Uses latest ORM features and syntax
 - **Type Safety**: Full Python type hints with `Mapped[type]` annotations
 - **Timezone Aware**: Uses `datetime.UTC` for consistent datetime handling
-- **Cascade Deletion**: UserProfile automatically deleted when User is deleted
-- **Unique Constraints**: Email uniqueness, role name uniqueness, one profile per user
+- **Cascade Deletion**: UserProfile automatically deleted when User is deleted, QuizQuestions cascade with Quiz deletion
+- **Unique Constraints**: Email uniqueness, role name uniqueness, slug uniqueness, one profile per user, one progress per user
 - **Relationship Integrity**: Proper foreign key constraints and bidirectional relationships
+- **Content Relationships**: Full relationship mapping between users and all content types
 
 ### Database Configuration
 
@@ -232,11 +308,12 @@ The backend uses a comprehensive testing approach:
 - `client_with_db`: FastAPI TestClient with database dependency injection
 
 ### Current Test Coverage
-- **Total Tests**: 48 tests (100% passing)
+- **Total Tests**: 67 tests (100% passing)
   - 6 FastAPI endpoint tests
   - 5 factory data generation tests  
   - 6 database fixture tests
-  - 15 SQLAlchemy model integration tests
+  - 15 SQLAlchemy user model integration tests
+  - 19 SQLAlchemy content model integration tests
   - 16 model factory tests
 - **Coverage**: Comprehensive coverage of all implemented features
 - **Code Quality**: Zero linting errors, modern Python standards
@@ -287,10 +364,50 @@ Set `DEBUG=True` in environment to enable:
 - Automatic code reloading
 - Verbose logging
 
+## Database Migrations
+
+The application uses **Atlas** for modern schema management and migrations:
+
+### Atlas Configuration
+- **Local Environment**: SQLite development database
+- **Test Environment**: In-memory SQLite for testing
+- **Production Environment**: MySQL with environment variable configuration
+- **Schema Source**: Auto-generated from SQLAlchemy models
+
+### Migration Management
+Use the convenient migration script for all database operations:
+
+```bash
+# Check migration status
+python scripts/migrate.py status
+
+# Generate schema from models  
+python scripts/migrate.py generate
+
+# Create a new migration
+python scripts/migrate.py create migration_name
+
+# Apply pending migrations
+python scripts/migrate.py apply
+
+# Validate migration files
+python scripts/migrate.py validate
+
+# Reset database (development only)
+python scripts/migrate.py reset
+```
+
+### Current Schema
+- **9 Tables**: Complete database schema with all relationships
+- **Initial Migration**: `20250607211251_initial_schema.sql` 
+- **Foreign Keys**: Proper referential integrity with CASCADE behavior
+- **Indexes**: Automatic unique indexes on email, slugs, and relationships
+- **Constraints**: All business logic constraints properly enforced
+
 ## Next Steps
 
 See `.claude/PROGRESS.md` for current migration progress and next planned features:
-1. Database sessions and fixtures setup
-2. Logging and monitoring configuration
-3. User authentication system
-4. Database models and migrations
+1. ✅ Database models and migrations (COMPLETE)
+2. Pydantic schemas for API validation
+3. User authentication system  
+4. API endpoints and business logic

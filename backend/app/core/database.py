@@ -30,14 +30,8 @@ TestSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_eng
 # Create declarative base for models
 Base = declarative_base()
 
-# Import models to register them with Base metadata
-# This ensures all models are available for migrations and database operations
-def register_models():
-    """Import all models to register them with SQLAlchemy Base."""
-    from app.models import User, UserProfile, UserRole  # noqa: F401
-
-# Register models when module is imported
-register_models()
+# Models will be registered when imported
+# This happens automatically when the models modules are imported
 
 
 def get_db():
