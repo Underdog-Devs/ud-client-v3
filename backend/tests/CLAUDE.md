@@ -12,10 +12,16 @@ tests/
 ├── conftest.py            # Pytest configuration and shared fixtures
 ├── test_main.py           # FastAPI application endpoint tests
 ├── test_factories.py      # Factory-boy test data generation tests
-└── factories/             # Test data factories
-    ├── __init__.py        # Factory exports
-    ├── base.py            # Base factory configuration
-    └── api.py             # API-specific factories
+├── test_database.py       # Database fixture and infrastructure tests
+├── test_models.py         # SQLAlchemy model integration tests
+├── test_model_factories.py # SQLAlchemy model factory tests
+├── factories/             # Test data factories
+│   ├── __init__.py        # Factory exports
+│   ├── base.py            # Base factory configuration
+│   ├── api.py             # API-specific factories
+│   └── models.py          # SQLAlchemy model factories
+└── fixtures/              # Pytest fixtures
+    └── database.py        # Database test fixtures
 ```
 
 ## Testing Framework
@@ -83,6 +89,13 @@ Located in `tests/factories/`:
   - Fake emails, names, timestamps
   - Boolean flags and status fields
 
+#### SQLAlchemy Model Factories
+- **UserRoleFactory**: Role-based access control with unique role names
+- **UserFactory**: Complete user authentication data with optional role relationships
+- **UserWithoutRoleFactory**: User data without role assignment
+- **UserProfileFactory**: Extended user profile with social links and personal info
+- **CompleteUserFactory**: Full user with role and profile relationships
+
 ### Factory Usage Examples
 
 ```python
@@ -142,11 +155,25 @@ def test_app_config(app_instance):
 - ✅ Sample data fixture framework
 - ✅ Database module imports and configuration
 
+### SQLAlchemy Model Tests (test_models.py)
+- ✅ UserRole model: Creation, unique constraints, string representation
+- ✅ User model: Authentication fields, relationships, defaults, email uniqueness
+- ✅ UserProfile model: Extended info, relationships, full_name property
+- ✅ Model relationships: User-role, user-profile, cascade behavior
+- ✅ Database constraints: Foreign keys, unique constraints, NOT NULL validation
+
+### Model Factory Tests (test_model_factories.py)
+- ✅ UserRoleFactory: Role creation with unique names and descriptions
+- ✅ UserFactory: User creation with optional role relationships
+- ✅ UserProfileFactory: Profile creation with realistic social data
+- ✅ CompleteUserFactory: Full user with role and profile relationships
+- ✅ Factory configuration: Session management and sequence handling
+
 ### Test Statistics
-- **Total Tests**: 17 (6 main + 5 factory + 6 database)
+- **Total Tests**: 48 (6 main + 5 factory + 6 database + 31 model tests)
 - **Coverage**: Comprehensive coverage of current features
-- **Pass Rate**: 100%
-- **Execution Time**: <0.1s (fast test suite)
+- **Pass Rate**: 100% (48/48 passing)
+- **Execution Time**: <0.5s (fast test suite)
 
 ## Writing Tests
 

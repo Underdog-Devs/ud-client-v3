@@ -3,7 +3,7 @@ Database test fixtures for UnderdogDevs backend testing.
 """
 
 import pytest
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import create_database, database_exists
 
@@ -55,14 +55,15 @@ def db_session(test_db_engine):
     # Create session
     session = TestSessionLocal()
 
-    # Begin transaction
-    transaction = session.begin()
-
     try:
         yield session
     finally:
-        # Rollback transaction and close session
-        transaction.rollback()
+        # Close session and rollback any remaining transactions
+        try:
+            session.rollback()
+        except Exception:
+            # Transaction might already be committed/rolled back
+            pass
         session.close()
 
 
@@ -104,13 +105,13 @@ def clean_db(test_db_engine):
         if "sqlite" in str(test_db_engine.url):
             # SQLite approach
             for table in tables:
-                connection.execute(f"DELETE FROM {table}")
+                connection.execute(text(f"DELETE FROM {table}"))
         else:
             # MySQL approach
-            connection.execute("SET FOREIGN_KEY_CHECKS = 0")
+            connection.execute(text("SET FOREIGN_KEY_CHECKS = 0"))
             for table in tables:
-                connection.execute(f"TRUNCATE TABLE {table}")
-            connection.execute("SET FOREIGN_KEY_CHECKS = 1")
+                connection.execute(text(f"TRUNCATE TABLE {table}"))
+            connection.execute(text("SET FOREIGN_KEY_CHECKS = 1"))
 
         connection.commit()
 
@@ -120,12 +121,12 @@ def clean_db(test_db_engine):
     with test_db_engine.connect() as connection:
         if "sqlite" in str(test_db_engine.url):
             for table in tables:
-                connection.execute(f"DELETE FROM {table}")
+                connection.execute(text(f"DELETE FROM {table}"))
         else:
-            connection.execute("SET FOREIGN_KEY_CHECKS = 0")
+            connection.execute(text("SET FOREIGN_KEY_CHECKS = 0"))
             for table in tables:
-                connection.execute(f"TRUNCATE TABLE {table}")
-            connection.execute("SET FOREIGN_KEY_CHECKS = 1")
+                connection.execute(text(f"TRUNCATE TABLE {table}"))
+            connection.execute(text("SET FOREIGN_KEY_CHECKS = 1"))
         connection.commit()
 
 

@@ -9,6 +9,15 @@ from .api import (
     UserDataFactory,
 )
 from .base import BaseFactory
+from .models import (
+    CompleteUserFactory,
+    UserFactory,
+    UserProfileFactory,
+    UserRoleFactory,
+    UserWithoutRoleFactory,
+    configure_factories,
+    reset_factory_sequences,
+)
 
 __all__ = [
     "BaseFactory",
@@ -16,4 +25,11 @@ __all__ = [
     "HealthCheckFactory",
     "APIInfoFactory",
     "UserDataFactory",
+    "UserRoleFactory",
+    "UserFactory",
+    "UserWithoutRoleFactory",
+    "UserProfileFactory",
+    "CompleteUserFactory",
+    "configure_factories",
+    "reset_factory_sequences",
 ]
