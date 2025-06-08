@@ -1,59 +1,141 @@
+import { Link as RouterLink } from 'react-router-dom'
+import {
+  Box,
+  Container,
+  Typography,
+  Link,
+  Divider,
+} from '@mui/material'
+
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <Box
+      component="footer"
+      sx={{
+        backgroundColor: 'secondary.dark',
+        color: 'white',
+        py: 6,
+      }}
+    >
+      <Container maxWidth="xl">
+        <Box 
+          sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: { xs: '1fr', md: '2fr 1fr 1fr' }, 
+            gap: 4 
+          }}
+        >
           {/* Logo and Description */}
-          <div className="col-span-1 md:col-span-2">
-            <img 
-              src="/images/Ud_logo.png" 
-              alt="UnderdogDevs" 
-              className="h-8 w-auto mb-4 filter brightness-0 invert"
-            />
-            <p className="text-gray-300 mb-4">
+          <Box>
+            <Box sx={{ mb: 2 }}>
+              <img 
+                src="/images/Ud_logo.png" 
+                alt="UnderdogDevs" 
+                style={{ 
+                  height: 32, 
+                  width: 'auto',
+                  filter: 'brightness(0) invert(1)'
+                }}
+              />
+            </Box>
+            <Typography variant="body1" sx={{ color: 'grey.300', mb: 2 }}>
               Helping formerly incarcerated and economically disadvantaged individuals 
               break into the tech industry through mentorship and community support.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-white">
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Link href="#" sx={{ color: 'grey.300', '&:hover': { color: 'white' } }}>
                 Twitter
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white">
+              </Link>
+              <Link href="#" sx={{ color: 'grey.300', '&:hover': { color: 'white' } }}>
                 LinkedIn
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white">
+              </Link>
+              <Link href="#" sx={{ color: 'grey.300', '&:hover': { color: 'white' } }}>
                 GitHub
-              </a>
-            </div>
-          </div>
+              </Link>
+            </Box>
+          </Box>
           
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="/" className="text-gray-300 hover:text-white">Home</a></li>
-              <li><a href="/blog" className="text-gray-300 hover:text-white">Blog</a></li>
-              <li><a href="/spotlight" className="text-gray-300 hover:text-white">Spotlight</a></li>
-              <li><a href="/testimonials" className="text-gray-300 hover:text-white">Testimonials</a></li>
-            </ul>
-          </div>
+          <Box>
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+              Quick Links
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Link 
+                component={RouterLink} 
+                to="/" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Home
+              </Link>
+              <Link 
+                component={RouterLink} 
+                to="/blog" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Blog
+              </Link>
+              <Link 
+                component={RouterLink} 
+                to="/spotlight" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Spotlight
+              </Link>
+              <Link 
+                component={RouterLink} 
+                to="/testimonials" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Testimonials
+              </Link>
+            </Box>
+          </Box>
           
-          {/* Contact */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Get Involved</h3>
-            <ul className="space-y-2">
-              <li><a href="/member-dashboard" className="text-gray-300 hover:text-white">Join Community</a></li>
-              <li><a href="/donate" className="text-gray-300 hover:text-white">Donate</a></li>
-              <li><a href="/signin" className="text-gray-300 hover:text-white">Sign In</a></li>
-              <li><a href="/signup" className="text-gray-300 hover:text-white">Sign Up</a></li>
-            </ul>
-          </div>
-        </div>
+          {/* Get Involved */}
+          <Box>
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+              Get Involved
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Link 
+                component={RouterLink} 
+                to="/member-dashboard" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Join Community
+              </Link>
+              <Link 
+                component={RouterLink} 
+                to="/donate" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Donate
+              </Link>
+              <Link 
+                component={RouterLink} 
+                to="/signin" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Sign In
+              </Link>
+              <Link 
+                component={RouterLink} 
+                to="/signup" 
+                sx={{ color: 'grey.300', '&:hover': { color: 'white' }, textDecoration: 'none' }}
+              >
+                Sign Up
+              </Link>
+            </Box>
+          </Box>
+        </Box>
         
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-          <p>&copy; 2025 UnderdogDevs. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
+        <Divider sx={{ my: 4, borderColor: 'grey.700' }} />
+        
+        <Typography variant="body2" align="center" sx={{ color: 'grey.300' }}>
+          &copy; 2025 UnderdogDevs. All rights reserved.
+        </Typography>
+      </Container>
+    </Box>
   )
 }
