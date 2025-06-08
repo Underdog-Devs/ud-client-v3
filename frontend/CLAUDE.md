@@ -97,6 +97,7 @@ The frontend integrates seamlessly with the FastAPI backend:
 - ✅ Test setup with React Query providers
 - ✅ Example component tests (3/3 passing)
 - ✅ Coverage reporting configuration
+- ✅ **Puppeteer MCP Integration** - End-to-end browser testing capabilities
 
 #### Development Experience ✅
 - ✅ Hot module replacement (HMR) with Vite
@@ -147,13 +148,20 @@ Complete TypeScript integration with:
 ```bash
 npm test           # Interactive test runner
 npm run coverage   # Coverage report
+
+# E2E Testing with Puppeteer MCP
+# Use Puppeteer MCP server for browser automation:
+# - Real browser interactions and testing
+# - Screenshot capture for visual regression
+# - Performance testing and monitoring
+# - User journey validation
 ```
 
 **Test Philosophy**:
 - Unit tests for utility functions
 - Integration tests for API hooks
 - Component tests for UI behavior
-- E2E tests for critical user flows (planned)
+- **E2E tests with Puppeteer MCP** - Real browser testing for critical user flows
 
 ## Migration Context
 
@@ -184,6 +192,13 @@ python -m uvicorn app.main:app --reload --port 8000
 # Terminal 2: Frontend  
 cd frontend
 npm run dev
+
+# Terminal 3 (Optional): E2E Testing with Puppeteer MCP
+# Puppeteer MCP server provides browser automation capabilities:
+# - Automated user journey testing
+# - Visual regression testing with screenshots
+# - Performance profiling and monitoring
+# - Cross-browser compatibility testing
 ```
 
 ### Testing Workflow
@@ -193,6 +208,13 @@ npm test
 
 # Run tests with coverage
 npm run coverage
+
+# E2E Testing with Puppeteer MCP
+# Use MCP server for end-to-end browser automation:
+# - Full user journey testing
+# - Screenshot capture for visual comparisons
+# - Performance monitoring and profiling
+# - Accessibility testing automation
 
 # Build verification
 npm run build
@@ -247,6 +269,55 @@ npm run build
 - Expand React Query usage for all API calls
 - Add global state for user authentication
 - Implement optimistic updates
+
+## Puppeteer MCP Integration
+
+### Browser Automation & E2E Testing
+
+The frontend integrates with **Puppeteer MCP Server** for comprehensive browser automation and testing capabilities:
+
+#### Key Features
+- **Real Browser Testing**: Automated testing in actual browser environments
+- **Visual Regression Testing**: Screenshot capture and comparison for UI consistency
+- **Performance Profiling**: Automated performance monitoring and metrics collection
+- **User Journey Validation**: End-to-end testing of critical user flows
+- **Cross-browser Testing**: Compatibility testing across different browsers
+- **Accessibility Testing**: Automated accessibility validation
+
+#### Common Use Cases
+```bash
+# User Authentication Flow Testing
+# - Test login/logout functionality
+# - Validate protected route access
+# - Screenshot comparison of auth states
+
+# Component Integration Testing  
+# - Test complex component interactions
+# - Validate form submissions and validations
+# - Test responsive design across viewports
+
+# Performance Monitoring
+# - Page load time measurements
+# - Bundle size impact analysis
+# - Memory usage profiling
+
+# Visual Regression Testing
+# - Screenshot comparison before/after changes
+# - UI consistency validation
+# - Brand guidelines compliance testing
+```
+
+#### Integration with Development Workflow
+- **Pre-commit Testing**: Automated E2E tests before commits
+- **CI/CD Integration**: Browser testing in deployment pipeline  
+- **Local Development**: Quick visual validation during development
+- **Performance Monitoring**: Continuous performance regression detection
+
+#### Testing Strategy
+- **Critical User Paths**: Focus on authentication, quiz completion, article reading
+- **Visual Consistency**: Component library and design system validation
+- **Performance Benchmarks**: Load time and interaction responsiveness
+- **Accessibility Compliance**: WCAG guidelines automated testing
 
 ## Troubleshooting
 

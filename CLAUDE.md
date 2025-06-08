@@ -54,6 +54,13 @@ npm run preview      # Preview production build
 npm run test         # Run tests in watch mode
 npm run coverage     # Run tests with coverage
 
+# E2E Testing with Puppeteer MCP
+# Browser automation and visual testing capabilities:
+# - Real browser testing for user journeys
+# - Screenshot capture for visual regression
+# - Performance monitoring and profiling
+# - Accessibility testing automation
+
 # Code Quality
 npm run lint         # Run ESLint
 ```
@@ -81,7 +88,7 @@ This was a Next.js 14 application for UnderdogDevs, an organization helping form
 - **Routing**: React Router v6 for client-side navigation
 - **State Management**: React Query for server state, React Context for app state
 - **Styling**: Tailwind CSS + SCSS (unchanged from legacy)
-- **Testing**: Vitest + Testing Library for comprehensive frontend testing
+- **Testing**: Vitest + Testing Library + Puppeteer MCP for comprehensive frontend testing
 
 ### Legacy Technologies (DEPRECATED)
 - **Next.js 14** with App Router (being replaced)
