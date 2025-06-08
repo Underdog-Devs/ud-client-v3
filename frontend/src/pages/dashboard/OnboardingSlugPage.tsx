@@ -1,16 +1,21 @@
 import { useParams } from 'react-router-dom'
+import { Box, Typography, Card, CardContent } from '@mui/material'
 
 export function OnboardingSlugPage() {
   const { slug } = useParams<{ slug: string }>()
   
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h3" component="h1" sx={{ mb: 4, fontWeight: 'bold' }}>
         Onboarding: {slug?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-      </h1>
-      <div className="bg-white rounded-lg shadow p-6">
-        <p>Onboarding content for slug: {slug} will be migrated from Next.js in Phase 4.</p>
-      </div>
-    </div>
+      </Typography>
+      <Card>
+        <CardContent sx={{ p: 4 }}>
+          <Typography variant="body1">
+            Onboarding content for slug: {slug} will be migrated from Next.js in Phase 4.
+          </Typography>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }

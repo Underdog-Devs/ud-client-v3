@@ -1,72 +1,118 @@
+import { Box, Typography, Card, CardContent, Grid, Stack, Link, List, ListItem, ListItemText } from '@mui/material'
+
 export function DocsPage() {
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Documentation</h1>
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h3" component="h1" sx={{ mb: 4, fontWeight: 'bold' }}>
+        Documentation
+      </Typography>
       
-      <div className="space-y-8">
+      <Stack spacing={4}>
         {/* Getting Started */}
-        <section>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Getting Started</h2>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600 mb-4">
-              Welcome to the UnderdogDevs documentation. Here you'll find everything you need 
-              to know about our programs, resources, and how to make the most of your journey.
-            </p>
-            <ul className="space-y-2 text-gray-600">
-              <li>• Complete your profile setup</li>
-              <li>• Take the initial assessment</li>
-              <li>• Schedule your first mentorship session</li>
-              <li>• Join community discussions</li>
-            </ul>
-          </div>
-        </section>
+        <Box component="section">
+          <Typography variant="h4" component="h2" sx={{ mb: 2, fontWeight: 'semibold' }}>
+            Getting Started
+          </Typography>
+          <Card>
+            <CardContent sx={{ p: 3 }}>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                Welcome to the UnderdogDevs documentation. Here you'll find everything you need 
+                to know about our programs, resources, and how to make the most of your journey.
+              </Typography>
+              <List sx={{ pl: 2 }}>
+                <ListItem disablePadding>
+                  <ListItemText primary="• Complete your profile setup" sx={{ color: 'text.secondary' }} />
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemText primary="• Take the initial assessment" sx={{ color: 'text.secondary' }} />
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemText primary="• Schedule your first mentorship session" sx={{ color: 'text.secondary' }} />
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemText primary="• Join community discussions" sx={{ color: 'text.secondary' }} />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
+        </Box>
         
         {/* Learning Resources */}
-        <section>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Learning Resources</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold mb-3">Programming Fundamentals</h3>
-              <p className="text-gray-600 mb-4">
-                Learn the basics of programming, data structures, and algorithms.
-              </p>
-              <a href="#" className="text-blue-600 hover:text-blue-800 font-medium">
-                View Resources →
-              </a>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold mb-3">Web Development</h3>
-              <p className="text-gray-600 mb-4">
-                Master HTML, CSS, JavaScript, and modern frameworks.
-              </p>
-              <a href="#" className="text-blue-600 hover:text-blue-800 font-medium">
-                View Resources →
-              </a>
-            </div>
-          </div>
-        </section>
+        <Box component="section">
+          <Typography variant="h4" component="h2" sx={{ mb: 2, fontWeight: 'semibold' }}>
+            Learning Resources
+          </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
+                    Programming Fundamentals
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                    Learn the basics of programming, data structures, and algorithms.
+                  </Typography>
+                  <Link href="#" sx={{ fontWeight: 'medium', textDecoration: 'none' }}>
+                    View Resources →
+                  </Link>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
+                    Web Development
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                    Master HTML, CSS, JavaScript, and modern frameworks.
+                  </Typography>
+                  <Link href="#" sx={{ fontWeight: 'medium', textDecoration: 'none' }}>
+                    View Resources →
+                  </Link>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
         
         {/* Community Guidelines */}
-        <section>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Community Guidelines</h2>
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-semibold text-gray-900">Respect and Inclusion</h4>
-                <p className="text-gray-600">We maintain a welcoming environment for all community members.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900">Active Participation</h4>
-                <p className="text-gray-600">Engage constructively in discussions and support fellow members.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900">Continuous Learning</h4>
-                <p className="text-gray-600">Embrace the learning process and share your knowledge with others.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
+        <Box component="section">
+          <Typography variant="h4" component="h2" sx={{ mb: 2, fontWeight: 'semibold' }}>
+            Community Guidelines
+          </Typography>
+          <Card>
+            <CardContent sx={{ p: 3 }}>
+              <Stack spacing={3}>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 'semibold' }}>
+                    Respect and Inclusion
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    We maintain a welcoming environment for all community members.
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 'semibold' }}>
+                    Active Participation
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    Engage constructively in discussions and support fellow members.
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 'semibold' }}>
+                    Continuous Learning
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    Embrace the learning process and share your knowledge with others.
+                  </Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Box>
+      </Stack>
+    </Box>
   )
 }

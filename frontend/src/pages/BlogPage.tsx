@@ -1,40 +1,66 @@
+import {
+  Box,
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+} from '@mui/material'
+
 export function BlogPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-gray-900 mb-8">Blog</h1>
+    <Container maxWidth="lg">
+      <Box sx={{ py: 6 }}>
+        <Typography variant="h3" component="h1" gutterBottom>
+          Blog
+        </Typography>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Placeholder blog posts */}
-        {[1, 2, 3, 4, 5, 6].map((post) => (
-          <article key={post} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img 
-              src="/images/fallback.png" 
-              alt="Blog post"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2">
-                Blog Post Title {post}
-              </h3>
-              <p className="text-gray-600 mb-4">
-                This is a preview of the blog post content. It gives readers 
-                an idea of what the full article contains.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500">
-                  January {post}, 2025
-                </span>
-                <a 
-                  href={`/blog/sample-post-${post}/post-${post}`}
-                  className="text-blue-600 hover:text-blue-800 font-medium"
-                >
-                  Read More →
-                </a>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
+        <Box 
+          sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, 
+            gap: 3 
+          }}
+        >
+          {/* Placeholder blog posts */}
+          {[1, 2, 3, 4, 5, 6].map((post) => (
+            <Card key={post}>
+              <CardMedia
+                component="img"
+                height="200"
+                image="/images/fallback.png"
+                alt="Blog post"
+              />
+              <CardContent>
+                <Typography variant="h6" component="h3" gutterBottom>
+                  Blog Post Title {post}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  This is a preview of the blog post content. It gives readers 
+                  an idea of what the full article contains.
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Typography variant="caption" color="text.secondary">
+                    January {post}, 2025
+                  </Typography>
+                  <Typography 
+                    component="a" 
+                    href={`/blog/sample-post-${post}/post-${post}`}
+                    variant="body2"
+                    sx={{ 
+                      color: 'primary.main',
+                      textDecoration: 'none',
+                      '&:hover': { textDecoration: 'underline' }
+                    }}
+                  >
+                    Read More →
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      </Box>
+    </Container>
   )
 }

@@ -1,105 +1,166 @@
+import { Box, Typography, Card, CardContent, Grid, LinearProgress, Stack } from '@mui/material'
+
 export function DashboardHomePage() {
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h3" component="h1" sx={{ mb: 4, fontWeight: 'bold' }}>
         Welcome to Your Dashboard
-      </h1>
+      </Typography>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         {/* Progress Card */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">Your Progress</h3>
-          <div className="space-y-3">
-            <div>
-              <div className="flex justify-between text-sm">
-                <span>Courses Completed</span>
-                <span>3/10</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '30%' }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between text-sm">
-                <span>Quizzes Passed</span>
-                <span>5/8</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-green-600 h-2 rounded-full" style={{ width: '62.5%' }}></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Grid item xs={12} md={6} lg={4}>
+          <Card>
+            <CardContent sx={{ p: 3 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>Your Progress</Typography>
+              <Stack spacing={2}>
+                <Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                    <Typography variant="body2">Courses Completed</Typography>
+                    <Typography variant="body2">3/10</Typography>
+                  </Box>
+                  <LinearProgress variant="determinate" value={30} sx={{ height: 8, borderRadius: 4 }} />
+                </Box>
+                <Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                    <Typography variant="body2">Quizzes Passed</Typography>
+                    <Typography variant="body2">5/8</Typography>
+                  </Box>
+                  <LinearProgress 
+                    variant="determinate" 
+                    value={62.5} 
+                    sx={{ height: 8, borderRadius: 4 }} 
+                    color="success"
+                  />
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
         
         {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
-          <ul className="space-y-3">
-            <li className="flex items-center text-sm">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-              Completed "React Basics" quiz
-            </li>
-            <li className="flex items-center text-sm">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-              Started "JavaScript Fundamentals"
-            </li>
-            <li className="flex items-center text-sm">
-              <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-              Updated profile information
-            </li>
-          </ul>
-        </div>
+        <Grid item xs={12} md={6} lg={4}>
+          <Card>
+            <CardContent sx={{ p: 3 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>Recent Activity</Typography>
+              <Stack spacing={2}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ width: 8, height: 8, bgcolor: 'success.main', borderRadius: '50%' }} />
+                  <Typography variant="body2">Completed "React Basics" quiz</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ width: 8, height: 8, bgcolor: 'primary.main', borderRadius: '50%' }} />
+                  <Typography variant="body2">Started "JavaScript Fundamentals"</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ width: 8, height: 8, bgcolor: 'warning.main', borderRadius: '50%' }} />
+                  <Typography variant="body2">Updated profile information</Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
         
         {/* Upcoming Events */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">Upcoming Events</h3>
-          <div className="space-y-3">
-            <div className="border-l-4 border-blue-500 pl-3">
-              <div className="font-medium text-sm">Mentorship Session</div>
-              <div className="text-xs text-gray-600">Tomorrow, 2:00 PM</div>
-            </div>
-            <div className="border-l-4 border-green-500 pl-3">
-              <div className="font-medium text-sm">Code Review</div>
-              <div className="text-xs text-gray-600">Friday, 10:00 AM</div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <Grid item xs={12} md={6} lg={4}>
+          <Card>
+            <CardContent sx={{ p: 3 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>Upcoming Events</Typography>
+              <Stack spacing={2}>
+                <Box sx={{ borderLeft: 4, borderColor: 'primary.main', pl: 2 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 'medium' }}>Mentorship Session</Typography>
+                  <Typography variant="caption" color="text.secondary">Tomorrow, 2:00 PM</Typography>
+                </Box>
+                <Box sx={{ borderLeft: 4, borderColor: 'success.main', pl: 2 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 'medium' }}>Code Review</Typography>
+                  <Typography variant="caption" color="text.secondary">Friday, 10:00 AM</Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
       
       {/* Quick Actions */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <a 
-            href="/member-dashboard/docs"
-            className="p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-center"
-          >
-            <div className="text-2xl mb-2">📚</div>
-            <div className="font-medium">Browse Docs</div>
-          </a>
-          <a 
-            href="/member-dashboard/onboarding"
-            className="p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-center"
-          >
-            <div className="text-2xl mb-2">🎯</div>
-            <div className="font-medium">Continue Onboarding</div>
-          </a>
-          <a 
-            href="/member-dashboard/profile"
-            className="p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-center"
-          >
-            <div className="text-2xl mb-2">👤</div>
-            <div className="font-medium">Update Profile</div>
-          </a>
-          <a 
-            href="/blog"
-            className="p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-center"
-          >
-            <div className="text-2xl mb-2">✍️</div>
-            <div className="font-medium">Read Blog</div>
-          </a>
-        </div>
-      </div>
-    </div>
+      <Card>
+        <CardContent sx={{ p: 3 }}>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>Quick Actions</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6} md={3}>
+              <Card 
+                component="a" 
+                href="/member-dashboard/docs"
+                sx={{ 
+                  p: 2, 
+                  textAlign: 'center', 
+                  textDecoration: 'none',
+                  border: 1,
+                  borderColor: 'divider',
+                  '&:hover': { borderColor: 'primary.main' },
+                  transition: 'border-color 0.2s'
+                }}
+              >
+                <Typography variant="h4" sx={{ mb: 1 }}>📚</Typography>
+                <Typography variant="body2" sx={{ fontWeight: 'medium' }}>Browse Docs</Typography>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <Card 
+                component="a" 
+                href="/member-dashboard/onboarding"
+                sx={{ 
+                  p: 2, 
+                  textAlign: 'center', 
+                  textDecoration: 'none',
+                  border: 1,
+                  borderColor: 'divider',
+                  '&:hover': { borderColor: 'primary.main' },
+                  transition: 'border-color 0.2s'
+                }}
+              >
+                <Typography variant="h4" sx={{ mb: 1 }}>🎯</Typography>
+                <Typography variant="body2" sx={{ fontWeight: 'medium' }}>Continue Onboarding</Typography>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <Card 
+                component="a" 
+                href="/member-dashboard/profile"
+                sx={{ 
+                  p: 2, 
+                  textAlign: 'center', 
+                  textDecoration: 'none',
+                  border: 1,
+                  borderColor: 'divider',
+                  '&:hover': { borderColor: 'primary.main' },
+                  transition: 'border-color 0.2s'
+                }}
+              >
+                <Typography variant="h4" sx={{ mb: 1 }}>👤</Typography>
+                <Typography variant="body2" sx={{ fontWeight: 'medium' }}>Update Profile</Typography>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <Card 
+                component="a" 
+                href="/blog"
+                sx={{ 
+                  p: 2, 
+                  textAlign: 'center', 
+                  textDecoration: 'none',
+                  border: 1,
+                  borderColor: 'divider',
+                  '&:hover': { borderColor: 'primary.main' },
+                  transition: 'border-color 0.2s'
+                }}
+              >
+                <Typography variant="h4" sx={{ mb: 1 }}>✍️</Typography>
+                <Typography variant="body2" sx={{ fontWeight: 'medium' }}>Read Blog</Typography>
+              </Card>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }

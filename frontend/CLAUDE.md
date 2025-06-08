@@ -33,7 +33,7 @@ VITE_API_URL=http://localhost:8000
 
 ## Architecture
 
-**Status**: ✅ PRODUCTION READY - Phase 3 Complete (React Router v6 Implementation)
+**Status**: ✅ PRODUCTION READY - Phase 4 Complete (Material-UI Integration)
 
 ### Tech Stack
 - **React 19** with TypeScript for modern UI development
@@ -41,7 +41,8 @@ VITE_API_URL=http://localhost:8000
 - **React Router v6** for client-side navigation (✅ IMPLEMENTED)
 - **React Query v5** for server state management and caching
 - **Axios** for HTTP requests with authentication interceptors
-- **Tailwind CSS** for utility-first styling
+- **Material-UI (MUI) v6** for comprehensive component library and theming (✅ IMPLEMENTED)
+- **Emotion** for CSS-in-JS styling with MUI integration
 - **Vitest + Testing Library** for comprehensive testing
 - **TypeScript** for full type safety
 - **Puppeteer MCP** for end-to-end browser testing
@@ -49,12 +50,13 @@ VITE_API_URL=http://localhost:8000
 ### Project Structure
 ```
 frontend/src/
-├── components/      # Reusable UI components (Layout, Navigation, Footer)
+├── components/      # Reusable UI components with Material-UI (Layout, Navigation, Footer)
 ├── pages/          # Page components (✅ IMPLEMENTED - All major routes)
 │   ├── dashboard/  # Protected dashboard pages
 │   └── [various]   # Public pages (HomePage, BlogPage, etc.)
 ├── hooks/          # Custom React hooks and API hooks
 ├── lib/            # Utility libraries (API client, React Query)
+├── theme/          # Material-UI theme configuration (✅ IMPLEMENTED)
 ├── types/          # TypeScript type definitions
 ├── utils/          # Utility functions
 ├── test/           # Test setup and utilities
@@ -82,6 +84,16 @@ The frontend integrates seamlessly with the FastAPI backend:
 
 ### Features Implemented
 
+#### Phase 4: Material-UI Integration ✅
+- ✅ Complete migration from Tailwind CSS to Material-UI components
+- ✅ Custom MUI theme with UnderdogDevs brand colors (orange primary, grey secondary)
+- ✅ Responsive AppBar navigation with mobile drawer menu
+- ✅ MUI Container, Box, and Typography throughout layout system
+- ✅ Dashboard sidebar converted to MUI Drawer with icons and proper navigation
+- ✅ Form components using MUI TextField, Button, Card, and Checkbox
+- ✅ Comprehensive responsive design with MUI breakpoints
+- ✅ Brand identity maintained with proper typography hierarchy
+
 #### Phase 3: React Router v6 Implementation ✅
 - ✅ Complete route migration from Next.js to React Router v6
 - ✅ Nested layout system using Outlet pattern
@@ -95,7 +107,8 @@ The frontend integrates seamlessly with the FastAPI backend:
 
 #### Core Infrastructure ✅
 - ✅ Vite + React + TypeScript project setup
-- ✅ Tailwind CSS integration with PostCSS configuration
+- ✅ Material-UI integration with Emotion CSS-in-JS
+- ✅ Custom MUI theme configuration with UnderdogDevs brand identity
 - ✅ Path aliases (`@/` → `src/`) for clean imports
 - ✅ Environment variable configuration
 - ✅ Production build optimization
@@ -188,12 +201,14 @@ This frontend is part of the Next.js → React + FastAPI migration:
 - **Phase 1B**: ✅ Database Models + Migrations (67/67 tests passing)
 - **Phase 2**: ✅ Frontend Setup (Complete)
 - **Phase 3**: ✅ Component Migration + Routing (Complete - React Router v6)
-- **Phase 3A**: 📋 Backend Authentication APIs (Next)
-- **Phase 3B**: 📋 Frontend Authentication Integration (Next)
+- **Phase 4**: ✅ Material-UI Integration (Complete - MUI Components & Theme)
+- **Phase 5A**: 📋 Backend Authentication APIs (Next)
+- **Phase 5B**: 📋 Frontend Authentication Integration (Next)
 
 ### Architecture Benefits
 - **Separation of Concerns**: Frontend and backend deployed independently
 - **Modern Tooling**: Vite for fast development, React Query for state management
+- **Component Library**: Material-UI for consistent, accessible, and themeable UI components
 - **Type Safety**: End-to-end TypeScript from API to UI
 - **Performance**: Static site deployment, CDN-friendly builds
 - **Developer Experience**: Hot reload, modern testing, excellent debugging
@@ -367,12 +382,42 @@ The frontend integrates with **Puppeteer MCP Server** for comprehensive browser 
 - **Vite Build Optimization**: Tree shaking, code splitting, minification
 - **React Query Caching**: Intelligent server state caching
 - **TypeScript**: Compile-time error catching
-- **Tailwind CSS**: Purged CSS for minimal bundle size
+- **Material-UI**: Optimized CSS-in-JS with Emotion for minimal runtime overhead
 
 ### Metrics
 - **Build Time**: <2 seconds for development builds
-- **Bundle Size**: ~260KB (including React, React Query, Axios)
+- **Bundle Size**: ~380KB (including React, React Query, Material-UI, Emotion)
 - **Test Speed**: <2 seconds for full test suite
 - **Development Server**: Hot reload in <100ms
 
-Phase 2 frontend setup is complete and production-ready!
+## Material-UI Theme System
+
+### Custom Theme Configuration (`src/theme/index.ts`)
+
+The frontend uses a comprehensive Material-UI theme that reflects UnderdogDevs brand identity:
+
+#### Brand Colors
+- **Primary**: `#f05138` (udOrange) - Main brand color for buttons, links, and highlights
+- **Secondary**: `#58555a` (udDarkGrey) - Supporting color for text and backgrounds  
+- **Background**: `#fff9f4` (udBackground) - Warm off-white background
+- **Text**: `#183b56` (textBlack) and `#5a7184` (subTextBlack) - High contrast readable text
+
+#### Typography Hierarchy
+- **Headers (h1-h3)**: Raleway font family for primary headings
+- **Subheaders (h4-h6)**: Josefin Sans for secondary headings
+- **Body Text**: Source Sans Pro and Open Sans for optimal readability
+- **Font Sizes**: Matches SCSS variables (4rem, 3rem, 2rem, 1.5rem, 1rem)
+
+#### Component Overrides
+- **Buttons**: Custom styling with UnderdogDevs orange, rounded corners, no text transform
+- **Cards**: Enhanced border radius and subtle shadows for modern appearance
+- **AppBar**: Custom background color and minimal shadow
+- **Drawer**: Clean styling with proper borders and background colors
+- **ListItems**: Custom selected states and hover effects
+
+#### Responsive Design
+- **Breakpoints**: Mobile-first approach with Material-UI's standard breakpoints
+- **Grid System**: CSS Grid and Flexbox for complex layouts
+- **Typography**: Responsive font sizes that scale appropriately across devices
+
+Phase 4 Material-UI integration is complete and production-ready!

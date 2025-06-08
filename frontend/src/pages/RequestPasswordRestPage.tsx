@@ -1,10 +1,20 @@
+import { Container, Box, Typography, Card, CardContent } from '@mui/material'
+
 export function RequestPasswordRestPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Reset Password Request</h1>
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <p>Password reset request page content will be migrated from Next.js in Phase 4.</p>
-      </div>
-    </div>
+    <Container maxWidth="md">
+      <Box sx={{ py: 6 }}>
+        <Typography variant="h3" component="h1" sx={{ mb: 4, fontWeight: 'bold' }}>
+          Reset Password Request
+        </Typography>
+        <Card>
+          <CardContent sx={{ p: 4 }}>
+            <Typography variant="body1">
+              Password reset request page content will be migrated from Next.js in Phase 4.
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
+    </Container>
   )
 }

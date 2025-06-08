@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Legacy**: Next.js 14 application (root directory) - DEPRECATED
 - **New Backend**: FastAPI backend (`/backend/`) - ✅ PRODUCTION READY
-- **New Frontend**: Vite + React frontend (`/frontend/`) - ✅ PRODUCTION READY (Phase 3 Complete)
+- **New Frontend**: Vite + React frontend (`/frontend/`) - ✅ PRODUCTION READY (Phase 4 Complete - Material-UI)
 
 ## Commands
 
@@ -69,7 +69,7 @@ npm run lint         # Run ESLint
 
 **CURRENT STATE**: Full-stack migration from Next.js to React + FastAPI
 
-**PHASE 3 COMPLETE**: React Router v6 implementation with all routes functional
+**PHASE 4 COMPLETE**: Material-UI integration with custom theming and component refactoring
 
 ### Legacy Architecture (DEPRECATED)
 This was a Next.js 14 application for UnderdogDevs, an organization helping formerly incarcerated and economically disadvantaged individuals get into tech. The app used the App Router with TypeScript.
@@ -84,19 +84,19 @@ This was a Next.js 14 application for UnderdogDevs, an organization helping form
 - **Authentication**: JWT-based authentication system (replacing Supabase)
 - **Code Quality**: Ruff linting with zero errors, modern Python standards
 
-**Frontend**: Vite + React + TypeScript (✅ PRODUCTION READY - Phase 3 Complete)
+**Frontend**: Vite + React + TypeScript (✅ PRODUCTION READY - Phase 4 Complete)
 - **Build Tool**: Vite for fast development and optimized builds
 - **Framework**: React 18 with TypeScript
 - **Routing**: React Router v6 for client-side navigation (✅ IMPLEMENTED)
 - **State Management**: React Query for server state, React Context for app state
-- **Styling**: Tailwind CSS + SCSS (unchanged from legacy)
+- **Styling**: Material-UI (MUI) with custom theme and Emotion CSS-in-JS (✅ IMPLEMENTED)
 - **Testing**: Vitest + Testing Library + Puppeteer MCP for comprehensive frontend testing
-- **Component Migration**: All major routes and layouts implemented
+- **Component Migration**: All major routes and layouts implemented with MUI components
 
 ### Legacy Technologies (DEPRECATED)
 - **Next.js 14** with App Router (being replaced)
 - **Supabase** for authentication and database (being replaced with FastAPI + MySQL)
-- **SCSS/Tailwind** for styling (keeping)
+- **SCSS/Tailwind** for styling (replaced with Material-UI)
 - **Material-UI** for components (keeping)
 - **TypeScript** throughout (keeping)
 - **Jest** for testing (replaced with pytest for backend, Vitest for frontend)
