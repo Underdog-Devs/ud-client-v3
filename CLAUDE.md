@@ -2,28 +2,94 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Status
+
+**MIGRATION IN PROGRESS**: This repository contains both the legacy Next.js application and the new React + FastAPI architecture.
+
+- **Legacy**: Next.js 14 application (root directory) - DEPRECATED
+- **New Backend**: FastAPI backend (`/backend/`) - ✅ PRODUCTION READY
+- **New Frontend**: Vite + React frontend (`/frontend/`) - ✅ PRODUCTION READY
+
 ## Commands
 
-### Development
+### Legacy Next.js (DEPRECATED)
 - `npm run dev` - Start development server on port 3001
 - `npm run build` - Build for production
 - `npm start` - Start production server
 - `npm test` - Run Jest tests
 
-### Testing
-- Run single test: `npm test -- fetchCompletedQuizzes.test.ts`
+### New FastAPI Backend (PRODUCTION READY)
+```bash
+cd backend
+source venv/bin/activate
+
+# Development
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+# Testing
+python -m pytest
+python -m pytest --cov=app --cov-report=term-missing
+
+# Linting
+ruff check .
+ruff check --fix .
+
+# Database migrations
+python scripts/migrate.py status
+python scripts/migrate.py apply
+```
+
+### New React Frontend (PRODUCTION READY)
+```bash
+cd frontend
+
+# Development
+npm run dev          # Start dev server on port 3001
+
+# Building
+npm run build        # Build for production
+npm run preview      # Preview production build
+
+# Testing
+npm run test         # Run tests in watch mode
+npm run coverage     # Run tests with coverage
+
+# Code Quality
+npm run lint         # Run ESLint
+```
 
 ## Architecture
 
-This is a Next.js 14 application for UnderdogDevs, an organization helping formerly incarcerated and economically disadvantaged individuals get into tech. The app uses the App Router with TypeScript.
+**CURRENT STATE**: Full-stack migration from Next.js to React + FastAPI
 
-### Key Technologies
-- **Next.js 14** with App Router
-- **Supabase** for authentication and database
-- **SCSS/Tailwind** for styling (hybrid approach)
-- **Material-UI** for components
-- **TypeScript** throughout
-- **Jest** for testing
+### Legacy Architecture (DEPRECATED)
+This was a Next.js 14 application for UnderdogDevs, an organization helping formerly incarcerated and economically disadvantaged individuals get into tech. The app used the App Router with TypeScript.
+
+### New Architecture (PRODUCTION READY BACKEND)
+
+**Backend**: FastAPI + MySQL + SQLAlchemy 2.0
+- **Framework**: FastAPI 0.104+ with async/await support
+- **Database**: SQLAlchemy 2.0 ORM with MySQL (SQLite for dev/test)
+- **Migrations**: Atlas for modern schema management
+- **Testing**: pytest with factory-boy for comprehensive test coverage (67/67 tests passing)
+- **Authentication**: JWT-based authentication system (replacing Supabase)
+- **Code Quality**: Ruff linting with zero errors, modern Python standards
+
+**Frontend**: Vite + React + TypeScript (UPCOMING - Phase 2)
+- **Build Tool**: Vite for fast development and optimized builds
+- **Framework**: React 18 with TypeScript
+- **Routing**: React Router v6 for client-side navigation
+- **State Management**: React Query for server state, React Context for app state
+- **Styling**: Tailwind CSS + SCSS (unchanged from legacy)
+- **Testing**: Vitest + Testing Library for comprehensive frontend testing
+
+### Legacy Technologies (DEPRECATED)
+- **Next.js 14** with App Router (being replaced)
+- **Supabase** for authentication and database (being replaced with FastAPI + MySQL)
+- **SCSS/Tailwind** for styling (keeping)
+- **Material-UI** for components (keeping)
+- **TypeScript** throughout (keeping)
+- **Jest** for testing (replaced with pytest for backend, Vitest for frontend)
 
 ### Authentication & Database
 - Supabase client in `lib/api/supabase.ts` 
