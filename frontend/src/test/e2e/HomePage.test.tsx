@@ -89,13 +89,13 @@ describe('HomePage End-to-End Tests', () => {
       const joinButton = screen.getByRole('link', { name: /Join Our Community/i })
       const donateButton = screen.getByRole('link', { name: /Support Our Mission/i })
       
-      // Check initial styling
-      expect(joinButton).toHaveClass('bg-white', 'text-blue-600')
-      expect(donateButton).toHaveClass('border-2', 'border-white', 'text-white')
+      // Check MUI Button styling
+      expect(joinButton).toHaveClass('MuiButton-root', 'MuiButton-contained')
+      expect(donateButton).toHaveClass('MuiButton-root', 'MuiButton-outlined')
       
-      // Test hover behavior (CSS classes)
-      expect(joinButton).toHaveClass('hover:bg-gray-100')
-      expect(donateButton).toHaveClass('hover:bg-white', 'hover:text-blue-600')
+      // Check that buttons are properly rendered as Material-UI components
+      expect(joinButton.tagName).toBe('A')
+      expect(donateButton.tagName).toBe('A')
     })
   })
 
@@ -265,8 +265,9 @@ describe('HomePage End-to-End Tests', () => {
       // Hover over button
       await user.hover(joinButton)
       
-      // Button should have transition classes
-      expect(joinButton).toHaveClass('transition-colors')
+      // MUI Button should have proper classes and be interactive
+      expect(joinButton).toHaveClass('MuiButton-root')
+      expect(joinButton).toHaveAttribute('role', 'button')
     })
   })
 
