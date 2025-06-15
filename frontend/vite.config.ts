@@ -16,6 +16,10 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
     css: true,
+    // Critical fix: Mock MUI icons to prevent file descriptor exhaustion
+    alias: {
+      '@mui/icons-material': path.resolve(__dirname, './src/test/__mocks__/@mui/icons-material.ts'),
+    },
   },
   server: {
     port: 3001,

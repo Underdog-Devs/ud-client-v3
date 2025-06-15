@@ -1,3 +1,22 @@
 {
-  "cSpell.words": ["pythonjsonlogger"]
+  "cSpell.words": ["pythonjsonlogger"],
+  "files.watcherExclude": {
+    "**": true
+  },
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.suggest.autoImports": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/frontend/node_modules": true,
+    "**/backend/venv": true,
+    "**/coverage": true,
+    "**/dist": true
+  },
+  "files.exclude": {
+    "**/frontend/node_modules": true,
+    "**/backend/venv": true,
+    "**/coverage": true,
+    "**/dist": true
+  }
 }
