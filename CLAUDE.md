@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **New Frontend**: Vite + React frontend (`/frontend/`) - ✅ PRODUCTION READY (Phase 4++ Complete - Material-UI + Test Infrastructure Optimized)
 
 ### Critical Infrastructure Fix Completed ✅
-**File Descriptor Issue Resolved** (January 15, 2025):
+**File Descriptor Issue Resolved** (June 15, 2025):
 - Fixed "too many open files" system error caused by MUI icon dynamic loading during tests
 - Created lightweight mock icons (`src/test/__mocks__/@mui/icons-material.ts`) to prevent file descriptor exhaustion
 - Simplified Vite test configuration to essential fix only (removed unnecessary complexity)
