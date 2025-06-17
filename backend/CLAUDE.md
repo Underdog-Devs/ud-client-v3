@@ -32,7 +32,7 @@ backend/
 - **Configuration**: Pydantic Settings v2 with environment variable support
 - **Database**: SQLAlchemy 2.0+ ORM (SQLite for dev/test, MySQL for production)
 - **Database Tools**: Alembic for migrations, sqlalchemy-utils for testing
-- **Authentication**: JWT with python-jose and passlib (planned)
+- **Authentication**: JWT with python-jose and passlib ✅ IMPLEMENTED
 - **Testing**: pytest with factory-boy for test data generation
 - **Code Quality**: ruff for linting and formatting
 - **Monitoring**: Sentry for error tracking, structlog for structured logging (planned)
@@ -117,8 +117,18 @@ ruff format .
 - `GET /docs` - FastAPI interactive documentation (development only)
 - `GET /redoc` - ReDoc documentation (development only)
 
-### Future Endpoints (Phase 1B+)
-- `/api/v1/auth/` - Authentication endpoints
+### Authentication Endpoints ✅ IMPLEMENTED
+- `POST /api/auth/register` - User registration with email and password
+- `POST /api/auth/login` - User authentication returning JWT tokens
+- `GET /api/auth/me` - Get current authenticated user information
+- `POST /api/auth/refresh` - Refresh access token using refresh token
+- `POST /api/auth/logout` - Logout current user (client-side token removal)
+- `POST /api/auth/password-reset/request` - Request password reset token via email
+- `POST /api/auth/password-reset/confirm` - Confirm password reset with token
+- `POST /api/auth/change-password` - Change password (requires authentication)
+- `GET /api/auth/health` - Authentication service health check
+
+### Future Endpoints (Phase 5B+)
 - `/api/v1/users/` - User management
 - `/api/v1/posts/` - Blog post management
 - `/api/v1/quiz/` - Quiz system
