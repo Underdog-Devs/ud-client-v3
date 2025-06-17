@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = Field(
         default=7, description="Refresh token expiration"
     )
+    PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = Field(
+        default=15, description="Password reset token expiration"
+    )
 
     # CORS
     CORS_ORIGINS: list[str] = Field(
