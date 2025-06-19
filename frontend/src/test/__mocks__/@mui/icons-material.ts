@@ -3,7 +3,7 @@ import { vi } from 'vitest'
 // Mock all MUI icons to prevent file descriptor exhaustion
 const createMockIcon = (displayName: string) => {
   const MockIcon = vi.fn(() => `<mock-${displayName.toLowerCase()}-icon />`)
-  MockIcon.displayName = displayName
+  Object.defineProperty(MockIcon, 'displayName', { value: displayName })
   return MockIcon
 }
 

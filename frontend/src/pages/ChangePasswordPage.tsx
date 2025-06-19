@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   Box,
   Card,
@@ -7,25 +7,24 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
   Container,
   Alert,
   CircularProgress,
 } from '@mui/material'
 import { useAuth } from '@/hooks/useAuth'
+import { authService } from '@/services/auth'
 
-export function SignUpPage() {
+export function ChangePasswordPage() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    currentPassword: '',
+    newPassword: '',
     confirmPassword: '',
-    firstName: '',
-    lastName: '',
   })
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   
-  const { register } = useAuth()
+  const { user } = useAuth()
   const navigate = useNavigate()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,29 +37,56 @@ export function SignUpPage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    setError('')
 
-    // Validate password confirmation
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match')
+    if (formData.newPassword !== formData.confirmPassword) {
+      setError('New passwords do not match')
       return
     }
 
+    setError('')
     setIsSubmitting(true)
 
     try {
-      await register(
-        formData.email,
-        formData.password,
-        formData.firstName || undefined,
-        formData.lastName || undefined
-      )
-      navigate('/member-dashboard')
+      await authService.changePassword(formData.currentPassword, formData.newPassword)
+      setIsSuccess(true)
+      setTimeout(() => {
+        navigate('/member-dashboard/profile')
+      }, 2000)
     } catch (err: unknown) {
-      setError((err as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Failed to create account. Please try again.')
+      setError((err as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Failed to change password. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  if (isSuccess) {
+    return (
+      <Container maxWidth="sm">
+        <Box
+          sx={{
+            minHeight: '80vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            py: 4,
+          }}
+        >
+          <Card sx={{ width: '100%', maxWidth: 400 }}>
+            <CardContent sx={{ p: 4 }}>
+              <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Typography variant="h4" component="h1" gutterBottom>
+                  Password changed successfully
+                </Typography>
+              </Box>
+
+              <Alert severity="success" sx={{ mb: 3 }}>
+                Your password has been changed successfully. You will be redirected to your profile shortly.
+              </Alert>
+            </CardContent>
+          </Card>
+        </Box>
+      </Container>
+    )
   }
 
   return (
@@ -74,22 +100,14 @@ export function SignUpPage() {
           py: 4,
         }}
       >
-        <Card sx={{ width: '100%', maxWidth: 500 }}>
+        <Card sx={{ width: '100%', maxWidth: 400 }}>
           <CardContent sx={{ p: 4 }}>
             <Box sx={{ textAlign: 'center', mb: 4 }}>
-              <img
-                src="/images/Ud_logo.png"
-                alt="UnderdogDevs"
-                style={{ height: 48, width: 'auto', marginBottom: 24 }}
-              />
               <Typography variant="h4" component="h1" gutterBottom>
-                Create your account
+                Change Password
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Already have an account?{' '}
-                <Link component={RouterLink} to="/signin" color="primary">
-                  Sign in here
-                </Link>
+                Hi {user?.first_name || user?.email}, enter your current password and choose a new one.
               </Typography>
             </Box>
 
@@ -100,55 +118,30 @@ export function SignUpPage() {
             )}
 
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-                <TextField
-                  fullWidth
-                  id="firstName"
-                  name="firstName"
-                  label="First Name"
-                  autoComplete="given-name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  variant="outlined"
-                  disabled={isSubmitting}
-                />
-                <TextField
-                  fullWidth
-                  id="lastName"
-                  name="lastName"
-                  label="Last Name"
-                  autoComplete="family-name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  variant="outlined"
-                  disabled={isSubmitting}
-                />
-              </Box>
-
               <TextField
                 fullWidth
-                id="email"
-                name="email"
-                label="Email Address"
-                type="email"
-                autoComplete="email"
+                id="currentPassword"
+                name="currentPassword"
+                label="Current Password"
+                type="password"
+                autoComplete="current-password"
                 required
-                value={formData.email}
+                value={formData.currentPassword}
                 onChange={handleChange}
                 margin="normal"
                 variant="outlined"
                 disabled={isSubmitting}
               />
-              
+
               <TextField
                 fullWidth
-                id="password"
-                name="password"
-                label="Password"
+                id="newPassword"
+                name="newPassword"
+                label="New Password"
                 type="password"
                 autoComplete="new-password"
                 required
-                value={formData.password}
+                value={formData.newPassword}
                 onChange={handleChange}
                 margin="normal"
                 variant="outlined"
@@ -160,7 +153,7 @@ export function SignUpPage() {
                 fullWidth
                 id="confirmPassword"
                 name="confirmPassword"
-                label="Confirm Password"
+                label="Confirm New Password"
                 type="password"
                 autoComplete="new-password"
                 required
@@ -176,11 +169,21 @@ export function SignUpPage() {
                 fullWidth
                 variant="contained"
                 size="large"
-                sx={{ mt: 3 }}
+                sx={{ mt: 3, mb: 2 }}
                 disabled={isSubmitting}
                 startIcon={isSubmitting ? <CircularProgress size={20} /> : undefined}
               >
-                {isSubmitting ? 'Creating account...' : 'Create account'}
+                {isSubmitting ? 'Changing...' : 'Change password'}
+              </Button>
+
+              <Button
+                fullWidth
+                variant="outlined"
+                size="large"
+                onClick={() => navigate('/member-dashboard/profile')}
+                disabled={isSubmitting}
+              >
+                Cancel
               </Button>
             </Box>
           </CardContent>

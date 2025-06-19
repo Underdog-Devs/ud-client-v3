@@ -1,64 +1,9 @@
 import type { ReactElement } from 'react'
 import { render, type RenderOptions } from '@testing-library/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { BrowserRouter } from 'react-router-dom'
-import { ThemeProvider } from '@mui/material/styles'
-import { CssBaseline } from '@mui/material'
-import { theme } from '@/theme'
-import { vi, afterAll } from 'vitest'
+import { vi } from 'vitest'
+import { TestWrapper } from './TestWrapper'
 
-// Shared test query client to reduce resource usage
-let sharedTestQueryClient: QueryClient | null = null
-
-const getTestQueryClient = () => {
-  if (!sharedTestQueryClient) {
-    sharedTestQueryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false,
-          staleTime: 0,
-          gcTime: 0,
-          cacheTime: 0,
-        },
-        mutations: {
-          retry: false,
-        },
-      },
-      logger: {
-        log: () => {},
-        warn: () => {},
-        error: () => {},
-      },
-    })
-  }
-  return sharedTestQueryClient
-}
-
-// Create a test wrapper with all necessary providers
-const TestWrapper = ({ children }: { children: React.ReactNode }) => {
-  const testQueryClient = getTestQueryClient()
-
-  return (
-    <QueryClientProvider client={testQueryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <BrowserRouter>
-          {children}
-        </BrowserRouter>
-      </ThemeProvider>
-    </QueryClientProvider>
-  )
-}
-
-// Clear the shared client after all tests
-if (typeof afterAll !== 'undefined') {
-  afterAll(() => {
-    if (sharedTestQueryClient) {
-      sharedTestQueryClient.clear()
-      sharedTestQueryClient = null
-    }
-  })
-}
+// Test cleanup is handled in TestWrapper
 
 // Custom render function with providers
 export function renderWithProviders(

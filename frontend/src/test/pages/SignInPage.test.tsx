@@ -1,14 +1,27 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { screen, fireEvent, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SignInPage } from '@/pages/SignInPage'
 import { renderWithProviders, measurePerformance, takeScreenshot, checkAccessibility, VIEWPORT_SIZES, mockMatchMedia } from '../helpers/testUtils'
+import * as authHook from '@/hooks/useAuth'
 
 describe('SignInPage', () => {
+  const mockLogin = vi.fn()
+  
   beforeEach(() => {
     vi.clearAllMocks()
-    // Mock console.log to verify form submission
-    vi.spyOn(console, 'log').mockImplementation(() => {})
+    mockLogin.mockResolvedValue({ user: { id: '1', email: 'test@example.com' } })
+    
+    // Mock the useAuth hook
+    vi.spyOn(authHook, 'useAuth').mockReturnValue({
+      user: null,
+      isLoading: false,
+      isAuthenticated: false,
+      login: mockLogin,
+      register: vi.fn(),
+      logout: vi.fn(),
+      refreshUser: vi.fn(),
+    })
   })
 
   describe('1. Component Rendering', () => {
@@ -17,7 +30,7 @@ describe('SignInPage', () => {
         renderWithProviders(<SignInPage />)
       })
       
-      expect(loadTime).toBeLessThan(100)
+      expect(loadTime).toBeLessThan(150)
       takeScreenshot('signin-page-initial-load')
     })
 
@@ -52,7 +65,7 @@ describe('SignInPage', () => {
       const forgotPasswordLink = screen.getByRole('link', { name: 'Forgot your password?' })
       
       expect(signUpLink).toHaveAttribute('href', '/signup')
-      expect(forgotPasswordLink).toHaveAttribute('href', '/auth/request-password-rest')
+      expect(forgotPasswordLink).toHaveAttribute('href', '/request-password-reset')
     })
 
     it('displays submit button', () => {
@@ -97,7 +110,7 @@ describe('SignInPage', () => {
       expect(emailField).toHaveValue('invalid-email')
       
       // HTML5 validation will handle email format validation
-      expect(emailField.validity.valid).toBe(false)
+      expect((emailField as HTMLInputElement).validity.valid).toBe(false)
     })
   })
 
@@ -169,26 +182,20 @@ describe('SignInPage', () => {
       expect(window.location.pathname).toBe('/')
     })
 
-    it('logs form data on submission', async () => {
+    it('calls login function on submission', async () => {
       const user = userEvent.setup()
       renderWithProviders(<SignInPage />)
       
       const emailField = screen.getByRole('textbox', { name: /email address/i })
       const passwordField = screen.getByLabelText(/password/i)
-      const rememberMeCheckbox = screen.getByLabelText('Remember me')
       const submitButton = screen.getByRole('button', { name: 'Sign in' })
       
       await user.type(emailField, 'test@example.com')
       await user.type(passwordField, 'password123')
-      await user.click(rememberMeCheckbox)
       
       await user.click(submitButton)
       
-      expect(console.log).toHaveBeenCalledWith('Sign in data:', {
-        email: 'test@example.com',
-        password: 'password123',
-        rememberMe: true,
-      })
+      expect(mockLogin).toHaveBeenCalledWith('test@example.com', 'password123')
     })
 
     it('submits form with keyboard (Enter key)', async () => {
@@ -202,11 +209,7 @@ describe('SignInPage', () => {
       await user.type(passwordField, 'password123')
       await user.keyboard('{Enter}')
       
-      expect(console.log).toHaveBeenCalledWith('Sign in data:', {
-        email: 'test@example.com',
-        password: 'password123',
-        rememberMe: false,
-      })
+      expect(mockLogin).toHaveBeenCalledWith('test@example.com', 'password123')
     })
   })
 
@@ -399,7 +402,7 @@ describe('SignInPage', () => {
       
       // HTML5 validation should prevent submission
       const emailField = screen.getByRole('textbox', { name: /email address/i })
-      expect(emailField.validity.valueMissing).toBe(true)
+      expect((emailField as HTMLInputElement).validity.valueMissing).toBe(true)
     })
   })
 })

@@ -14,8 +14,9 @@ import { SignUpPage } from '@/pages/SignUpPage'
 import { SpotlightPage } from '@/pages/SpotlightPage'
 import { TestimonialsPage } from '@/pages/TestimonialsPage'
 import { ProjectUnderdogPage } from '@/pages/ProjectUnderdogPage'
-import { RequestPasswordRestPage } from '@/pages/RequestPasswordRestPage'
-import { ResetPage } from '@/pages/ResetPage'
+import { RequestPasswordResetPage } from '@/pages/RequestPasswordResetPage'
+import { ResetPasswordPage } from '@/pages/ResetPasswordPage'
+import { ChangePasswordPage } from '@/pages/ChangePasswordPage'
 
 // Dashboard pages
 import { DashboardHomePage } from '@/pages/dashboard/DashboardHomePage'
@@ -70,12 +71,16 @@ const router = createBrowserRouter([
         element: <ProjectUnderdogPage />,
       },
       {
-        path: 'auth/request-password-rest',
-        element: <RequestPasswordRestPage />,
+        path: 'request-password-reset',
+        element: <RequestPasswordResetPage />,
       },
       {
-        path: 'auth/reset',
-        element: <ResetPage />,
+        path: 'reset-password',
+        element: <ResetPasswordPage />,
+      },
+      {
+        path: 'change-password',
+        element: <ChangePasswordPage />,
       },
     ],
   },

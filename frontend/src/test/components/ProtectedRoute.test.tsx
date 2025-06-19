@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { renderWithProviders, measurePerformance } from '../helpers/testUtils'
 
@@ -180,7 +180,7 @@ describe('ProtectedRoute', () => {
   describe('5. Edge Cases', () => {
     it('handles empty children', () => {
       expect(() => {
-        renderWithProviders(<ProtectedRoute>{}</ProtectedRoute>)
+        renderWithProviders(<ProtectedRoute>{null}</ProtectedRoute>)
       }).not.toThrow()
     })
 
@@ -279,10 +279,6 @@ describe('ProtectedRoute', () => {
 
   describe('9. Error Boundaries', () => {
     it('handles children that throw errors gracefully', () => {
-      const ThrowingComponent = () => {
-        throw new Error('Test error')
-      }
-      
       // In a real app, this would be caught by an error boundary
       // For now, we test that the component structure supports it
       expect(() => {

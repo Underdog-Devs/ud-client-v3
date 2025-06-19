@@ -1,4 +1,4 @@
-import { Box, Typography, Card, CardContent, Grid, Stack, Link, List, ListItem, ListItemText } from '@mui/material'
+import { Box, Typography, Card, CardContent, Stack, Link, List, ListItem, ListItemText } from '@mui/material'
 
 export function DocsPage() {
   return (
@@ -42,38 +42,40 @@ export function DocsPage() {
           <Typography variant="h4" component="h2" sx={{ mb: 2, fontWeight: 'semibold' }}>
             Learning Resources
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <Card>
-                <CardContent sx={{ p: 3 }}>
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
-                    Programming Fundamentals
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-                    Learn the basics of programming, data structures, and algorithms.
-                  </Typography>
-                  <Link href="#" sx={{ fontWeight: 'medium', textDecoration: 'none' }}>
-                    View Resources →
-                  </Link>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Card>
-                <CardContent sx={{ p: 3 }}>
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
-                    Web Development
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-                    Master HTML, CSS, JavaScript, and modern frameworks.
-                  </Typography>
-                  <Link href="#" sx={{ fontWeight: 'medium', textDecoration: 'none' }}>
-                    View Resources →
-                  </Link>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+          <Box 
+            sx={{ 
+              display: 'grid', 
+              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+              gap: 3 
+            }}
+          >
+            <Card>
+              <CardContent sx={{ p: 3 }}>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
+                  Programming Fundamentals
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                  Learn the basics of programming, data structures, and algorithms.
+                </Typography>
+                <Link href="#" sx={{ fontWeight: 'medium', textDecoration: 'none' }}>
+                  View Resources →
+                </Link>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent sx={{ p: 3 }}>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
+                  Web Development
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                  Master HTML, CSS, JavaScript, and modern frameworks.
+                </Typography>
+                <Link href="#" sx={{ fontWeight: 'medium', textDecoration: 'none' }}>
+                  View Resources →
+                </Link>
+              </CardContent>
+            </Card>
+          </Box>
         </Box>
         
         {/* Community Guidelines */}

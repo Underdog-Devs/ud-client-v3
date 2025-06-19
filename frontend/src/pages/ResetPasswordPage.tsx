@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom'
 import {
   Box,
   Card,
@@ -12,21 +12,26 @@ import {
   Alert,
   CircularProgress,
 } from '@mui/material'
-import { useAuth } from '@/hooks/useAuth'
+import { authService } from '@/services/auth'
 
-export function SignUpPage() {
+export function ResetPasswordPage() {
   const [formData, setFormData] = useState({
-    email: '',
     password: '',
     confirmPassword: '',
-    firstName: '',
-    lastName: '',
   })
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   
-  const { register } = useAuth()
+  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
+  const token = searchParams.get('token')
+
+  useEffect(() => {
+    if (!token) {
+      setError('Invalid reset link. Please request a new password reset.')
+    }
+  }, [token])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -38,29 +43,76 @@ export function SignUpPage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    setError('')
+    
+    if (!token) {
+      setError('Invalid reset link. Please request a new password reset.')
+      return
+    }
 
-    // Validate password confirmation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match')
       return
     }
 
+    setError('')
     setIsSubmitting(true)
 
     try {
-      await register(
-        formData.email,
-        formData.password,
-        formData.firstName || undefined,
-        formData.lastName || undefined
-      )
-      navigate('/member-dashboard')
+      await authService.confirmPasswordReset(token, formData.password)
+      setIsSuccess(true)
+      setTimeout(() => {
+        navigate('/signin')
+      }, 3000)
     } catch (err: unknown) {
-      setError((err as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Failed to create account. Please try again.')
+      setError((err as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Failed to reset password. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  if (isSuccess) {
+    return (
+      <Container maxWidth="sm">
+        <Box
+          sx={{
+            minHeight: '80vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            py: 4,
+          }}
+        >
+          <Card sx={{ width: '100%', maxWidth: 400 }}>
+            <CardContent sx={{ p: 4 }}>
+              <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <img
+                  src="/images/Ud_logo.png"
+                  alt="UnderdogDevs"
+                  style={{ height: 48, width: 'auto', marginBottom: 24 }}
+                />
+                <Typography variant="h4" component="h1" gutterBottom>
+                  Password reset successful
+                </Typography>
+              </Box>
+
+              <Alert severity="success" sx={{ mb: 3 }}>
+                Your password has been reset successfully. You will be redirected to the sign in page shortly.
+              </Alert>
+
+              <Button
+                component={RouterLink}
+                to="/signin"
+                fullWidth
+                variant="contained"
+                size="large"
+              >
+                Sign In Now
+              </Button>
+            </CardContent>
+          </Card>
+        </Box>
+      </Container>
+    )
   }
 
   return (
@@ -74,7 +126,7 @@ export function SignUpPage() {
           py: 4,
         }}
       >
-        <Card sx={{ width: '100%', maxWidth: 500 }}>
+        <Card sx={{ width: '100%', maxWidth: 400 }}>
           <CardContent sx={{ p: 4 }}>
             <Box sx={{ textAlign: 'center', mb: 4 }}>
               <img
@@ -83,13 +135,10 @@ export function SignUpPage() {
                 style={{ height: 48, width: 'auto', marginBottom: 24 }}
               />
               <Typography variant="h4" component="h1" gutterBottom>
-                Create your account
+                Set new password
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Already have an account?{' '}
-                <Link component={RouterLink} to="/signin" color="primary">
-                  Sign in here
-                </Link>
+                Enter your new password below.
               </Typography>
             </Box>
 
@@ -100,51 +149,11 @@ export function SignUpPage() {
             )}
 
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-                <TextField
-                  fullWidth
-                  id="firstName"
-                  name="firstName"
-                  label="First Name"
-                  autoComplete="given-name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  variant="outlined"
-                  disabled={isSubmitting}
-                />
-                <TextField
-                  fullWidth
-                  id="lastName"
-                  name="lastName"
-                  label="Last Name"
-                  autoComplete="family-name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  variant="outlined"
-                  disabled={isSubmitting}
-                />
-              </Box>
-
-              <TextField
-                fullWidth
-                id="email"
-                name="email"
-                label="Email Address"
-                type="email"
-                autoComplete="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                margin="normal"
-                variant="outlined"
-                disabled={isSubmitting}
-              />
-              
               <TextField
                 fullWidth
                 id="password"
                 name="password"
-                label="Password"
+                label="New Password"
                 type="password"
                 autoComplete="new-password"
                 required
@@ -160,7 +169,7 @@ export function SignUpPage() {
                 fullWidth
                 id="confirmPassword"
                 name="confirmPassword"
-                label="Confirm Password"
+                label="Confirm New Password"
                 type="password"
                 autoComplete="new-password"
                 required
@@ -176,12 +185,23 @@ export function SignUpPage() {
                 fullWidth
                 variant="contained"
                 size="large"
-                sx={{ mt: 3 }}
-                disabled={isSubmitting}
+                sx={{ mt: 3, mb: 2 }}
+                disabled={isSubmitting || !token}
                 startIcon={isSubmitting ? <CircularProgress size={20} /> : undefined}
               >
-                {isSubmitting ? 'Creating account...' : 'Create account'}
+                {isSubmitting ? 'Resetting...' : 'Reset password'}
               </Button>
+
+              <Box sx={{ textAlign: 'center' }}>
+                <Link 
+                  component={RouterLink} 
+                  to="/signin" 
+                  variant="body2" 
+                  color="primary"
+                >
+                  Back to Sign In
+                </Link>
+              </Box>
             </Box>
           </CardContent>
         </Card>

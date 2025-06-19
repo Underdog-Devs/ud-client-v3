@@ -1,4 +1,4 @@
-import { Box, Typography, Card, CardContent, Grid, Stack, Chip, Link } from '@mui/material'
+import { Box, Typography, Card, CardContent, Stack, Chip, Link } from '@mui/material'
 
 export function OnboardingPage() {
   return (
@@ -47,28 +47,32 @@ export function OnboardingPage() {
         </Card>
         
         {/* Onboarding modules */}
-        <Grid container spacing={3}>
+        <Box 
+          sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+            gap: 3 
+          }}
+        >
           {[1, 2, 3, 4].map((module) => (
-            <Grid item xs={12} md={6} key={module}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent sx={{ p: 3 }}>
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
-                    Module {module}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                    Description of onboarding module {module} content and objectives.
-                  </Typography>
-                  <Link 
-                    href={`/member-dashboard/onboarding/module-${module}`}
-                    sx={{ fontWeight: 'medium', textDecoration: 'none' }}
-                  >
-                    Start Module →
-                  </Link>
-                </CardContent>
-              </Card>
-            </Grid>
+            <Card key={module} sx={{ height: '100%' }}>
+              <CardContent sx={{ p: 3 }}>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 'semibold' }}>
+                  Module {module}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Description of onboarding module {module} content and objectives.
+                </Typography>
+                <Link 
+                  href={`/member-dashboard/onboarding/module-${module}`}
+                  sx={{ fontWeight: 'medium', textDecoration: 'none' }}
+                >
+                  Start Module →
+                </Link>
+              </CardContent>
+            </Card>
           ))}
-        </Grid>
+        </Box>
       </Stack>
     </Box>
   )

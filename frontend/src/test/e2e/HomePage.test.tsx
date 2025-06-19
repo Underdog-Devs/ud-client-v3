@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { screen, fireEvent, waitFor } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HomePage } from '@/pages/HomePage'
 import { renderWithProviders, measurePerformance, takeScreenshot, checkAccessibility, VIEWPORT_SIZES, mockMatchMedia } from '../helpers/testUtils'
@@ -83,7 +83,6 @@ describe('HomePage End-to-End Tests', () => {
     })
 
     it('hero buttons have proper styling and hover states', async () => {
-      const user = userEvent.setup()
       renderWithProviders(<HomePage />)
       
       const joinButton = screen.getByRole('link', { name: /Join Our Community/i })
@@ -239,7 +238,6 @@ describe('HomePage End-to-End Tests', () => {
 
   describe('6. User Interaction Testing', () => {
     it('handles button clicks without errors', async () => {
-      const user = userEvent.setup()
       renderWithProviders(<HomePage />)
       
       const joinButton = screen.getByRole('link', { name: /Join Our Community/i })

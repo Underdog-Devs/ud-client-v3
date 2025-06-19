@@ -1,4 +1,4 @@
-import { Box, Typography, Card, CardContent, Avatar, Grid, TextField, Button, Stack } from '@mui/material'
+import { Box, Typography, Card, CardContent, Avatar, TextField, Button, Stack } from '@mui/material'
 
 export function ProfilePage() {
   return (
@@ -26,24 +26,26 @@ export function ProfilePage() {
               </Box>
             </Box>
             
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="First Name"
-                  defaultValue="John"
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Last Name"
-                  defaultValue="Doe"
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12}>
+            <Box 
+              sx={{ 
+                display: 'grid', 
+                gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+                gap: 3 
+              }}
+            >
+              <TextField
+                fullWidth
+                label="First Name"
+                defaultValue="John"
+                variant="outlined"
+              />
+              <TextField
+                fullWidth
+                label="Last Name"
+                defaultValue="Doe"
+                variant="outlined"
+              />
+              <Box sx={{ gridColumn: { xs: '1', md: '1 / -1' } }}>
                 <TextField
                   fullWidth
                   label="Email"
@@ -51,8 +53,8 @@ export function ProfilePage() {
                   defaultValue="john.doe@example.com"
                   variant="outlined"
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Box>
+              <Box sx={{ gridColumn: { xs: '1', md: '1 / -1' } }}>
                 <TextField
                   fullWidth
                   label="Bio"
@@ -61,8 +63,8 @@ export function ProfilePage() {
                   placeholder="Tell us about yourself..."
                   variant="outlined"
                 />
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
             
             <Box>
               <Button 

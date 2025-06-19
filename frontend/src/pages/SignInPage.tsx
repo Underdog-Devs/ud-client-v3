@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {
   Box,
   Card,
@@ -11,7 +11,10 @@ import {
   Checkbox,
   Link,
   Container,
+  Alert,
+  CircularProgress,
 } from '@mui/material'
+import { useAuth } from '@/hooks/useAuth'
 
 export function SignInPage() {
   const [formData, setFormData] = useState({
@@ -19,6 +22,11 @@ export function SignInPage() {
     password: '',
     rememberMe: false,
   })
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target
@@ -28,10 +36,19 @@ export function SignInPage() {
     }))
   }
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    // TODO: Implement sign in logic
-    console.log('Sign in data:', formData)
+    setError('')
+    setIsSubmitting(true)
+
+    try {
+      await login(formData.email, formData.password)
+      navigate('/member-dashboard')
+    } catch (err: unknown) {
+      setError((err as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Failed to sign in. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -64,6 +81,12 @@ export function SignInPage() {
               </Typography>
             </Box>
 
+            {error && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            )}
+
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <TextField
                 fullWidth
@@ -77,6 +100,7 @@ export function SignInPage() {
                 onChange={handleChange}
                 margin="normal"
                 variant="outlined"
+                disabled={isSubmitting}
               />
               
               <TextField
@@ -91,6 +115,7 @@ export function SignInPage() {
                 onChange={handleChange}
                 margin="normal"
                 variant="outlined"
+                disabled={isSubmitting}
               />
 
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, mb: 3 }}>
@@ -101,13 +126,14 @@ export function SignInPage() {
                       checked={formData.rememberMe}
                       onChange={handleChange}
                       color="primary"
+                      disabled={isSubmitting}
                     />
                   }
                   label="Remember me"
                 />
                 <Link 
                   component={RouterLink} 
-                  to="/auth/request-password-rest" 
+                  to="/request-password-reset" 
                   variant="body2" 
                   color="primary"
                 >
@@ -121,8 +147,10 @@ export function SignInPage() {
                 variant="contained"
                 size="large"
                 sx={{ mt: 2 }}
+                disabled={isSubmitting}
+                startIcon={isSubmitting ? <CircularProgress size={20} /> : undefined}
               >
-                Sign in
+                {isSubmitting ? 'Signing in...' : 'Sign in'}
               </Button>
             </Box>
           </CardContent>
